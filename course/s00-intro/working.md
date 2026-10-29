@@ -13,7 +13,7 @@ Las secciones completadas llevan una marca verde en el árbol, y una semana o un
 Una sección con un candado depende de otra que aún no has completado, como los retos de un comando, que recomiendan que primero hayas completado su ficha.
 Puedes abrirla igualmente: la página empieza con un aviso «Antes de empezar» que enlaza a las secciones que conviene hacer antes.
 
-![El árbol del curso: secciones de cada tipo, una completada, una con candado y un ejercicio con 3/6](images/tree.png)
+![El árbol del curso: secciones de cada tipo, una completada, una con candado y un ejercicio con 4/6](images/tree.png)
 
 ## La terminal del curso
 
