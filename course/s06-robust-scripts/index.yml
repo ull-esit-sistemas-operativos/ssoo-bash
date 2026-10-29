@@ -1,0 +1,162 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s06
+title: "Semana 6 · Scripts robustos"
+collapsed: true
+description: |
+  Un *script* que funciona con los datos de prueba no está terminado.
+  ¿Qué hace si le pasamos una opción que no conoce, si falta el fichero o si un nombre tiene espacios?
+  Esta semana aprenderemos a escribir *scripts* que aceptan opciones en cualquier orden, informan de cómo se usan, fallan con mensajes claros y limpian sus archivos temporales.
+  Volvemos a `resumen_log.sh`, de la semana 3, y lo convertimos en una herramienta que podríamos dar a otra persona.
+objectives: |
+  - Organizar un *script* en funciones con variables locales.
+  - Procesar opciones con valor y con lista, en cualquier orden, y mostrar una ayuda.
+  - Dar valores por defecto con variables de entorno.
+  - Detectar errores con `set -eu` y comprobaciones explícitas, y avisar por el error estándar.
+  - Usar ficheros temporales y borrarlos siempre con `trap`.
+  - Encontrar fallos con ShellCheck y `bash -x`.
+content: class.md
+workspace:
+  fixtures: fixtures
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: goal
+        title: "La meta de la semana"
+        type: lecture
+        content: goal.md
+
+      - id: functions
+        title: "Funciones"
+        type: lecture
+        content: functions.md
+
+      - id: here-documents
+        title: "Una ayuda con here document"
+        type: lecture
+        content: here-documents.md
+
+      - id: options
+        title: "Opciones en cualquier orden"
+        type: lecture
+        content: options.md
+
+      - id: environment-variables
+        title: "Variables de entorno y valores por defecto"
+        type: lecture
+        content: environment-variables.md
+
+      - id: error-handling
+        title: "Detectar errores"
+        type: lecture
+        content: error-handling.md
+
+      - id: temporary-files
+        title: "Ficheros temporales"
+        type: lecture
+        content: temporary-files.md
+
+      - id: debugging
+        title: "Depurar"
+        type: lecture
+        content: debugging.md
+
+      - id: complete-script
+        title: "El script completo"
+        type: lecture
+        content: complete-script.md
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: patterns
+    title: "Patrones"
+    collapsed: true
+    description: |
+      En la lectura ha aparecido el patrón opciones con lista: procesar las opciones de un *script* en cualquier orden con `while`, `case` y `shift`, incluidas las que reciben varios valores.
+      El patrón compara esta forma con `getopts` y dice cuándo conviene usar cada una.
+    lessonParts:
+      - id: options-with-lists
+        title: "Opciones con lista"
+        type: lecture
+        content: patterns/options-with-lists.md
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cuatro *scripts* con la estructura de la semana: opciones, variables de entorno, funciones, `set -eu`, ficheros temporales y `trap`.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 100
+    content: exercises/intro.md
+    lessonParts:
+      - id: filter-code
+        title: "Filtrar por código"
+        type: script
+        duration: 25
+        content: exercises/filter-code.md
+        showEditor: true
+        showTerminal: true
+        editors: [codigo.sh]
+        workspace:                          # workdir: exercises/s06/filter-code
+          starter: exercises/filter-code/starter
+        exercise:
+          solution: ../../solutions/s06/filter-code
+          script: codigo.sh
+          tests: exercises/filter-code/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: big-requests
+        title: "Peticiones grandes"
+        type: script
+        duration: 20
+        content: exercises/big-requests.md
+        showEditor: true
+        showTerminal: true
+        editors: [grandes.sh]
+        workspace:                          # workdir: exercises/s06/big-requests
+          starter: exercises/big-requests/starter
+        exercise:
+          solution: ../../solutions/s06/big-requests
+          script: grandes.sh
+          tests: exercises/big-requests/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: dedupe
+        title: "Quitar repetidas"
+        type: script
+        duration: 25
+        content: exercises/dedupe.md
+        showEditor: true
+        showTerminal: true
+        editors: [sin_repetidas.sh]
+        workspace:                          # workdir: exercises/s06/dedupe
+          starter: exercises/dedupe/starter
+        exercise:
+          solution: ../../solutions/s06/dedupe
+          script: sin_repetidas.sh
+          tests: exercises/dedupe/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: count-ips
+        title: "Peticiones por IP"
+        type: script
+        duration: 30
+        content: exercises/count-ips.md
+        showEditor: true
+        showTerminal: true
+        editors: [peticiones.sh]
+        workspace:                          # workdir: exercises/s06/count-ips
+          starter: exercises/count-ips/starter
+        exercise:
+          solution: ../../solutions/s06/count-ips
+          script: peticiones.sh
+          tests: exercises/count-ips/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

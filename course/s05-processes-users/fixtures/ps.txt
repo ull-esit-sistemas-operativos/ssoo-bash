@@ -1,0 +1,10 @@
+    PID USER     STAT COMMAND
+      1 root     Ss   systemd
+      2 root     I    kworker/0:1
+    412 root     Ssl  containerd
+    873 alu      Ss   bash
+   1188 alu      T    vim
+   1190 alu      S    sleep
+   1204 alu      R+   ps
+   1301 luis     Z    sh
+   1302 luis     S+   less

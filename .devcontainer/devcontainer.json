@@ -1,0 +1,22 @@
+// Bash Learn: entorno del estudiante.
+// Ábrelo con "Dev Containers: Reopen in Container" o en GitHub Codespaces.
+{
+  "name": "Bash Learn",
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "alu",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ull-ssoo.bash-learn",
+        "timonwong.shellcheck",
+        "mads-hartmann.bash-ide-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    },
+    "codespaces": {
+      "openFiles": []
+    }
+  }
+}

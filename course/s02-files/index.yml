@@ -1,0 +1,177 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s02
+title: "Semana 2 · Ficheros, comodines y permisos"
+collapsed: true
+description: |
+  La semana pasada aprendimos a mirar: listar directorios, leer ficheros y pedir ayuda.
+  Esta semana pasamos a actuar sobre el sistema de ficheros: copiar, mover, borrar, buscar y decidir quién puede hacer qué con cada fichero.
+  Lo aplicaremos en `ordenar.sh`, un *script* que clasifica los ficheros de un directorio en carpetas según su extensión, y que comprobará que los argumentos que se le han indicado son correctos antes de hacer nada.
+objectives: |
+  - Copiar, mover, renombrar y borrar ficheros y directorios.
+  - Seleccionar grupos de ficheros con comodines y saber quién los expande.
+  - Distinguir enlaces duros y simbólicos.
+  - Leer y cambiar permisos en notación simbólica y octal, y entender `umask`.
+  - Buscar ficheros por nombre, tipo, tamaño y fecha con `find`, y actuar sobre ellos.
+  - Usar variables, comprobar el número de argumentos y terminar un *script* con un código de salida.
+content: class.md
+workspace:
+  fixtures: fixtures
+  mtimes:
+    "proyecto/.oculto": "2026-10-01 10:00"
+    "proyecto/README.md": "2026-10-02 09:30"
+    "proyecto/docs": "2026-10-01 10:00"
+    "proyecto/docs/guía de uso.txt": "2026-10-01 10:00"
+    "proyecto/src": "2026-10-01 10:00"
+    "proyecto/src/main.c": "2026-10-03 12:00"
+    "proyecto/src/util.h": "2026-10-01 10:00"
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: copy-move-remove
+        title: "Copiar, mover y borrar"
+        type: lecture
+        content: copy-move-remove.md
+
+      - id: wildcards
+        title: "Comodines"
+        type: lecture
+        content: wildcards.md
+
+      - id: links
+        title: "Enlaces"
+        type: lecture
+        content: links.md
+
+      - id: permissions
+        title: "Permisos"
+        type: lecture
+        content: permissions.md
+
+      - id: find
+        title: "Buscar con find"
+        type: lecture
+        content: find.md
+
+      - id: variables-and-arguments
+        title: "Variables y argumentos"
+        type: lecture
+        content: variables-and-arguments.md
+
+      - id: weekly-script
+        title: "El script de la semana: ordenar.sh"
+        type: script
+        content: weekly-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [ordenar.sh]
+        workspace:
+          workdir: exercises/s02              # the lecture runs ./ordenar.sh here, with the week's data
+          starter: weekly-script/starter
+        exercise:
+          solution: ../../solutions/s02/weekly-script
+          script: ordenar.sh
+          tests: weekly-script/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: find
+    title: "find"
+    collapsed: true
+    description: |
+      Busca ficheros recorriendo un árbol de directorios por nombre, tipo, tamaño, fecha o permisos, y ejecuta una acción sobre cada uno de los que encuentra.
+    lessonParts:
+      - id: card
+        title: "Ficha de find"
+        type: lecture
+        content: cards/find.md
+
+      - id: challenges
+        title: "Retos de find"
+        type: terminal
+        content: challenges/find.md
+        dependsOn: [s02:find:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cuatro *scripts* cortos con lo de la semana: argumentos, permisos, `find` y copiar ficheros.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 70
+    content: exercises/intro.md
+    lessonParts:
+      - id: private-file
+        title: "Fichero privado"
+        type: script
+        duration: 15
+        content: exercises/private-file.md
+        showEditor: true
+        showTerminal: true
+        editors: [privado.sh]
+        workspace:                          # workdir: exercises/s02/private-file
+          starter: exercises/private-file/starter
+        exercise:
+          solution: ../../solutions/s02/private-file
+          script: privado.sh
+          tests: exercises/private-file/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: c-sources
+        title: "Ficheros de C"
+        type: script
+        duration: 15
+        content: exercises/c-sources.md
+        showEditor: true
+        showTerminal: true
+        editors: [fuentes.sh]
+        workspace:                          # workdir: exercises/s02/c-sources
+          starter: exercises/c-sources/starter
+        exercise:
+          solution: ../../solutions/s02/c-sources
+          script: fuentes.sh
+          tests: exercises/c-sources/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: empty-files
+        title: "Borrar ficheros vacíos"
+        type: script
+        duration: 20
+        content: exercises/empty-files.md
+        showEditor: true
+        showTerminal: true
+        editors: [borrar_vacios.sh]
+        workspace:                          # workdir: exercises/s02/empty-files
+          starter: exercises/empty-files/starter
+        exercise:
+          solution: ../../solutions/s02/empty-files
+          script: borrar_vacios.sh
+          tests: exercises/empty-files/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: install
+        title: "Instalar un script"
+        type: script
+        duration: 20
+        content: exercises/install.md
+        showEditor: true
+        showTerminal: true
+        editors: [instalar.sh]
+        workspace:                          # workdir: exercises/s02/install
+          starter: exercises/install/starter
+        exercise:
+          solution: ../../solutions/s02/install
+          script: instalar.sh
+          tests: exercises/install/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

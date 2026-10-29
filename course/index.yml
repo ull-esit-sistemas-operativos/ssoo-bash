@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=../schema/course.schema.json
+id: ssoo-bash
+title: Programación en Bash
+description: Lecturas semanales de la *shell* y la programación de *scripts* en Bash.
+level: beginner
+minExtensionVersion: 0.1.0
+contacts:
+  - displayName: Jesús Torres
+    affiliation: Universidad de La Laguna
+    email: jmtorres@ull.edu.es
+units:
+  - s00-intro/index.yml
+  - s01-shell/index.yml
+  - s02-files/index.yml
+  - s03-pipes/index.yml
+  - s04-expansions-loops/index.yml
+  - s05-processes-users/index.yml
+  - s06-robust-scripts/index.yml
+  - s07-wrap-up/index.yml
+
+references:
+  - id: ls
+    title: "ls"
+    part: s01:ls:card
+  - id: find
+    title: "find"
+    part: s02:find:card
+  - id: grep
+    title: "grep"
+    part: s03:grep:card
+  - id: cut
+    title: "cut"
+    part: s03:cut:card
+  - id: sort
+    title: "sort"
+    part: s03:sort:card
+  - id: uniq
+    title: "uniq"
+    part: s03:uniq:card
+  - id: tr
+    title: "tr"
+    part: s03:tr:card
+  - id: wc
+    title: "wc"
+    part: s03:wc:card
+  - id: head-tail
+    title: "head y tail"
+    part: s03:head-tail:card
+  - id: test
+    title: "[[ ]] y test"
+    part: s03:test:card
+  - id: awk
+    title: "awk"
+    part: s04:awk:card
+  - id: printf
+    title: "printf"
+    part: s04:printf:card
+  - id: ps
+    title: "ps"
+    part: s05:ps:card
+  - id: who-w
+    title: "who y w"
+    part: s05:who-w:card
+  - id: id
+    title: "id"
+    part: s05:id:card
+  - id: kill
+    title: "kill"
+    part: s05:kill:card
+  - id: lsof
+    title: "lsof"
+    part: s05:lsof:card

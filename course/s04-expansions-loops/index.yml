@@ -1,0 +1,255 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s04
+title: "Semana 4 · Expansiones, bucles y texto estructurado"
+collapsed: true
+description: |
+  Hasta ahora hemos tratado el texto línea a línea.
+  Pero un fichero de notas tiene estructura: columnas con significado, números con decimales y alumnos que se repiten.
+  ¿Cómo calculamos la media de cada asignatura?
+  Esta semana aprenderemos a manejar ese tipo de datos con `awk`, a describir patrones con expresiones regulares y a repetir acciones con bucles.
+  Antes, entenderemos qué hace bash con cada línea que escribimos, porque de ahí vienen la mitad de los errores de un *script*.
+  Todo se integra en `notas.sh`, que resume un fichero de notas.
+objectives: |
+  - Conocer el orden en que bash aplica las expansiones y predecir su resultado.
+  - Elegir el tipo de comillas adecuado en cada caso.
+  - Guardar la salida de un comando con la sustitución de comandos.
+  - Escribir expresiones regulares básicas y extendidas para `grep`.
+  - Procesar texto por campos con `awk`: condiciones, sumas, medias y agrupaciones.
+  - Detectar cuándo los decimales de los datos no coinciden con la configuración regional, y resolverlo adaptando los datos o la configuración.
+  - Ordenar por campos, comparar listas con `comm` y presentar tablas con `printf`.
+  - Recorrer ficheros, listas y rangos con `for`.
+content: class.md
+workspace:
+  fixtures: fixtures
+  mtimes:
+    "proyecto/.oculto": "2026-10-01 10:00"
+    "proyecto/README.md": "2026-10-02 09:30"
+    "proyecto/docs": "2026-10-01 10:00"
+    "proyecto/docs/guía de uso.txt": "2026-10-01 10:00"
+    "proyecto/src": "2026-10-01 10:00"
+    "proyecto/src/main.c": "2026-10-03 12:00"
+    "proyecto/src/util.h": "2026-10-01 10:00"
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: weekly-data
+        title: "Los datos de la semana"
+        type: lecture
+        content: weekly-data.md
+        preview: notas.csv
+
+      - id: command-line-processing
+        title: "Qué hace bash con una línea"
+        type: lecture
+        content: command-line-processing.md
+
+      - id: quoting
+        title: "Comillas a fondo"
+        type: lecture
+        content: quoting.md
+
+      - id: command-substitution
+        title: "Sustitución de comandos"
+        type: lecture
+        content: command-substitution.md
+
+      - id: parameter-expansion
+        title: "Recortar y transformar el valor de una variable"
+        type: lecture
+        content: parameter-expansion.md
+
+      - id: regular-expressions
+        title: "Expresiones regulares"
+        type: lecture
+        content: regular-expressions.md
+
+      - id: locale
+        title: "Decimales y configuración regional"
+        type: lecture
+        content: locale.md
+
+      - id: awk
+        title: "awk: texto por campos"
+        type: lecture
+        content: awk.md
+
+      - id: sorting-by-field
+        title: "Ordenar por campos"
+        type: lecture
+        content: sorting-by-field.md
+
+      - id: comm
+        title: "Diferencia de conjuntos con comm"
+        type: lecture
+        content: comm.md
+
+      - id: printf
+        title: "Presentar con printf"
+        type: lecture
+        content: printf.md
+
+      - id: for-loops
+        title: "Bucles for"
+        type: lecture
+        content: for-loops.md
+
+      - id: weekly-script
+        title: "El script de la semana: notas.sh"
+        type: script
+        content: weekly-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [notas.sh]
+        workspace:
+          workdir: exercises/s04              # the lecture runs ./notas.sh here, with the week's data
+          starter: weekly-script/starter
+        exercise:
+          solution: ../../solutions/s04/weekly-script
+          script: notas.sh
+          tests: weekly-script/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: patterns
+    title: "Patrones"
+    collapsed: true
+    description: |
+      En la lectura han aparecido cuatro patrones: recorrer ficheros, agregar por clave, diferencia de conjuntos y tablas alineadas.
+      Son el bucle sobre `datos/*.csv`, la media por asignatura, los alumnos sin nota (con `comm`) y el informe con `printf`.
+    lessonParts:
+      - id: loop-over-files
+        title: "Recorrer ficheros"
+        type: lecture
+        content: patterns/loop-over-files.md
+
+      - id: aligned-tables
+        title: "Tablas alineadas"
+        type: lecture
+        content: patterns/aligned-tables.md
+
+      - id: set-difference
+        title: "Diferencia de conjuntos"
+        type: lecture
+        content: patterns/set-difference.md
+
+  - id: awk
+    title: "awk"
+    collapsed: true
+    description: |
+      Lenguaje para procesar texto por campos: filtra líneas por condición, calcula sumas, medias y máximos, y agrupa por clave con *arrays*.
+      Imprime con formato.
+    lessonParts:
+      - id: card
+        title: "Ficha de awk"
+        type: lecture
+        content: cards/awk.md
+
+      - id: challenges
+        title: "Retos de awk"
+        type: terminal
+        content: challenges/awk.md
+        dependsOn: [s04:awk:card]
+        showTerminal: true
+
+  - id: printf
+    title: "printf"
+    collapsed: true
+    description: |
+      Imprime texto con formato: alinea columnas, fija el número de decimales y rellena con ceros.
+      A diferencia de `echo`, solo añade saltos de línea donde se piden.
+    lessonParts:
+      - id: card
+        title: "Ficha de printf"
+        type: lecture
+        content: cards/printf.md
+
+      - id: challenges
+        title: "Retos de printf"
+        type: terminal
+        content: challenges/printf.md
+        dependsOn: [s04:printf:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cuatro *scripts* cortos con lo de la semana: bucles `for`, expansiones, `awk`, `comm` y `printf`.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 90
+    content: exercises/intro.md
+    lessonParts:
+      - id: rename-ext
+        title: "Cambiar la extensión"
+        type: script
+        duration: 20
+        content: exercises/rename-ext.md
+        showEditor: true
+        showTerminal: true
+        editors: [renombrar.sh]
+        workspace:                          # workdir: exercises/s04/rename-ext
+          starter: exercises/rename-ext/starter
+        exercise:
+          solution: ../../solutions/s04/rename-ext
+          script: renombrar.sh
+          tests: exercises/rename-ext/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: passed
+        title: "Notas mínimas"
+        type: script
+        duration: 20
+        content: exercises/passed.md
+        showEditor: true
+        showTerminal: true
+        editors: [aprobados.sh]
+        workspace:                          # workdir: exercises/s04/passed
+          starter: exercises/passed/starter
+        exercise:
+          solution: ../../solutions/s04/passed
+          script: aprobados.sh
+          tests: exercises/passed/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: compare-lists
+        title: "Comparar listas"
+        type: script
+        duration: 20
+        content: exercises/compare-lists.md
+        showEditor: true
+        showTerminal: true
+        editors: [comparar.sh]
+        workspace:                          # workdir: exercises/s04/compare-lists
+          starter: exercises/compare-lists/starter
+        exercise:
+          solution: ../../solutions/s04/compare-lists
+          script: comparar.sh
+          tests: exercises/compare-lists/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: traffic-table
+        title: "Tabla de tráfico"
+        type: script
+        duration: 30
+        content: exercises/traffic-table.md
+        showEditor: true
+        showTerminal: true
+        editors: [trafico.sh]
+        workspace:                          # workdir: exercises/s04/traffic-table
+          starter: exercises/traffic-table/starter
+        exercise:
+          solution: ../../solutions/s04/traffic-table
+          script: trafico.sh
+          tests: exercises/traffic-table/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

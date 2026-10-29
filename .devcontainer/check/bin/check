@@ -1,0 +1,445 @@
+#!/usr/bin/env bash
+# check — lint and test a Bash exercise with shellcheck and bats-core.
+#
+# Usage: check [options] [DIR | SCRIPT]
+#
+# DIR defaults to the current directory. If DIR (or the directory of SCRIPT)
+# contains a `.exercise` marker, the exercise tests are run; otherwise only
+# the shellcheck linter is run on the script(s).
+#
+# Exit status: 0 all checks passed, 1 some check failed, 2 usage/config error.
+
+set -o nounset -o pipefail
+
+CHECK_HOME="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+BATS="$CHECK_HOME/vendor/bats-core/bin/bats"
+readonly CHECK_HOME BATS
+
+# --- messages ---------------------------------------------------------------
+
+check_lang="${CHECK_LANG:-${LC_ALL:-${LC_MESSAGES:-${LANG:-en}}}}"
+case "$check_lang" in
+  es*) check_lang=es ;;
+  *) check_lang=en ;;
+esac
+# shellcheck source=/dev/null
+source "$CHECK_HOME/messages/en.sh"
+if [[ $check_lang != en && -f "$CHECK_HOME/messages/$check_lang.sh" ]]; then
+  # shellcheck source=/dev/null
+  source "$CHECK_HOME/messages/$check_lang.sh"
+fi
+
+# msg KEY [ARGS...]: print a translated message, printf-style.
+msg() {
+  local key="MSG_$1"
+  shift
+  # shellcheck disable=SC2059
+  printf "${!key}" "$@"
+}
+
+die() {
+  printf '%s: ' check >&2
+  msg "$@" >&2
+  echo >&2
+  exit 2
+}
+
+# --- shellcheck ---------------------------------------------------------------
+# The shellcheck on PATH or, if there is none, the pinned static build that
+# `check --install-shellcheck` downloads into CHECK_TOOLS_DIR.
+
+SHELLCHECK_VERSION="$(awk '$1 == "shellcheck" { print $2 }' "$CHECK_HOME/vendor/VERSIONS")"
+CHECK_TOOLS_DIR="${CHECK_TOOLS_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/bash-learn}"
+SHELLCHECK_RELEASES="${CHECK_SHELLCHECK_URL:-https://github.com/koalaman/shellcheck/releases/download}"
+
+# find_shellcheck: print the path of shellcheck, or fail if there is none.
+find_shellcheck() {
+  command -v shellcheck && return
+  local cached="$CHECK_TOOLS_DIR/shellcheck-$SHELLCHECK_VERSION/shellcheck"
+  [[ -x $cached ]] && printf '%s\n' "$cached"
+}
+
+# install_shellcheck: download the static build if needed and print its path.
+install_shellcheck() {
+  find_shellcheck && return
+  local os arch asset sum url tmp actual
+  case "$(uname -s)" in
+    Linux) os=linux ;;
+    Darwin) os=darwin ;;
+    *) os="$(uname -s)" ;;
+  esac
+  case "$(uname -m)" in
+    x86_64 | amd64) arch=x86_64 ;;
+    aarch64 | arm64) arch=aarch64 ;;
+    *) arch="$(uname -m)" ;;
+  esac
+  asset="shellcheck-$SHELLCHECK_VERSION.$os.$arch.tar.gz"
+  sum="$(awk -v a="$asset" '$2 == a { print $1 }' "$CHECK_HOME/vendor/shellcheck.sha256")"
+  [[ -n $sum ]] || { msg install_unsupported "$os.$arch" >&2; echo >&2; return 1; }
+  url="$SHELLCHECK_RELEASES/$SHELLCHECK_VERSION/$asset"
+
+  mkdir -p -- "$CHECK_TOOLS_DIR" || return 1
+  tmp="$(mktemp -d "$CHECK_TOOLS_DIR/.download.XXXXXX")" || return 1
+  # shellcheck disable=SC2064
+  trap "rm -rf -- '$tmp'" EXIT
+  msg install_downloading "$SHELLCHECK_VERSION" >&2
+  echo >&2
+  if command -v curl > /dev/null; then
+    curl -fsSL --retry 2 -o "$tmp/$asset" "$url"
+  elif command -v wget > /dev/null; then
+    wget -q -O "$tmp/$asset" "$url"
+  else
+    msg install_no_downloader >&2; echo >&2; return 1
+  fi || { msg install_download_failed "$url" >&2; echo >&2; return 1; }
+
+  if command -v sha256sum > /dev/null; then
+    actual="$(sha256sum "$tmp/$asset")"
+  else
+    actual="$(shasum -a 256 "$tmp/$asset")"
+  fi
+  [[ ${actual%% *} == "$sum" ]] || { msg install_bad_checksum "$asset" >&2; echo >&2; return 1; }
+
+  tar -xzf "$tmp/$asset" -C "$tmp" || return 1
+  rm -rf -- "$CHECK_TOOLS_DIR/shellcheck-$SHELLCHECK_VERSION"
+  mv -- "$tmp/shellcheck-$SHELLCHECK_VERSION" "$CHECK_TOOLS_DIR/" || return 1
+  find_shellcheck
+}
+
+# --- options ----------------------------------------------------------------
+
+mode=all          # all | lint | tests
+action=           # install | path (shellcheck)
+tap=false
+verbose=false
+target=
+opt_tests=
+opt_fixtures=
+opt_script=
+opt_severity=
+opt_notes=
+opt_exclude=
+opt_timeout=
+
+usage() {
+  msg usage
+}
+
+while (($#)); do
+  case "$1" in
+    --tap) tap=true ;;
+    --lint-only) mode=lint ;;
+    --tests-only) mode=tests ;;
+    -v | --verbose) verbose=true ;;
+    -h | --help) usage; exit 0 ;;
+    --install-shellcheck) action=install ;;
+    --shellcheck-path) action=path ;;
+    --tests) opt_tests="${2:?}"; shift ;;
+    --fixtures) opt_fixtures="${2:?}"; shift ;;
+    --script) opt_script="${2:?}"; shift ;;
+    --severity) opt_severity="${2:?}"; shift ;;
+    --notes) opt_notes="${2:?}"; shift ;;
+    --exclude) opt_exclude="${2:?}"; shift ;;
+    --timeout) opt_timeout="${2:?}"; shift ;;
+    --) shift; target="${1:-}"; break ;;
+    -*) die bad_option "$1" ;;
+    *)
+      [[ -z $target ]] || die too_many_args
+      target="$1"
+      ;;
+  esac
+  shift
+done
+
+case "$action" in
+  install) install_shellcheck; exit ;;
+  path) find_shellcheck; exit ;;
+esac
+
+target="${target:-.}"
+[[ -e $target ]] || die not_found "$target"
+
+if [[ -d $target ]]; then
+  workdir="$(cd "$target" && pwd)"
+  file_arg=
+else
+  workdir="$(cd "$(dirname "$target")" && pwd)"
+  file_arg="$(basename "$target")"
+fi
+
+# --- exercise marker ----------------------------------------------------------
+# `.exercise` holds `key=value` lines (no shell evaluation). Relative paths are
+# resolved against the marker's directory.
+
+ex_id='' ex_script='' ex_tests='' ex_fixtures='' ex_severity=warning ex_notes='' ex_exclude='' ex_timeout=10 ex_shellcheck=true
+marker="$workdir/.exercise"
+
+resolve() {
+  local p="$1"
+  [[ -z $p || $p == /* ]] && { printf '%s' "$p"; return; }
+  printf '%s/%s' "$workdir" "$p"
+}
+
+if [[ -f $marker ]]; then
+  while IFS= read -r line || [[ -n $line ]]; do
+    line="${line%$'\r'}"
+    [[ -z $line || $line == \#* || $line != *=* ]] && continue
+    key="${line%%=*}"
+    value="${line#*=}"
+    case "$key" in
+      id) ex_id="$value" ;;
+      script) ex_script="$value" ;;
+      tests) ex_tests="$(resolve "$value")" ;;
+      fixtures) ex_fixtures="$(resolve "$value")" ;;
+      shellcheck) ex_shellcheck="$value" ;;
+      severity) ex_severity="$value" ;;
+      notes) ex_notes="$value" ;;
+      exclude) ex_exclude="$value" ;;
+      timeout) ex_timeout="$value" ;;
+    esac
+  done < "$marker"
+fi
+
+[[ -n $opt_tests ]] && ex_tests="$(cd "$(dirname "$opt_tests")" && pwd)/$(basename "$opt_tests")"
+[[ -n $opt_fixtures ]] && ex_fixtures="$(cd "$opt_fixtures" && pwd)"
+[[ -n $opt_script ]] && ex_script="$opt_script"
+[[ -n $opt_severity ]] && ex_severity="$opt_severity"
+[[ -n $opt_notes ]] && ex_notes="$opt_notes"
+[[ -n $opt_exclude ]] && ex_exclude="$opt_exclude"
+[[ -n $opt_timeout ]] && ex_timeout="$opt_timeout"
+[[ -n $file_arg && -z $ex_script ]] && ex_script="$file_arg"
+
+[[ $ex_timeout =~ ^[0-9]+$ ]] || die bad_timeout "$ex_timeout"
+# severity_rank LEVEL: 0 for error up to 3 for style, or fail if LEVEL is not one.
+severity_rank() {
+  case "$1" in
+    error) echo 0 ;;
+    warning) echo 1 ;;
+    info) echo 2 ;;
+    style) echo 3 ;;
+    *) return 1 ;;
+  esac
+}
+severity_rank "$ex_severity" > /dev/null || die bad_severity "$ex_severity"
+# Notes are the findings below the severity, down to ex_notes: shown, but not a failure.
+if [[ -n $ex_notes ]]; then
+  notes_rank="$(severity_rank "$ex_notes")" || die bad_severity "$ex_notes"
+  ((notes_rank > $(severity_rank "$ex_severity"))) || ex_notes=''
+fi
+
+# Scripts to lint: the exercise script, the given file, or every *.sh in DIR.
+lint_files=()
+if [[ -n $ex_script ]]; then
+  lint_files=("$ex_script")
+else
+  while IFS= read -r -d '' f; do
+    lint_files+=("${f#./}")
+  done < <(cd "$workdir" && find . -maxdepth 1 -type f -name '*.sh' -print0 | sort -z)
+fi
+
+has_tests=false
+[[ -n $ex_tests ]] && has_tests=true
+[[ $has_tests == true && ! -e $ex_tests ]] && die not_found "$ex_tests"
+[[ $mode == tests && $has_tests == false ]] && die no_tests
+
+# --- output helpers -----------------------------------------------------------
+
+if [[ -t 1 && -z ${NO_COLOR:-} && $tap == false ]]; then
+  c_ok=$'\e[32m' c_fail=$'\e[31m' c_dim=$'\e[2m' c_bold=$'\e[1m' c_off=$'\e[0m'
+else
+  c_ok='' c_fail='' c_dim='' c_bold='' c_off=''
+fi
+
+total=0
+passed=0
+tap_lines=()
+
+# report OK NAME [DETAIL [note]]: DETAIL is shown for a failure, with -v, or when it is a note.
+report() {
+  local ok="$1" name="$2" detail="${3:-}" note="${4:-}"
+  total=$((total + 1))
+  [[ $ok == true ]] && passed=$((passed + 1))
+  if [[ $tap == true ]]; then
+    local status="ok"
+    [[ $ok == true ]] || status="not ok"
+    tap_lines+=("$status $total $name")
+    if [[ -n $detail ]] && [[ $ok != true || -n $note ]]; then
+      while IFS= read -r l; do tap_lines+=("# $l"); done <<< "$detail"
+    fi
+  else
+    if [[ $ok == true ]]; then
+      printf '  %s✓%s %s\n' "$c_ok" "$c_off" "$name"
+    else
+      printf '  %s✗ %s%s\n' "$c_fail" "$name" "$c_off"
+    fi
+    if [[ -n $detail ]] && { [[ $ok != true ]] || [[ $verbose == true || -n $note ]]; }; then
+      printf "      %s\n" "${detail//$'\n'/$'\n'      }"
+    fi
+  fi
+}
+
+heading() {
+  [[ $tap == true ]] && return
+  printf '\n%s%s%s\n' "$c_bold" "$(msg "$@")" "$c_off"
+}
+
+# --- 1. shellcheck ------------------------------------------------------------
+
+run_lint() {
+  heading lint_heading
+  local shellcheck
+  if ! shellcheck="$(find_shellcheck)"; then
+    report false "$(msg lint_name "shellcheck")" "$(msg shellcheck_missing)"
+    return
+  fi
+  if ((${#lint_files[@]} == 0)); then
+    [[ $tap == true ]] || printf '  %s%s%s\n' "$c_dim" "$(msg no_scripts)" "$c_off"
+    return
+  fi
+  local f out
+  local -a sc_opts=(--format=tty --color=never)
+  [[ -n $ex_exclude ]] && sc_opts+=(--exclude="$ex_exclude")
+  for f in "${lint_files[@]}"; do
+    if [[ ! -f $workdir/$f ]]; then
+      report false "$(msg lint_name "$f")" "$(msg not_found "$f")"
+      continue
+    fi
+    if out="$(cd "$workdir" && "$shellcheck" --severity="$ex_severity" "${sc_opts[@]}" -- "$f" 2>&1)"; then
+      if [[ -n $ex_notes ]] &&
+        ! out="$(cd "$workdir" && "$shellcheck" --severity="$ex_notes" "${sc_opts[@]}" -- "$f" 2>&1)"; then
+        report true "$(msg lint_name "$f")" "$(msg lint_notes)"$'\n'"$out" note
+      else
+        report true "$(msg lint_name "$f")"
+      fi
+    else
+      report false "$(msg lint_name "$f")" "$out"
+    fi
+  done
+}
+
+# tidy_detail TEXT: drop bats stack traces and translate bats-assert messages.
+tidy_detail() {
+  local line out="" re_label='^([a-z]+)( *):(.*)$' re_head='^-- (.*) --$'
+  while IFS= read -r line; do
+    if [[ $verbose == false ]]; then
+      [[ $line =~ ^[[:space:]]*\(?(from\ function|in\ test\ file) ]] && continue
+      [[ $line =~ ^[[:space:]]*\`.*\'\ failed ]] && continue
+    fi
+    if [[ $line =~ $re_head && -n ${MSG_TR[${BASH_REMATCH[1]}]:-} ]]; then
+      line="-- ${MSG_TR[${BASH_REMATCH[1]}]} --"
+    elif [[ $line =~ $re_label && -n ${MSG_TR_LABEL[${BASH_REMATCH[1]}]:-} ]]; then
+      printf -v line '%-9s:%s' "${MSG_TR_LABEL[${BASH_REMATCH[1]}]}" "${BASH_REMATCH[3]}"
+    fi
+    out+="${out:+$'\n'}$line"
+  done <<< "$1"
+  # Trim trailing blank lines.
+  while [[ $out == *$'\n' || $out == *$'\n ' ]]; do out="${out%$'\n'*}"; done
+  printf '%s' "$out"
+}
+
+# --- 2. bats tests ------------------------------------------------------------
+
+tmp_base=''
+sandbox=''
+cleanup() {
+  [[ -n $tmp_base && -d $tmp_base ]] && rm -rf -- "$tmp_base"
+}
+trap cleanup EXIT
+
+run_tests() {
+  heading tests_heading
+  tmp_base="$(mktemp -d "${TMPDIR:-/tmp}/check.XXXXXX")"
+  sandbox="$tmp_base/work"
+  mkdir -- "$sandbox"
+  [[ -n $ex_fixtures && -d $ex_fixtures ]] && cp -a -- "$ex_fixtures/." "$sandbox/"
+  cp -a -- "$workdir/." "$sandbox/"
+  rm -f -- "$sandbox/.exercise"
+
+  local script_path=
+  [[ -n $ex_script ]] && script_path="$sandbox/$ex_script"
+
+  local count out errlog="$tmp_base/stderr"
+  count="$("$BATS" --count "$ex_tests" 2> /dev/null)" || count=0
+  # Hard limit for the whole run, in case a test escapes BATS_TEST_TIMEOUT.
+  local limit=$((ex_timeout * (count + 1) + 30))
+
+  out="$(
+    cd "$sandbox" &&
+      CHECK_WORKDIR="$sandbox" CHECK_SCRIPT="$script_path" CHECK_LANG="$check_lang" \
+        BATS_LIB_PATH="$CHECK_HOME/lib:$CHECK_HOME/vendor" BATS_TEST_TIMEOUT="$ex_timeout" \
+        timeout --kill-after=5 "$limit" "$BATS" --tap "$ex_tests" 2> "$errlog"
+  )"
+  local status=$?
+
+  # Translate bats TAP into our report (renumbered), keeping diagnostics.
+  local line name="" ok="" detail="" seen=0
+  flush() {
+    [[ -n $name ]] && report "$ok" "$name" "$(tidy_detail "$detail")"
+    name="" ok="" detail=""
+  }
+  while IFS= read -r line; do
+    if [[ $line =~ ^(not\ )?ok\ [0-9]+\ (.*)$ ]]; then
+      flush
+      seen=$((seen + 1))
+      if [[ -n ${BASH_REMATCH[1]} ]]; then ok=false; else ok=true; fi
+      name="${BASH_REMATCH[2]}"
+      if [[ $name =~ ^(.*)\ \#\ skip ]]; then
+        name="${BASH_REMATCH[1]} $(msg skipped)"
+        ok=true
+      elif [[ $name =~ ^(.*)\ \#\ timeout\ after\ ([0-9]+)s$ ]]; then
+        name="${BASH_REMATCH[1]}"
+        detail="$(msg test_timeout "${BASH_REMATCH[2]}")"
+      fi
+    elif [[ $line =~ ^#\ ?(.*)$ ]]; then
+      [[ -n $name ]] && detail+="${detail:+$'\n'}${BASH_REMATCH[1]}"
+    elif [[ $line =~ ^1\.\.[0-9]+$ ]]; then
+      :
+    elif [[ -n $line ]]; then
+      [[ -n $name ]] && detail+="${detail:+$'\n'}$line"
+    fi
+  done <<< "$out"
+  flush
+
+  if ((status == 124 || status == 137)); then
+    report false "$(msg timeout_name)" "$(msg timeout_detail "$limit")"
+  elif ((seen == 0)); then
+    report false "$(msg tests_error)" "$out${out:+$'\n'}$(cat "$errlog" 2> /dev/null)"
+  elif ((seen < count)); then
+    report false "$(msg tests_incomplete "$seen" "$count")" ""
+  fi
+}
+
+# --- main -------------------------------------------------------------------
+
+if [[ $tap == false ]]; then
+  if [[ -n $ex_id ]]; then
+    printf '%s%s%s\n' "$c_bold" "$(msg exercise_title "$ex_id")" "$c_off"
+  fi
+fi
+
+if [[ $mode != tests && $ex_shellcheck != false ]]; then
+  run_lint
+fi
+if [[ $mode != lint && $has_tests == true ]]; then
+  run_tests
+fi
+
+if [[ $tap == true ]]; then
+  echo "1..$total"
+  printf '%s\n' "${tap_lines[@]}"
+else
+  echo
+  if ((total == 0)); then
+    msg nothing_checked
+  elif ((passed == total)); then
+    printf '%s' "$c_ok"
+    msg summary_ok "$passed" "$total"
+    printf '%s' "$c_off"
+  else
+    printf '%s' "$c_fail"
+    msg summary_fail "$passed" "$total"
+    printf '%s' "$c_off"
+  fi
+  echo
+fi
+
+((passed == total)) && exit 0 || exit 1

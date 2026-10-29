@@ -1,0 +1,269 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s05
+title: "Semana 5 · Procesos y usuarios"
+collapsed: true
+description: |
+  Hasta ahora hemos trabajado con ficheros que no cambian mientras los leemos.
+  Esta semana examinamos el estado del sistema: qué programas se están ejecutando, de quién son, cuánta memoria usan y cómo detenerlos.
+  También aprenderemos a recorrer una salida línea a línea y a elegir entre varios casos, dos herramientas imprescindibles para tratar esos datos.
+  El *script* de la semana, `usuarios.sh`, muestra una tabla con los procesos y la memoria de cada usuario y si está conectado.
+objectives: |
+  - Explicar qué es un proceso y consultar sus datos con `ps` y `pgrep`.
+  - Enviar señales con `kill` y elegir la adecuada.
+  - Controlar trabajos en primer y segundo plano.
+  - Consultar usuarios y grupos con `id`, `who` y `/etc/passwd`, y ficheros abiertos con `lsof`.
+  - Recorrer líneas con `while read`, esperar con `until` y pedir datos con `read -p`.
+  - Elegir entre varios casos con `case` y convertir tiempos a segundos.
+content: class.md
+workspace:
+  fixtures: fixtures
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: processes
+        title: "Procesos"
+        type: lecture
+        content: processes.md
+
+      - id: signals
+        title: "Señales"
+        type: lecture
+        content: signals.md
+
+      - id: jobs
+        title: "Trabajos en primer y segundo plano"
+        type: lecture
+        content: jobs.md
+
+      - id: users-and-groups
+        title: "Usuarios y grupos"
+        type: lecture
+        content: users-and-groups.md
+
+      - id: reading-lines
+        title: "Leer línea a línea"
+        type: lecture
+        content: reading-lines.md
+
+      - id: case
+        title: "Elegir entre varios casos"
+        type: lecture
+        content: case.md
+
+      - id: times-to-seconds
+        title: "Tiempos a segundos"
+        type: lecture
+        content: times-to-seconds.md
+
+      - id: weekly-script
+        title: "El script de la semana: usuarios.sh"
+        type: script
+        content: weekly-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [usuarios.sh]
+        workspace:
+          workdir: exercises/s05              # the lecture runs ./usuarios.sh here, with the week's data
+          starter: weekly-script/starter
+        exercise:
+          solution: ../../solutions/s05/weekly-script
+          script: usuarios.sh
+          tests: weekly-script/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: patterns
+    title: "Patrones"
+    collapsed: true
+    description: |
+      En la lectura han aparecido dos patrones: recorrer líneas y tiempos a segundos.
+      El primero lee la salida de un comando línea a línea con `while read`, y el segundo pasa el `etime` de `ps` a un número para poder compararlo.
+    lessonParts:
+      - id: loop-over-lines
+        title: "Recorrer líneas"
+        type: lecture
+        content: patterns/loop-over-lines.md
+
+      - id: times-to-seconds
+        title: "Tiempos a segundos"
+        type: lecture
+        content: patterns/times-to-seconds.md
+
+  - id: ps
+    title: "ps"
+    collapsed: true
+    description: |
+      Muestra los procesos del sistema con los campos que se elijan: PID, usuario, consumo de memoria y CPU, tiempo de ejecución u orden.
+      Puede ordenarlos por campo.
+    lessonParts:
+      - id: card
+        title: "Ficha de ps"
+        type: lecture
+        content: cards/ps.md
+
+      - id: challenges
+        title: "Retos de ps"
+        type: terminal
+        content: challenges/ps.md
+        dependsOn: [s05:ps:card]
+        showTerminal: true
+
+  - id: who-w
+    title: "who y w"
+    collapsed: true
+    description: |
+      `who` y `w` muestran las sesiones abiertas: quién está conectado, en qué terminal, desde dónde y desde cuándo.
+      `last` da el historial de entradas y salidas.
+    lessonParts:
+      - id: card
+        title: "Ficha de who y w"
+        type: lecture
+        content: cards/who-w.md
+
+      - id: challenges
+        title: "Retos de who y w"
+        type: terminal
+        content: challenges/who-w.md
+        dependsOn: [s05:who-w:card]
+        showTerminal: true
+
+  - id: id
+    title: "id"
+    collapsed: true
+    description: |
+      Muestra el UID, el GID y los grupos de un usuario.
+      Con `whoami`, `groups`, `/etc/passwd` y `/etc/group` dice quién es cada usuario y a qué grupos pertenece.
+    lessonParts:
+      - id: card
+        title: "Ficha de id"
+        type: lecture
+        content: cards/id.md
+
+      - id: challenges
+        title: "Retos de id"
+        type: terminal
+        content: challenges/id.md
+        dependsOn: [s05:id:card]
+        showTerminal: true
+
+  - id: kill
+    title: "kill"
+    collapsed: true
+    description: |
+      Envía una señal a uno o varios procesos por su PID: pedirles que terminen, forzar su fin, pausarlos o reanudarlos.
+      También comprueba si un proceso existe.
+    lessonParts:
+      - id: card
+        title: "Ficha de kill"
+        type: lecture
+        content: cards/kill.md
+
+      - id: challenges
+        title: "Retos de kill"
+        type: terminal
+        content: challenges/kill.md
+        dependsOn: [s05:kill:card]
+        showTerminal: true
+
+  - id: lsof
+    title: "lsof"
+    collapsed: true
+    description: |
+      Lista los ficheros abiertos por los procesos: ficheros, directorios, tuberías y conexiones de red.
+      Dice quién usa un fichero o qué tiene abierto un proceso.
+    lessonParts:
+      - id: card
+        title: "Ficha de lsof"
+        type: lecture
+        content: cards/lsof.md
+
+      - id: challenges
+        title: "Retos de lsof"
+        type: terminal
+        content: challenges/lsof.md
+        dependsOn: [s05:lsof:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cuatro *scripts* cortos con lo de la semana: `while read`, `case`, `read -p` y tiempos a segundos, sobre salidas guardadas de `ps` y `who`.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 90
+    content: exercises/intro.md
+    lessonParts:
+      - id: to-seconds
+        title: "Tiempos a segundos"
+        type: script
+        duration: 25
+        content: exercises/to-seconds.md
+        showEditor: true
+        showTerminal: true
+        editors: [segundos.sh]
+        workspace:                          # workdir: exercises/s05/to-seconds
+          starter: exercises/to-seconds/starter
+        exercise:
+          solution: ../../solutions/s05/to-seconds
+          script: segundos.sh
+          tests: exercises/to-seconds/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: sessions
+        title: "Sesiones de un usuario"
+        type: script
+        duration: 20
+        content: exercises/sessions.md
+        showEditor: true
+        showTerminal: true
+        editors: [sesiones.sh]
+        workspace:                          # workdir: exercises/s05/sessions
+          starter: exercises/sessions/starter
+        exercise:
+          solution: ../../solutions/s05/sessions
+          script: sesiones.sh
+          tests: exercises/sessions/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: process-states
+        title: "Estados de los procesos"
+        type: script
+        duration: 20
+        content: exercises/process-states.md
+        showEditor: true
+        showTerminal: true
+        editors: [estados.sh]
+        workspace:                          # workdir: exercises/s05/process-states
+          starter: exercises/process-states/starter
+        exercise:
+          solution: ../../solutions/s05/process-states
+          script: estados.sh
+          tests: exercises/process-states/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: confirm-delete
+        title: "Borrar con confirmación"
+        type: script
+        duration: 25
+        content: exercises/confirm-delete.md
+        showEditor: true
+        showTerminal: true
+        editors: [borrar.sh]
+        workspace:                          # workdir: exercises/s05/confirm-delete
+          starter: exercises/confirm-delete/starter
+        exercise:
+          solution: ../../solutions/s05/confirm-delete
+          script: borrar.sh
+          tests: exercises/confirm-delete/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

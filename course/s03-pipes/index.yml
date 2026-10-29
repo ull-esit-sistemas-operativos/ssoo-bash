@@ -1,0 +1,340 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s03
+title: "Semana 3 · Redirecciones, tuberías y filtros"
+collapsed: true
+description: |
+  Un servidor web anota en un fichero cada petición que recibe.
+  ¿Qué direcciones IP lo visitan más?
+  ¿Cuántas páginas no se encontraron?
+  Ningún comando responde a eso por sí solo, pero varios comandos pequeños encadenados sí.
+  Esta semana aprenderemos a decidir de dónde lee y a dónde escribe cada comando, a conectar unos con otros y a tomar decisiones en un *script*.
+  Todo ello se integra en `resumen_log.sh`, que resume un *log* de acceso web.
+objectives: |
+  - Distinguir la entrada, la salida y el error estándar de un comando.
+  - Redirigirlos a ficheros, en el orden correcto, y descartar lo que no interesa.
+  - Encadenar comandos con tuberías.
+  - Filtrar y resumir texto con `grep`, `cut`, `sort`, `uniq`, `wc`, `head`, `tail`, `tr` y `tee`.
+  - Tomar decisiones con `if`, `[[ ]]`, `&&` y `||`, y hacer cálculos enteros con `$(( ))`.
+content: class.md
+workspace:
+  fixtures: fixtures
+  mtimes:
+    "proyecto/.oculto": "2026-10-01 10:00"
+    "proyecto/README.md": "2026-10-02 09:30"
+    "proyecto/docs": "2026-10-01 10:00"
+    "proyecto/docs/guía de uso.txt": "2026-10-01 10:00"
+    "proyecto/src": "2026-10-01 10:00"
+    "proyecto/src/main.c": "2026-10-03 12:00"
+    "proyecto/src/util.h": "2026-10-01 10:00"
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: weekly-log
+        title: "El log de la semana"
+        type: lecture
+        content: weekly-log.md
+        preview: acceso.log
+
+      - id: standard-streams
+        title: "Entrada, salida y error estándar"
+        type: lecture
+        content: standard-streams.md
+
+      - id: redirections
+        title: "Redirecciones"
+        type: lecture
+        content: redirections.md
+
+      - id: pipes
+        title: "Tuberías"
+        type: lecture
+        content: pipes.md
+
+      - id: text-filters
+        title: "Filtros de texto"
+        type: lecture
+        content: text-filters.md
+
+      - id: decisions
+        title: "Decidir en un script"
+        type: lecture
+        content: decisions.md
+
+      - id: weekly-script
+        title: "El script de la semana: resumen_log.sh"
+        type: script
+        content: weekly-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [resumen_log.sh]
+        workspace:
+          workdir: exercises/s03              # the lecture runs ./resumen_log.sh here, with the week's data
+          starter: weekly-script/starter
+        exercise:
+          solution: ../../solutions/s03/weekly-script
+          script: resumen_log.sh
+          tests: weekly-script/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: patterns
+    title: "Patrones"
+    collapsed: true
+    description: |
+      En la lectura ha aparecido el patrón agregar por clave: contar cuántas veces sale cada valor, como las peticiones por IP, con `sort | uniq -c`.
+    lessonParts:
+      - id: aggregate-by-key
+        title: "Agregar por clave"
+        type: lecture
+        content: patterns/aggregate-by-key.md
+
+  - id: grep
+    title: "grep"
+    collapsed: true
+    description: |
+      Muestra las líneas de un texto que encajan con una expresión regular.
+      Sirve para filtrar *logs* y salidas de comandos, y para comprobar condiciones en un *script*.
+    lessonParts:
+      - id: card
+        title: "Ficha de grep"
+        type: lecture
+        content: cards/grep.md
+
+      - id: challenges
+        title: "Retos de grep"
+        type: terminal
+        content: challenges/grep.md
+        dependsOn: [s03:grep:card]
+        showTerminal: true
+
+  - id: cut
+    title: "cut"
+    collapsed: true
+    description: |
+      Extrae columnas de cada línea: campos separados por un delimitador de un carácter, o rangos de caracteres.
+      Es la forma rápida de sacar un campo de un CSV.
+    lessonParts:
+      - id: card
+        title: "Ficha de cut"
+        type: lecture
+        content: cards/cut.md
+
+      - id: challenges
+        title: "Retos de cut"
+        type: terminal
+        content: challenges/cut.md
+        dependsOn: [s03:cut:card]
+        showTerminal: true
+
+  - id: sort
+    title: "sort"
+    collapsed: true
+    description: |
+      Ordena las líneas de un texto alfabéticamente, por número o por versión, usando la línea entera o uno de sus campos.
+      También elimina las líneas repetidas.
+    lessonParts:
+      - id: card
+        title: "Ficha de sort"
+        type: lecture
+        content: cards/sort.md
+
+      - id: challenges
+        title: "Retos de sort"
+        type: terminal
+        content: challenges/sort.md
+        dependsOn: [s03:sort:card]
+        showTerminal: true
+
+  - id: uniq
+    title: "uniq"
+    collapsed: true
+    description: |
+      Cuenta, elimina o muestra las líneas repetidas de un texto.
+      Va casi siempre tras `sort` para contar cuántas veces aparece cada valor de un *log* o un CSV.
+    lessonParts:
+      - id: card
+        title: "Ficha de uniq"
+        type: lecture
+        content: cards/uniq.md
+
+      - id: challenges
+        title: "Retos de uniq"
+        type: terminal
+        content: challenges/uniq.md
+        dependsOn: [s03:uniq:card]
+        showTerminal: true
+
+  - id: tr
+    title: "tr"
+    collapsed: true
+    description: |
+      Cambia, borra o comprime caracteres de la entrada estándar: pasar a mayúsculas, quitar retornos de carro o reducir varios espacios a uno antes de usar `cut`.
+    lessonParts:
+      - id: card
+        title: "Ficha de tr"
+        type: lecture
+        content: cards/tr.md
+
+      - id: challenges
+        title: "Retos de tr"
+        type: terminal
+        content: challenges/tr.md
+        dependsOn: [s03:tr:card]
+        showTerminal: true
+
+  - id: wc
+    title: "wc"
+    collapsed: true
+    description: |
+      Cuenta las líneas, palabras, caracteres o bytes de uno o varios ficheros o de la entrada estándar.
+      Es la forma habitual de contar los resultados de una tubería.
+    lessonParts:
+      - id: card
+        title: "Ficha de wc"
+        type: lecture
+        content: cards/wc.md
+
+      - id: challenges
+        title: "Retos de wc"
+        type: terminal
+        content: challenges/wc.md
+        dependsOn: [s03:wc:card]
+        showTerminal: true
+
+  - id: head-tail
+    title: "head y tail"
+    collapsed: true
+    description: |
+      Muestran las primeras o las últimas líneas de un texto.
+      Sirven para quedarse con los N primeros de una lista ordenada, saltar una cabecera o seguir un *log*.
+    lessonParts:
+      - id: card
+        title: "Ficha de head y tail"
+        type: lecture
+        content: cards/head-tail.md
+
+      - id: challenges
+        title: "Retos de head y tail"
+        type: terminal
+        content: challenges/head-tail.md
+        dependsOn: [s03:head-tail:card]
+        showTerminal: true
+
+  - id: test
+    title: "[[ ]] y test"
+    collapsed: true
+    description: |
+      Evalúa una condición sobre cadenas, números o ficheros y devuelve un estado de salida de éxito o fallo, para usarla con `if`, `while`, `&&` o `||` en un *script*.
+    lessonParts:
+      - id: card
+        title: "Ficha de [[ ]] y test"
+        type: lecture
+        content: cards/test.md
+
+      - id: challenges
+        title: "Retos de [[ ]] y test"
+        type: terminal
+        content: challenges/test.md
+        dependsOn: [s03:test:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cinco *scripts* cortos que reúnen lo de la semana: argumentos, `[[ ]]`, redirecciones, tuberías y filtros.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 90
+    content: exercises/intro.md
+    lessonParts:
+      - id: count-matches
+        title: "Contar coincidencias"
+        type: script
+        duration: 15
+        content: exercises/count-matches.md
+        showEditor: true
+        showTerminal: true
+        editors: [cuenta.sh]
+        workspace:                          # workdir: exercises/s03/count-matches
+          starter: exercises/count-matches/starter
+        exercise:
+          solution: ../../solutions/s03/count-matches
+          script: cuenta.sh
+          tests: exercises/count-matches/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: missing-grades
+        title: "Notas vacías"
+        type: script
+        duration: 15
+        content: exercises/missing-grades.md
+        showEditor: true
+        showTerminal: true
+        editors: [sin_nota.sh]
+        workspace:                          # workdir: exercises/s03/missing-grades
+          starter: exercises/missing-grades/starter
+        exercise:
+          solution: ../../solutions/s03/missing-grades
+          script: sin_nota.sh
+          tests: exercises/missing-grades/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: backup
+        title: "Copia de seguridad"
+        type: script
+        duration: 15
+        content: exercises/backup.md
+        showEditor: true
+        showTerminal: true
+        editors: [copia_seguridad.sh]
+        workspace:                          # workdir: exercises/s03/backup
+          starter: exercises/backup/starter
+        exercise:
+          solution: ../../solutions/s03/backup
+          script: copia_seguridad.sh
+          tests: exercises/backup/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: distinct-ips
+        title: "IP distintas"
+        type: script
+        duration: 20
+        content: exercises/distinct-ips.md
+        showEditor: true
+        showTerminal: true
+        editors: [ips.sh]
+        workspace:                          # workdir: exercises/s03/distinct-ips
+          starter: exercises/distinct-ips/starter
+        exercise:
+          solution: ../../solutions/s03/distinct-ips
+          script: ips.sh
+          tests: exercises/distinct-ips/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: top-words
+        title: "Palabras más frecuentes"
+        type: script
+        duration: 25
+        content: exercises/top-words.md
+        showEditor: true
+        showTerminal: true
+        editors: [top_palabras.sh]
+        workspace:                          # workdir: exercises/s03/top-words
+          starter: exercises/top-words/starter
+        exercise:
+          solution: ../../solutions/s03/top-words
+          script: top_palabras.sh
+          tests: exercises/top-words/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

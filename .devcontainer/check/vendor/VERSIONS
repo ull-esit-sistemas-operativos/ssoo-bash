@@ -1,0 +1,5 @@
+bats-core v1.13.0
+bats-support v0.3.0
+bats-assert v2.2.4
+bats-file v0.4.0
+shellcheck v0.11.0

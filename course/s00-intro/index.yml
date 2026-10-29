@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s00
+title: "Presentación · Cómo funciona el curso"
+description: |
+  Antes de abrir la terminal, conviene saber qué vas a encontrar en el curso y cómo se usa.
+  Esta presentación recorre las semanas y sus lecciones, la sección *Referencia* y los distintos tipos de sección, y explica cómo se hacen y se comprueban los ejercicios.
+duration: 15
+objectives: |
+  - Reconocer las lecciones de cada semana: «Lectura», «Patrones», las de cada comando y «Ejercicios».
+  - Saber cuándo se completa cada tipo de sección.
+  - Ejecutar los ejemplos en la terminal del curso y recuperar los datos de una semana.
+  - Comprobar un ejercicio de *script* e interpretar el resultado.
+lessonParts:
+  - id: course
+    title: "Qué hay en el curso"
+    type: lecture
+    content: course.md
+
+  - id: working
+    title: "Leer y practicar"
+    type: lecture
+    content: working.md
+
+  - id: exercises
+    title: "Los ejercicios"
+    type: lecture
+    content: exercises.md
+
+  - id: quiz
+    title: "¿Lo tienes claro?"
+    type: quiz
+    content: quiz.md

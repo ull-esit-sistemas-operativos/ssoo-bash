@@ -1,0 +1,180 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s01
+title: "Semana 1 · La shell y el primer script"
+description: |
+  Casi todo lo que hacemos con el ratón en un explorador de archivos se puede hacer dando órdenes a la *shell*.
+  ¿Qué ganamos con ello?
+  Que una orden se puede repetir, combinar con otras y guardar en un fichero para ejecutarla tantas veces como queramos.
+  Esta semana aprenderemos a movernos por el sistema de ficheros desde la terminal, a buscar ayuda cuando no recordemos una opción y a escribir nuestro primer *script*, `info.sh`, que resume el contenido de un directorio.
+objectives: |
+  - Distinguir la terminal de la *shell* e interpretar el *prompt*.
+  - Moverse por el sistema de ficheros con rutas absolutas y relativas.
+  - Consultar directorios y ficheros con `ls`, `cat`, `less` y `echo`.
+  - Encontrar ayuda sobre cualquier comando con `man`, `--help`, `type` y `help`.
+  - Teclear menos gracias al autocompletado, el historial y los atajos.
+  - Escribir, dar permiso de ejecución y ejecutar un *script* que recibe un argumento.
+content: class.md
+workspace:
+  fixtures: fixtures
+  mtimes:
+    "proyecto/.oculto": "2026-10-01 10:00"
+    "proyecto/README.md": "2026-10-02 09:30"
+    "proyecto/docs": "2026-10-01 10:00"
+    "proyecto/docs/guía de uso.txt": "2026-10-01 10:00"
+    "proyecto/src": "2026-10-01 10:00"
+    "proyecto/src/main.c": "2026-10-03 12:00"
+    "proyecto/src/util.h": "2026-10-01 10:00"
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: terminal-and-shell
+        title: "La terminal y la shell"
+        type: lecture
+        content: terminal-and-shell.md
+
+      - id: paths
+        title: "Rutas absolutas y relativas"
+        type: lecture
+        content: paths.md
+
+      - id: looking-around
+        title: "Ver qué hay: ls, cat, less y echo"
+        type: lecture
+        content: looking-around.md
+
+      - id: getting-help
+        title: "Pedir ayuda"
+        type: lecture
+        content: getting-help.md
+
+      - id: typing-less
+        title: "Teclear menos"
+        type: lecture
+        content: typing-less.md
+
+      - id: first-script
+        title: "El primer script"
+        type: script
+        content: first-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [info.sh]
+        workspace:
+          workdir: exercises/s01              # the lecture runs ./info.sh here, with the week's data
+          starter: first-script/starter
+        exercise:
+          solution: ../../solutions/s01/first-script
+          script: info.sh
+          tests: first-script/tests
+          # SC2012: the lecture counts with ls | wc -l and picks the newest with ls -t | head.
+          shellcheck: { severity: info, notes: style, exclude: [SC2012] }
+          timeout: 5
+
+      - id: exit-status
+        title: "El estado de salida"
+        type: lecture
+        content: exit-status.md
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: ls
+    title: "ls"
+    collapsed: true
+    description: |
+      Lista el contenido de un directorio y los atributos de cada fichero: permisos, propietario, tamaño y fecha.
+      Ordena por nombre, fecha, tamaño o extensión.
+    lessonParts:
+      - id: card
+        title: "Ficha de ls"
+        type: lecture
+        content: cards/ls.md
+
+      - id: challenges
+        title: "Retos de ls"
+        type: terminal
+        content: challenges/ls.md
+        dependsOn: [s01:ls:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Cuatro *scripts* cortos con lo de la semana: argumentos, rutas, `ls`, `cat`, `head`, `tail` y `wc`.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 60
+    content: exercises/intro.md
+    lessonParts:
+      - id: show-file
+        title: "Ver un fichero"
+        type: script
+        duration: 15
+        content: exercises/show-file.md
+        showEditor: true
+        showTerminal: true
+        editors: [ver.sh]
+        workspace:                          # workdir: exercises/s01/show-file
+          starter: exercises/show-file/starter
+        exercise:
+          solution: ../../solutions/s01/show-file
+          script: ver.sh
+          tests: exercises/show-file/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: count-entries
+        title: "Contar entradas"
+        type: script
+        duration: 15
+        content: exercises/count-entries.md
+        showEditor: true
+        showTerminal: true
+        editors: [entradas.sh]
+        workspace:                          # workdir: exercises/s01/count-entries
+          starter: exercises/count-entries/starter
+        exercise:
+          solution: ../../solutions/s01/count-entries
+          script: entradas.sh
+          tests: exercises/count-entries/tests
+          # SC2012 (ls | wc -l) is how info.sh counts entries this week.
+          shellcheck: { severity: info, notes: style, exclude: [SC2012] }
+          timeout: 5
+
+      - id: first-last
+        title: "Primera y última línea"
+        type: script
+        duration: 15
+        content: exercises/first-last.md
+        showEditor: true
+        showTerminal: true
+        editors: [extremos.sh]
+        workspace:                          # workdir: exercises/s01/first-last
+          starter: exercises/first-last/starter
+        exercise:
+          solution: ../../solutions/s01/first-last
+          script: extremos.sh
+          tests: exercises/first-last/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: line-counts
+        title: "Contar líneas"
+        type: script
+        duration: 15
+        content: exercises/line-counts.md
+        showEditor: true
+        showTerminal: true
+        editors: [lineas.sh]
+        workspace:                          # workdir: exercises/s01/line-counts
+          starter: exercises/line-counts/starter
+        exercise:
+          solution: ../../solutions/s01/line-counts
+          script: lineas.sh
+          tests: exercises/line-counts/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
