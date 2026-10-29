@@ -24,10 +24,10 @@ La comprobación tiene dos partes:
 - **Pruebas.** Ejecutan tu *script* sobre una copia nueva de los datos y comprueban su salida, los ficheros que crea y su estado de salida.
   El nombre de cada prueba dice qué se espera; si falla, debajo aparece lo que se esperaba y lo que se ha obtenido, y a veces una pista sobre la causa.
 
-![Resultado de Comprobar ejercicio: una prueba superada, una fallida con lo esperado y lo obtenido, y los avisos de shellcheck](images/check.png)
+![Resultado de Comprobar ejercicio: shellcheck señala una variable sin comillas y falla la prueba con un nombre con espacios](images/check.png)
 
 El ejercicio se completa cuando supera todas las comprobaciones.
-Mientras tanto, el árbol muestra junto a él cuántas superó la última vez, por ejemplo: `3/7`.
+Mientras tanto, el árbol muestra junto a él cuántas superó la última vez, por ejemplo: `4/6`.
 
 Como las pruebas usan una copia nueva de los datos, tu *script* puede crear, mover o borrar ficheros sin que eso afecte a la comprobación.
 Si quieres empezar de cero, pulsa con el botón derecho sobre el ejercicio en el árbol y elige *Restablecer ficheros del ejercicio*: vuelve el *script* inicial y los datos, y pierdes los cambios que hayas hecho en ellos.

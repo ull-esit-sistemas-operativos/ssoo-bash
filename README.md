@@ -38,7 +38,7 @@ Después elige **una** de estas opciones:
 Con el curso abierto, pulsa el icono **Bash Learn** de la barra de actividades
 para ver el curso. Si no aparece y no usas un contenedor, ejecuta `./setup.sh`.
 
-![Animación: abrir el curso desde el icono Bash Learn, abrir una lección y comprobar un ejercicio](.github/images/course.gif)
+![Animación: abrir el curso desde el icono Bash Learn y abrir una lección](.github/images/course.gif)
 
 ## Ejercicios
 

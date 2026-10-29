@@ -49,6 +49,9 @@ MSG_nothing_checked='No hay nada que comprobar.'
 MSG_summary_ok='Todo correcto: %s/%s ✔'
 MSG_summary_fail='Superadas %s de %s comprobaciones'
 
+# Header of a multi-line value, as in "output (3 lines):".
+MSG_tr_lines='%s (%s líneas):'
+
 declare -gA MSG_TR=(
   ["output differs"]="la salida (stdout) no es la esperada"
   ["stderr differs"]="la salida de error (stderr) no es la esperada"

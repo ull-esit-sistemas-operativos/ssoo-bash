@@ -51,5 +51,6 @@ MSG_summary_fail='%s/%s checks passed'
 
 # Translations of bats-assert failure text, applied to test details.
 # MSG_TR: "-- <phrase> --" headers. MSG_TR_LABEL: "<label> :" prefixes.
+MSG_tr_lines='%s (%s lines):'
 declare -gA MSG_TR=()
 declare -gA MSG_TR_LABEL=()

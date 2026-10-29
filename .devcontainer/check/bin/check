@@ -319,6 +319,7 @@ run_lint() {
 # tidy_detail TEXT: drop bats stack traces and translate bats-assert messages.
 tidy_detail() {
   local line out="" re_label='^([a-z]+)( *):(.*)$' re_head='^-- (.*) --$'
+  local re_lines='^( *)([a-z]+) \(([0-9]+) lines\):$'
   while IFS= read -r line; do
     if [[ $verbose == false ]]; then
       [[ $line =~ ^[[:space:]]*\(?(from\ function|in\ test\ file) ]] && continue
@@ -328,6 +329,8 @@ tidy_detail() {
       line="-- ${MSG_TR[${BASH_REMATCH[1]}]} --"
     elif [[ $line =~ $re_label && -n ${MSG_TR_LABEL[${BASH_REMATCH[1]}]:-} ]]; then
       printf -v line '%-9s:%s' "${MSG_TR_LABEL[${BASH_REMATCH[1]}]}" "${BASH_REMATCH[3]}"
+    elif [[ $line =~ $re_lines && -n ${MSG_TR_LABEL[${BASH_REMATCH[2]}]:-} ]]; then
+      line="${BASH_REMATCH[1]}$(msg tr_lines "${MSG_TR_LABEL[${BASH_REMATCH[2]}]}" "${BASH_REMATCH[3]}")"
     fi
     out+="${out:+$'\n'}$line"
   done <<< "$1"
