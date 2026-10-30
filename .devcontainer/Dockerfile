@@ -26,6 +26,11 @@ RUN set -eux; \
     grep -rlI /home/vscode /home/alu | xargs -r sed -i 's|/home/vscode|/home/alu|g'; \
     id alu; sudo -u alu sudo -n true
 
+# The prompt shows the user (alu), not @GITHUB_USER, which Codespaces sets to the GitHub login.
+RUN set -eux; \
+    sed -i 's/\[ ! -z "\${GITHUB_USER:-}" \] && echo -n "[^"]*" || //' /home/alu/.bashrc /root/.bashrc; \
+    ! grep -q GITHUB_USER /home/alu/.bashrc /root/.bashrc
+
 ENV LANG=es_ES.UTF-8 \
     LANGUAGE=es_ES:es \
     CHECK_LANG=es
