@@ -12,7 +12,7 @@ Sus opciones más útiles son estas:
 Cada línea del formato largo tiene siete columnas:
 
 ```text
--rw-r--r-- 1 alu alumnos 2048 oct 22 10:15 notas.csv
+-rw-r--r-- 1 alu alu 2048 oct 22 10:15 notas.csv
 ```
 
 Son el tipo y los permisos (`-rw-r--r--`, que veremos la semana que viene), el número de enlaces, el propietario, el grupo, el tamaño en bytes, la fecha de última modificación y el nombre.

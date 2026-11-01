@@ -24,4 +24,4 @@ $ help cd
 Los mensajes exactos dependen del idioma configurado y de la distribución.
 Lo importante es la idea: `cd` no es un programa aparte, sino parte de la propia *shell*, y por eso su ayuda está en `help` y no en `man`.
 
-Para entender una línea de órdenes que encontramos escrita, [explainshell](https://explainshell.com) separa cada parte y muestra el fragmento de la página de manual que la explica.
+Para entender una orden que encontramos escrita, [explainshell](https://explainshell.com) separa cada parte y muestra el fragmento de la página de manual que la explica.

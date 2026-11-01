@@ -38,9 +38,11 @@ Abre `notas.csv` en la *shell* con `exec 3< notas.csv` y muestra solo los PID de
 ```bash
 exec 3< notas.csv
 lsof -t notas.csv
+exec 3<&-
 ```
 
 Sale el PID de la *shell* y el de los procesos que hayan heredado el descriptor 3.
+`exec 3<&-` cierra el descriptor al terminar.
 
 :::
 
@@ -55,5 +57,24 @@ lsof -u "$USER" 2>/dev/null | awk 'NR > 1 { print $2 }' | sort | uniq -c | sort 
 ```
 
 `NR > 1` salta la cabecera, y el campo 2 es el PID.
+
+:::
+
+## Reto 4 · Combina
+
+Lanza `sleep 300 < notas.csv &` y comprueba de dos formas a qué fichero apunta la entrada estándar de ese `sleep`: con `lsof` y con `/proc`.
+
+::: details Solución
+
+```bash
+sleep 300 < notas.csv &
+lsof -a -p $! -d 0
+ls -l /proc/$!/fd/0
+kill $!
+```
+
+`$!` es el PID del `sleep`, y `-d 0` deja solo su descriptor 0, la entrada estándar.
+`-a` hace falta para que `lsof` exija las dos condiciones a la vez.
+Las dos órdenes dan la ruta de `notas.csv`, porque `lsof` lee de `/proc/PID/fd` lo que muestra.
 
 :::

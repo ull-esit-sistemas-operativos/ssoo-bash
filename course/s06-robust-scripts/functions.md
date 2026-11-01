@@ -8,14 +8,19 @@ Se define con `nombre() { … }` antes de usarla:
 error_exit() {
     echo "$(basename "$0"): $1" >&2
     echo "Prueba «$(basename "$0") -h» para ver la ayuda." >&2
-    exit 1
+    exit "${2:-1}"
 }
 
-[[ -r $log ]] || error_exit "no se puede leer $log"
+[[ -r $log ]] || error_exit "no se puede leer $log" 2
 ```
 
 Dentro de una función, `$1`, `$2` y `$#` son los argumentos de la función, no los del *script*.
 `$0` sigue siendo el nombre del *script*, y `exit` termina el *script* entero.
+Como `$0` lleva la ruta con la que se invocó, como `./resumen_log.sh`, `basename` se la quita y así el mensaje empieza solo por el nombre.
+
+El segundo argumento de `error_exit` es opcional: `${2:-1}` vale el código que se pase o, si no se pasa ninguno, 1.
+Así, cada tipo de error puede terminar con su propio código.
+En el curso usamos 1 cuando el *script* se ha llamado mal y 2 cuando no se puede usar un fichero o un directorio.
 
 Por eso, si una función necesita los argumentos del *script*, hay que pasárselos al llamarla.
 Con `procesar "$@"`, la función recibe todos, tal y como llegaron al *script*, preservando los espacios.

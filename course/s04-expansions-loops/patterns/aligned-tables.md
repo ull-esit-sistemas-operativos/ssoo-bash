@@ -28,7 +28,7 @@ La cabecera usa los mismos anchos.
 
 ### printf de bash en un bucle
 
-Cuando cada fila necesita algo que no está en los datos, como el resultado de otro comando, se recorre la entrada con `while read` y se imprime con el `printf` de la *shell*:
+Cuando cada fila necesita algo que no está en los datos, como el resultado de otro comando, se recorre la entrada con `while read`, que se explica en la semana 5, y se imprime con el `printf` de la *shell*:
 
 ```console
 $ printf '%-15s %8s\n' IP PETICIONES
@@ -97,4 +97,4 @@ Para recortar, `%.8s`.
 
 ## Ver también
 
-[Ficha de `printf`](../cards/printf.md) · [ficha de `awk`](../cards/awk.md) · [ficha de `sort`](../../s03-pipes/cards/sort.md) · patrón «[Agregar por clave](../../s03-pipes/patterns/aggregate-by-key.md)»
+[Ficha de `printf`](../cards/printf.md) · [ficha de `awk`](../cards/awk.md) · [ficha de `sort`](../../s03-pipes/cards/sort.md) · patrón «[Agregar por clave con awk](aggregate-with-awk.md)»

@@ -148,7 +148,8 @@ $ echo hola | tr hola adios
 adio
 ```
 
-Para cambiar palabras, `sed 's/hola/adios/g'`.
+Para cambiar palabras se usa `sed 's/hola/adios/g'`.
+`sed` se explica en la semana 6, en la [Ficha de sed](../../s06-robust-scripts/cards/sed.md).
 
 **Tildes y eñes.**
 GNU `tr` trabaja byte a byte, así que no convierte las letras con tilde ni la ñ, aunque el *locale* sea español.

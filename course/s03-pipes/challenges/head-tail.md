@@ -61,3 +61,34 @@ marta
 `tail -n +2` quita la cabecera antes de ordenar.
 
 :::
+
+## Reto 4 · Combina
+
+```quiz
+- id: "4"
+  type: string
+  content: |
+    Crea `mejores.csv` con la cabecera de `notas.csv` y las tres notas más altas, de mayor a menor, usando una sola redirección.
+    ¿Cuál es la última línea de `mejores.csv`?
+  options:
+    - id: a
+      value: "ana,SSOO,7.5"
+```
+
+::: details Solución
+
+```bash
+{ head -n 1 notas.csv; tail -n +2 notas.csv | LC_ALL=C sort -t, -k3,3nr | head -n 3; } > mejores.csv
+```
+
+```text
+alumno,asignatura,nota
+marta,SSOO,9
+marta,FP,8.5
+ana,SSOO,7.5
+```
+
+Las llaves agrupan las dos órdenes, así que `> mejores.csv` recoge la salida de ambas.
+Con paréntesis saldría lo mismo, porque el grupo no cambia nada de la *shell*, pero se crearía una *subshell* en otro proceso sin necesidad.
+
+:::

@@ -64,8 +64,8 @@ Sin `-d`, `ls -l` mostraría `main.c` y `util.h`.
 - id: "4"
   type: string
   content: |
-    ¿Cuántos subdirectorios hay directamente dentro de `proyecto`?
-    Resuélvelo con `ls` y `grep`.
+    ¿Cuántos subdirectorios hay directamente dentro de `proyecto`, contando también los ocultos?
+    Resuélvelo con una sola orden `ls`, combinando dos opciones.
   options:
     - id: a
       value: "2"
@@ -74,10 +74,14 @@ Sin `-d`, `ls -l` mostraría `main.c` y `util.h`.
 ::: details Solución
 
 ```bash
-ls -l proyecto | grep -c '^d'
+ls -AF proyecto
 ```
 
-`2`.
-En `ls -l`, la primera letra de cada línea es el tipo, y `d` es directorio.
+```text
+.oculto  README.md  docs/  src/
+```
+
+`2`: `-A` añade las entradas ocultas y `-F` marca los directorios con `/`.
+`.oculto` sale, pero sin `/`, porque es un fichero.
 
 :::

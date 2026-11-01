@@ -61,3 +61,42 @@ Sin permisos de administrador, solo veremos los ficheros de nuestros procesos.
 > Es decir, `lsof -u alu -c bash` lista los ficheros de `alu` más los de todos los `bash`.
 > Para exigir que se cumplan todas hay que añadir `-a`.
 > Por ejemplo, `lsof -a -u alu -c bash` muestra solo los de los `bash` de `alu`.
+
+## El directorio /proc
+
+¿De dónde sacan `ps` y `lsof` lo que muestran?
+De `/proc`, un directorio que no está en el disco: el núcleo lo genera al vuelo y tiene un subdirectorio por cada proceso, con su PID como nombre.
+
+| Ruta | Contenido |
+| --- | --- |
+| `/proc/PID/status` | Nombre, estado, PPID y memoria del proceso, entre otros datos, uno por línea |
+| `/proc/PID/cwd` | Un enlace simbólico a su directorio de trabajo |
+| `/proc/PID/fd/` | Un enlace simbólico por cada descriptor abierto, que apunta al fichero |
+
+Con `$$` vemos los datos de la propia *shell*:
+
+```console
+$ grep -E '^(Name|State|PPid)' /proc/$$/status
+Name:	bash
+State:	S (sleeping)
+PPid:	2208
+$ ls -l /proc/$$/fd
+lrwx------ 1 alu alu 64 oct 31 10:20 0 -> /dev/pts/0
+lrwx------ 1 alu alu 64 oct 31 10:20 1 -> /dev/pts/0
+lrwx------ 1 alu alu 64 oct 31 10:20 2 -> /dev/pts/0
+lrwx------ 1 alu alu 64 oct 31 10:20 255 -> /dev/pts/0
+```
+
+Los descriptores 0, 1 y 2 son la entrada, la salida y el error estándar, y los tres apuntan a la terminal.
+El 255 es una copia de la terminal que bash guarda para sí.
+Es lo mismo que muestra `lsof -p $$` en sus columnas `FD` y `NAME`.
+
+`pstree` dibuja los procesos como un árbol, cada hijo debajo de su padre, y `-p` añade el PID de cada uno:
+
+```console
+$ pstree -p $$
+bash(2215)───pstree(2290)
+```
+
+`pstree` es hijo de la *shell* que lo ha lanzado.
+Sin argumentos, dibuja el árbol entero, desde el proceso con PID 1.

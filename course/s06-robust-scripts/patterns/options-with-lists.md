@@ -15,7 +15,7 @@ Cada rama del `case` consume con `shift` lo que ha usado, y el bucle termina cua
 
 ```bash
 #!/bin/bash
-error_exit() { echo "opciones.sh: $1" >&2; exit 1; }
+error_exit() { echo "opciones.sh: $1" >&2; exit "${2:-1}"; }
 
 n=10
 usuarios=()
@@ -87,8 +87,54 @@ Las ramas `--` y `-*` van después de todas las opciones conocidas, y `--` antes
 
 ### getopts
 
-`getopts` es la orden de bash para opciones cortas.
+`getopts` es el comando interno de bash para opciones cortas.
 Sirve cuando todas las opciones son de una letra y llevan como mucho un valor, pero no admite opciones largas como `--help` ni listas como `-u alu luis`.
+
+Cada vez que se ejecuta, `getopts` lee la siguiente opción,  deja su letra en una variable y termina con estado de salida 0, así que se usa como condición de un `while`:
+
+```bash
+#!/bin/bash
+error_exit() { echo "cortas.sh: $1" >&2; exit "${2:-1}"; }
+
+n=10
+while getopts ':n:h' opcion; do
+    case $opcion in
+        h)
+            echo "uso: cortas.sh [-n N] [-h] [--] fichero"
+            exit 0 ;;
+        n)
+            n=$OPTARG ;;
+        :)
+            error_exit "-$OPTARG necesita un valor" ;;
+        \?)
+            error_exit "opción desconocida: -$OPTARG" ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
+echo "n=$n argumentos=$* ($#)"
+```
+
+- **`':n:h'`** son las opciones que se aceptan.
+  Una letra seguida de `:`, como `n:`, lleva a continuación un valor, que `getopts` deja en `OPTARG`.
+- **El `:` del principio** hace que `getopts` no escriba sus propios mensajes de error.
+  Ante una opción desconocida, deja `?` en la variable, y ante una opción a la que le falta el valor, deja `:`.
+  En los dos casos, la letra de la opción queda en `OPTARG`.
+  En el `case`, `?` va escrito como `\?` porque sin escaparlo es un comodín.
+- **`OPTIND`** es la posición del siguiente argumento por leer.
+  Al terminar el bucle, `shift $(( OPTIND - 1 ))` quita las opciones y deja en `$1`, `$2`… los argumentos normales.
+
+`getopts` admite el valor pegado a la opción (`-n3`) y varias opciones juntas (`-hn 3`).
+A cambio, se detiene en el primer argumento que no es una opción, o en `--`, así que las opciones siempre tienen que ir delante de los argumentos normales:
+
+```console
+$ ./cortas.sh -n3 acceso.log
+n=3 argumentos=acceso.log (1)
+$ ./cortas.sh acceso.log -n 3
+n=10 argumentos=acceso.log -n 3 (3)
+```
+
+En la segunda orden, `-n 3` no se procesa: queda como dos argumentos normales más.
 
 ### Cuándo usar cada una
 

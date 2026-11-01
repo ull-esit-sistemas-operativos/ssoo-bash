@@ -28,6 +28,9 @@ $ echo *.pdf
 El segundo caso es la trampa típica: si ningún fichero encaja, bash deja el patrón tal cual.
 Una orden como `mv *.pdf docs/` recibiría entonces un fichero llamado literalmente `*.pdf` y fallaría.
 
+Los comodines no encajan con `/`, así que cada uno vale para un solo nivel de la ruta.
+`proyecto/*` da lo que hay dentro de `proyecto`, pero no lo de sus subdirectorios; para bajar un nivel, se escribe otro: `proyecto/*/*`.
+
 ## Ficheros ocultos
 
 Un **fichero oculto** es el que tiene un nombre que empieza por punto, como `.bashrc`.

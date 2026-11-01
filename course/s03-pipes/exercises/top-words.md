@@ -22,11 +22,12 @@ Los mensajes de error van al error estándar, y la salida estándar queda vacía
 | --- | --- | --- |
 | No recibe dos argumentos | `Uso: top_palabras.sh <fichero> <N>` | 1 |
 | No puede leer el fichero | `Error: no se puede leer FICHERO` | 2 |
-| N es menor que 1 | `Error: N tiene que ser 1 o más` | 1 |
+| N no es un número entero de 1 o más | `Error: N tiene que ser un número de 1 o más` | 1 |
 
 ::: details Pista
 
 Primero, una palabra por línea con `tr`; después, el patrón «Agregar por clave».
 Para desempatar, `sort` admite varias claves con `-k` (ver la [ficha de `sort`](../cards/sort.md)).
+`-lt` falla con un N como `2x`: comprueba antes con `=~` que N es un número (ver la [ficha de `[[ ]]`](../cards/test.md)).
 
 :::

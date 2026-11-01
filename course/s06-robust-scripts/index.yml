@@ -13,6 +13,7 @@ objectives: |
   - Dar valores por defecto con variables de entorno.
   - Detectar errores con `set -eu` y comprobaciones explícitas, y avisar por el error estándar.
   - Usar ficheros temporales y borrarlos siempre con `trap`.
+  - Cambiar texto en un flujo o en un fichero con `sed`, sin perder el original.
   - Encontrar fallos con ShellCheck y `bash -x`.
 content: class.md
 workspace:
@@ -77,22 +78,57 @@ lessons:
     collapsed: true
     description: |
       En la lectura ha aparecido el patrón opciones con lista: procesar las opciones de un *script* en cualquier orden con `while`, `case` y `shift`, incluidas las que reciben varios valores.
-      El patrón compara esta forma con `getopts` y dice cuándo conviene usar cada una.
+      El patrón enseña también `getopts`, que solo admite opciones cortas delante de los argumentos, y explica cuándo conviene usar cada alternativa.
     lessonParts:
       - id: options-with-lists
         title: "Opciones con lista"
         type: lecture
         content: patterns/options-with-lists.md
 
+  - id: sed
+    title: "sed"
+    collapsed: true
+    description: |
+      Edita texto línea a línea: cambia lo que encaje con una expresión regular, escribe o borra líneas por número o por patrón y modifica un fichero en su sitio.
+    lessonParts:
+      - id: card
+        title: "Ficha de sed"
+        type: lecture
+        content: cards/sed.md
+
+      - id: challenges
+        title: "Retos de sed"
+        type: terminal
+        content: challenges/sed.md
+        dependsOn: [s06:sed:card]
+        showTerminal: true
+
   - id: exercises
     title: "Ejercicios"
     collapsed: true
     description: |
-      Cuatro *scripts* con la estructura de la semana: opciones, variables de entorno, funciones, `set -eu`, ficheros temporales y `trap`.
+      Cinco *scripts* con la estructura de la semana: opciones, una ayuda con *here document*, variables de entorno, funciones, `set -eu`, ficheros temporales y `trap`.
       Cada uno se comprueba con *Comprobar ejercicio*.
-    duration: 100
+    duration: 120
     content: exercises/intro.md
     lessonParts:
+      - id: big-requests
+        title: "Peticiones grandes"
+        type: script
+        duration: 20
+        content: exercises/big-requests.md
+        showEditor: true
+        showTerminal: true
+        editors: [grandes.sh]
+        workspace:                          # workdir: exercises/s06/big-requests
+          starter: exercises/big-requests/starter
+        exercise:
+          solution: ../../solutions/s06/big-requests
+          script: grandes.sh
+          tests: exercises/big-requests/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
       - id: filter-code
         title: "Filtrar por código"
         type: script
@@ -110,20 +146,20 @@ lessons:
           shellcheck: { severity: info, notes: style }
           timeout: 5
 
-      - id: big-requests
-        title: "Peticiones grandes"
+      - id: filter-getopts
+        title: "Filtrar por código con getopts"
         type: script
         duration: 20
-        content: exercises/big-requests.md
+        content: exercises/filter-getopts.md
         showEditor: true
         showTerminal: true
-        editors: [grandes.sh]
-        workspace:                          # workdir: exercises/s06/big-requests
-          starter: exercises/big-requests/starter
+        editors: [filtro.sh]
+        workspace:                          # workdir: exercises/s06/filter-getopts
+          starter: exercises/filter-getopts/starter
         exercise:
-          solution: ../../solutions/s06/big-requests
-          script: grandes.sh
-          tests: exercises/big-requests/tests
+          solution: ../../solutions/s06/filter-getopts
+          script: filtro.sh
+          tests: exercises/filter-getopts/tests
           shellcheck: { severity: info, notes: style }
           timeout: 5
 

@@ -1,11 +1,11 @@
-Por defecto, bash sigue adelante aunque un comando falle.
+Por defecto, bash sigue adelante aunque una orden falle.
 Un `cd` que falla seguido de un `rm *` puede borrar el directorio equivocado.
 
 Hay dos opciones de bash que conviene activar al principio de todo *script*:
 
 - **`set -e`.**
-  El *script* termina en cuanto un comando falla.
-  No se aplica a los comandos que son condición de un `if` o un `while`, ni a los que van antes de `&&` o `||`, porque ahí el fallo es esperado.
+  El *script* termina en cuanto una orden falla.
+  No se aplica a las órdenes que son condición de un `if` o un `while`, ni a las que van antes de `&&` o `||`, porque ahí el fallo es esperado.
 - **`set -u`.**
   Usar una variable que no existe es un error, en lugar de valer la cadena vacía.
   Permite, por ejemplo, detectar las erratas en los nombres de variable.
@@ -35,7 +35,7 @@ Por eso, después del bucle que procesa las opciones, debemos comprobar todo lo 
 
 ```bash
 [[ -n $log ]] || error_exit "falta el fichero de log"
-[[ -r $log ]] || error_exit "no se puede leer $log"
+[[ -r $log ]] || error_exit "no se puede leer $log" 2
 [[ $top =~ ^[0-9]+$ ]] || error_exit "el valor de -n debe ser un número: $top"
 [[ ${#codigos[@]} -gt 0 ]] || codigos=(404)
 command -v awk > /dev/null || error_exit "no se encuentra awk"

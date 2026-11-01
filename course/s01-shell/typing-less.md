@@ -11,7 +11,7 @@ Estas son las ayudas que más tiempo ahorran desde el primer día:
   Cada nueva pulsación salta a la coincidencia anterior; [[Enter]] la ejecuta y las flechas la dejan lista para editar.
 - **`!!`.**
   Se sustituye por la orden anterior completa.
-  El uso típico es `sudo !!` cuando ejecutamos un comando que tenemos que repetir porque se nos olvidó usarlo con `sudo`.
+  El uso típico es `sudo !!` cuando ejecutamos una orden que tenemos que repetir porque se nos olvidó usarla con `sudo`.
 - **`!$`.**
   Se sustituye por el último argumento de la orden anterior.
 - **[[Alt]]+[[.]].**

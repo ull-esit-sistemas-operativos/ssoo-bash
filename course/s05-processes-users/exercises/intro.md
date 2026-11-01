@@ -7,6 +7,8 @@ Los procesos y las sesiones de tu equipo cambian a cada momento, así que los ej
 
 Cuando el *script* funcione con ellas, pruébalo también con los datos reales: `ps -e -o pid,user,stat,comm > ahora.txt`.
 
+«Límite de tiempo» es la excepción: lanza sus propios procesos, así que trabaja con procesos reales.
+
 1. Escribe el *script* debajo del comentario.
 2. Pruébalo en el terminal, por ejemplo `bash estados.sh ps.txt`, también con nombres con espacios y con los casos de error.
 3. Pulsa **Comprobar ejercicio**, o ejecuta `check` en el terminal.

@@ -13,11 +13,11 @@ bats_load_library check_helpers
   assert_output $'mal.csv: línea 3: no tiene tres campos\nmal.csv: línea 4: nota no válida: 11\nmal.csv: línea 5: falta el alumno o la asignatura\nmal.csv: línea 6: no tiene tres campos\nErrores: 4'
 }
 
-@test "una nota es un número de 0 a 10, con decimales, o está vacía" {
-  printf 'alumno,asignatura,nota\na,X,0\nb,X,10\nc,X,9.25\nd,X,\ne,X,10.5\nf,X,siete\n' > notas2.csv
+@test "una nota es un número de 0 a 10, con decimales, también 10.0, o está vacía" {
+  printf 'alumno,asignatura,nota\na,X,0\nb,X,10\nc,X,9.25\nd,X,\ne,X,10.0\nf,X,10.5\ng,X,siete\n' > notas2.csv
   run_script notas2.csv
   assert_failure 3
-  assert_output $'notas2.csv: línea 6: nota no válida: 10.5\nnotas2.csv: línea 7: nota no válida: siete\nErrores: 2'
+  assert_output $'notas2.csv: línea 7: nota no válida: 10.5\nnotas2.csv: línea 8: nota no válida: siete\nErrores: 2'
 }
 
 @test "comprueba la cabecera" {

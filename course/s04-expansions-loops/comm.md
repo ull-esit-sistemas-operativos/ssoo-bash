@@ -6,7 +6,7 @@ Las opciones `-1`, `-2` y `-3` ocultan cada columna, así que `comm -23 a b` dej
 Si los ficheros no están ordenados, el resultado es incorrecto.
 
 Si el contenido de `a` y `b` no está en ficheros, sino que es la salida de otros comandos, no hace falta crear ficheros intermedios.
-La sintaxis `<(comando)` es la **sustitución de procesos**: bash ejecuta el comando y pone en su lugar el nombre de un fichero especial del que se lee esa salida.
+La sintaxis `<(orden)` es la **sustitución de procesos**: bash ejecuta la orden y pone en su lugar el nombre de un fichero especial del que se lee esa salida.
 
 ```console
 $ comm -23 <(sort alumnos.txt) <(tail -n +2 notas.csv | cut -d, -f1 | sort -u)

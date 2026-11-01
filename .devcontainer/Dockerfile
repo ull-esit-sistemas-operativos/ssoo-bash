@@ -18,9 +18,12 @@ RUN set -eux; \
 
 # The student user is alu, as in the lectures (/home/alu), instead of the base image's vscode.
 # It keeps its UID (1000), groups and passwordless sudo.
+# The full name and the secondary group alumnos (GID 1001) match the week 5 examples.
 RUN set -eux; \
     usermod -l alu -d /home/alu -m vscode; \
     groupmod -n alu vscode; \
+    groupadd -g 1001 alumnos; \
+    usermod -aG alumnos -c 'Alumno ULL' alu; \
     sed -i 's/^vscode /alu /' /etc/sudoers.d/vscode; \
     mv /etc/sudoers.d/vscode /etc/sudoers.d/alu; \
     grep -rlI /home/vscode /home/alu | xargs -r sed -i 's|/home/vscode|/home/alu|g'; \

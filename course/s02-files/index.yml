@@ -10,7 +10,7 @@ objectives: |
   - Copiar, mover, renombrar y borrar ficheros y directorios.
   - Seleccionar grupos de ficheros con comodines y saber quién los expande.
   - Distinguir enlaces duros y simbólicos.
-  - Leer y cambiar permisos en notación simbólica y octal, y entender `umask`.
+  - Leer y cambiar permisos en notación simbólica y octal, y entender `umask` y los permisos especiales.
   - Buscar ficheros por nombre, tipo, tamaño y fecha con `find`, y actuar sobre ellos.
   - Usar variables, comprobar el número de argumentos y terminar un *script* con un código de salida.
 content: class.md
@@ -79,6 +79,32 @@ lessons:
         title: "Predice qué sale"
         type: quiz
         content: predict-output.md
+        showTerminal: true
+
+  - id: wildcards
+    title: "Comodines"
+    collapsed: true
+    description: |
+      Practica cómo expande la *shell* los comodines: qué nombres encajan, qué pasa con los ficheros ocultos y cómo bajar a los subdirectorios.
+    lessonParts:
+      - id: challenges
+        title: "Retos de comodines"
+        type: terminal
+        content: challenges/wildcards.md
+        dependsOn: [s02:lecture:wildcards]
+        showTerminal: true
+
+  - id: links
+    title: "Enlaces"
+    collapsed: true
+    description: |
+      Practica la diferencia entre enlaces duros y simbólicos: qué queda al borrar el original, a dónde apunta un enlace y por qué se rompe.
+    lessonParts:
+      - id: challenges
+        title: "Retos de enlaces"
+        type: terminal
+        content: challenges/links.md
+        dependsOn: [s02:lecture:links]
         showTerminal: true
 
   - id: find

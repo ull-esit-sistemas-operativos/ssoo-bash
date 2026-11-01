@@ -72,3 +72,24 @@ printf -- '-%.0s' {1..20}; echo
 El `--` evita que `printf` tome el formato por una opción, y el `echo` final pone el salto de línea.
 
 :::
+
+## Reto 5 · Combina
+
+Recorre `proyecto/*` e imprime solo las entradas que son directorios, cada una con una `/` al final.
+
+::: details Solución
+
+```bash
+for f in proyecto/*; do
+    [[ -d $f ]] && printf '%s/\n' "$f"
+done
+```
+
+```text
+proyecto/docs/
+proyecto/src/
+```
+
+`proyecto/*` no incluye `.oculto`, pero tampoco haría falta: es un fichero.
+
+:::

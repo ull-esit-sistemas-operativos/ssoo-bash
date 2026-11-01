@@ -120,7 +120,7 @@ Funciones:
 
 ```bash
 # Media por asignatura
-LC_ALL=C awk -F, 'NR > 1 { suma[$2] += $3; n[$2]++ } END { for (a in suma) printf "%s %.2f\n", a, suma[a] / n[a] }' notas.csv
+LC_ALL=C awk -F, 'NR > 1 && $3 != "" { suma[$2] += $3; n[$2]++ } END { for (a in suma) printf "%s %.2f\n", a, suma[a] / n[a] }' notas.csv
 ```
 
 ```bash
@@ -174,7 +174,7 @@ FP 7.25
 SSOO 7.00
 ```
 
-Sumar y contar por clave con un *array* es el patrón «[Agregar por clave](../../s03-pipes/patterns/aggregate-by-key.md)».
+Sumar y contar por clave con un *array* es el patrón «[Agregar por clave con awk](../patterns/aggregate-with-awk.md)».
 
 ## Errores frecuentes
 
@@ -235,4 +235,4 @@ ana;SSOO;7.5
 
 ## Ver también
 
-`man awk` · [ficha de `printf`](printf.md) (formatos) · [ficha de `cut`](../../s03-pipes/cards/cut.md) · [ficha de `sort`](../../s03-pipes/cards/sort.md) · patrón «[Agregar por clave](../../s03-pipes/patterns/aggregate-by-key.md)»
+`man awk` · [ficha de `printf`](printf.md) (formatos) · [ficha de `cut`](../../s03-pipes/cards/cut.md) · [ficha de `sort`](../../s03-pipes/cards/sort.md) · patrón «[Agregar por clave con awk](../patterns/aggregate-with-awk.md)»

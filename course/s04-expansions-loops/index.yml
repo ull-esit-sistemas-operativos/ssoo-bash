@@ -12,7 +12,7 @@ description: |
 objectives: |
   - Conocer el orden en que bash aplica las expansiones y predecir su resultado.
   - Elegir el tipo de comillas adecuado en cada caso.
-  - Guardar la salida de un comando con la sustitución de comandos.
+  - Guardar la salida de un comando con la sustitución de comandos, y recortar, medir o cambiar el valor de una variable con las expansiones de parámetros.
   - Escribir expresiones regulares básicas y extendidas para `grep`.
   - Procesar texto por campos con `awk`: condiciones, sumas, medias y agrupaciones.
   - Detectar cuándo los decimales de los datos no coinciden con la configuración regional, y resolverlo adaptando los datos o la configuración.
@@ -128,6 +128,11 @@ lessons:
         title: "Recorrer ficheros"
         type: lecture
         content: patterns/loop-over-files.md
+
+      - id: aggregate-with-awk
+        title: "Agregar por clave con awk"
+        type: lecture
+        content: patterns/aggregate-with-awk.md
 
       - id: aligned-tables
         title: "Tablas alineadas"

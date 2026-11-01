@@ -14,7 +14,7 @@ fichero=
 # Funciones
 error_exit() {
     echo "$(basename "$0"): $1" >&2
-    exit 1
+    exit "${2:-1}"
 }
 
 uso() {
@@ -50,7 +50,7 @@ done
 
 # Comprobaciones
 [[ -n $fichero ]] || error_exit "falta el fichero"
-[[ -r $fichero ]] || error_exit "no se puede leer $fichero"
+[[ -r $fichero ]] || error_exit "no se puede leer $fichero" 2
 
 # Lógica
 ```

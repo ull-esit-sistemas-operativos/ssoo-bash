@@ -34,9 +34,9 @@ marta tiene 8.5 en FP
 
 Si el fichero no tiene cabecera, la redirección es directa: `done < fichero`.
 
-### while read desde un comando
+### while read desde una orden
 
-La salida de un comando se conecta con `done < <(comando)`, la sustitución de procesos, o con una tubería (`comando | while read …`).
+La salida de una orden se conecta con `done < <(orden)`, la sustitución de procesos, o con una tubería (`orden | while read …`).
 Las dos leen igual, pero solo la primera conserva las variables del bucle al terminar (ver el apartado «[Errores frecuentes](#errores-frecuentes)»):
 
 ```bash
@@ -52,8 +52,8 @@ Sin `IFS=`, `read` separa por blancos y se salta los del principio, así que sir
 | Forma | Cuándo |
 | --- | --- |
 | `while read … done < fichero` | Un fichero entero |
-| `while read … done < <(comando)` | La salida de un comando, y hacen falta las variables después del bucle |
-| `comando \| while read …` | La salida de un comando, y todo se resuelve dentro del bucle |
+| `while read … done < <(orden)` | La salida de una orden, y hacen falta las variables después del bucle |
+| `orden \| while read …` | La salida de una orden, y todo se resuelve dentro del bucle |
 | `awk` | Solo hay que filtrar, contar o calcular, sin ejecutar otros comandos por línea: es más rápido |
 
 ## En otros contextos

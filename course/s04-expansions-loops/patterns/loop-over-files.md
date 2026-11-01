@@ -28,17 +28,18 @@ Dentro del bucle, `"$f"` debe ir siempre entre comillas.
 
 ### find con -exec
 
-Para un árbol entero, o para elegir los ficheros por tipo, tamaño o fecha, cuando basta con ejecutar un comando sobre cada uno:
+Para un árbol entero, o para elegir los ficheros por tipo, tamaño o fecha, cuando basta con ejecutar una orden sobre cada uno:
 
 ```bash
 find proyecto -type f -name '*.txt' -exec wc -c {} +
 ```
 
-Con `+`, `find` ejecuta el comando una vez con muchos ficheros; con `\;`, una vez por fichero.
+Con `+`, `find` ejecuta la orden una vez con muchos ficheros; con `\;`, una vez por fichero.
 
 ### find con -print0 y while read
 
 Cuando hay que hacer varias cosas con cada fichero, `find` separa las rutas con un carácter nulo y `read -d ''` las lee una a una.
+`while read` se explica en la semana 5; aquí basta con saber que repite el cuerpo del bucle con cada ruta.
 El carácter nulo es el único que no puede aparecer en un nombre:
 
 ```bash
@@ -60,7 +61,7 @@ done < <(find proyecto -type f -print0)
 | Forma | Cuándo |
 | --- | --- |
 | `for f in dir/*` | Un solo directorio, sin bajar a subdirectorios |
-| `find … -exec cmd {} +` | Un árbol, y basta con un comando por fichero |
+| `find … -exec cmd {} +` | Un árbol, y basta con una orden por fichero |
 | `find … -print0` y `while read -d ''` | Un árbol, y hay varias órdenes o variables que conservar |
 
 ## En otros contextos
@@ -101,7 +102,7 @@ Se evita comprobando que existe (`[[ -e $f ]] || continue`) o con `shopt -s null
 `find` sí los incluye.
 
 **Variables que se pierden en una tubería.**
-Con `find … | while read`, el bucle se ejecuta en otro proceso y cualquier variable modificads en el cuerpo del bucle pierde los cambios.
+Con `find … | while read`, el bucle se ejecuta en otro proceso y cualquier variable modificada en el cuerpo del bucle pierde los cambios.
 Con `done < <(find …)`, el bucle se ejecuta en la *shell* actual:
 
 ```bash

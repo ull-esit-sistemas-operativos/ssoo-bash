@@ -12,6 +12,14 @@ bats_load_library check_helpers
   assert_output "1"
 }
 
+@test "el patrón puede empezar por guion" {
+  printf 'uno\nopción -v\ndos\n' > guion.txt
+  run_script -v guion.txt
+  assert_success
+  assert_output "1" ||
+    fail "Se esperaba 1 y ha salido «$output»: grep toma -v por una opción; con grep -e el patrón llega como patrón"
+}
+
 @test "funciona con un fichero cuyo nombre tiene espacios" {
   cp texto.txt "mi texto.txt"
   run_script gato "mi texto.txt"

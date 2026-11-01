@@ -10,6 +10,9 @@ $ echo 1:05:10 | awk -F: '{ s = 0; for (i = 1; i <= NF; i++) s = s * 60 + $i; pr
 3910
 ```
 
+Si el tiempo viene de `etime`, puede llevar además los días delante con un guion, como `2-03:04:05`.
+El patrón «[Tiempos a segundos](patterns/times-to-seconds.md)» explica cómo separarlos.
+
 El patrón se aplica igual a la hora de una línea del *log*.
 Por ejemplo, en `[21/Oct/2026:10:15:32`, `cut -d: -f2-4` extrae `10:15:32`, que se puede convertir a segundos con la orden anterior.
 Para procesos no hace falta convertir nada, porque la columna `etimes` de `ps` ya da los segundos.

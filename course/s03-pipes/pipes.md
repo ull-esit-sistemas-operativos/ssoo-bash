@@ -39,3 +39,28 @@ Cuenta cuántas veces aparece cada valor y los ordena de más a menos frecuente,
 El estado de salida de una tubería es el de su último comando.
 Si `cut` falla porque el fichero no existe, pero `head` termina bien, la tubería entera devuelve 0.
 Veremos cómo cambiar eso en la semana 6.
+
+## De líneas a argumentos: `xargs`
+
+Algunos comandos, como `rm`, `ls` o `wc` con nombres de fichero, no leen de la entrada estándar lo que tienen que tratar, sino de sus argumentos.
+**`xargs`** hace de puente: lee palabras de la entrada estándar y ejecuta el comando que se le indica con ellas como argumentos.
+
+```console
+$ find proyecto -name '*.[ch]' | xargs wc -c
+   0 proyecto/src/util.h
+2048 proyecto/src/main.c
+2048 total
+```
+
+`xargs` separa las palabras por los espacios y los saltos de línea, así que un nombre con espacios llega partido:
+
+```console
+$ find proyecto -name '*.txt' | xargs wc -c
+wc: proyecto/docs/guía: No existe el fichero o el directorio
+wc: de: No existe el fichero o el directorio
+wc: uso.txt: No existe el fichero o el directorio
+0 total
+```
+
+Con `find`, la solución es separar los nombres con un carácter nulo, que no puede aparecer en una ruta (con `-print0`) y usar `-0` en `xargs` para indicarle que los trate como separados por nulos: `find proyecto -name '*.txt' -print0 | xargs -0 wc -c`.
+Si `find` no encuentra nada, `xargs` ejecuta el comando igualmente, sin argumentos; con `-r`, no lo ejecuta.

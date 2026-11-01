@@ -101,3 +101,27 @@ GET /tema2.html HTTP/1.1
 Con `"` como separador, el campo 2 es lo que va entre las primeras comillas.
 
 :::
+
+## Reto 6 · Combina
+
+```quiz
+- id: "6"
+  type: string
+  content: |
+    ¿Cuántos subdirectorios hay directamente dentro de `proyecto`?
+    Resuélvelo con `ls` y `grep`, sin contarlos a mano.
+  options:
+    - id: a
+      value: "2"
+```
+
+::: details Solución
+
+```bash
+ls -l proyecto | grep -c '^d'
+```
+
+`2`.
+En `ls -l`, la primera letra de cada línea es el tipo, y `d` es directorio.
+
+:::

@@ -7,7 +7,7 @@ printf FORMATO [argumento...]
 
 Cada `%` del formato consume un argumento.
 Si sobran argumentos, el formato se repite con los siguientes.
-Es una orden interna de bash, pero `awk` tiene un `printf` con los mismos formatos.
+Es un comando interno de bash, pero `awk` tiene un `printf` con los mismos formatos.
 
 ## Ejemplo
 
@@ -117,7 +117,7 @@ done
    marta;FP;8,5
    ```
 
-5. El `while` lee cada línea separando por `;`, y `printf` escribe el alumno en 8 columnas y la nota en 5, con dos decimales. Con la cabecera queda:
+5. El `while` lee cada línea separando por `;` (`while read` se explica en la semana 5), y `printf` escribe el alumno en 8 columnas y la nota en 5, con dos decimales. Con la cabecera queda:
 
    ```text
    ALUMNO    NOTA

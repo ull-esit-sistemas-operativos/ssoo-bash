@@ -8,9 +8,9 @@ description: |
   También aprenderemos a recorrer una salida línea a línea y a elegir entre varios casos, dos herramientas imprescindibles para tratar esos datos.
   El *script* de la semana, `usuarios.sh`, muestra una tabla con los procesos y la memoria de cada usuario y si está conectado.
 objectives: |
-  - Explicar qué es un proceso y consultar sus datos con `ps` y `pgrep`.
+  - Explicar qué es un proceso y consultar sus datos con `ps`, `pgrep`, `pstree` y `/proc`.
   - Enviar señales con `kill` y elegir la adecuada.
-  - Controlar trabajos en primer y segundo plano.
+  - Controlar trabajos en primer y segundo plano, y esperar desde un *script* a los procesos lanzados con `&` usando `$!` y `wait`.
   - Consultar usuarios y grupos con `id`, `who` y `/etc/passwd`, y ficheros abiertos con `lsof`.
   - Recorrer líneas con `while read`, esperar con `until` y pedir datos con `read -p`.
   - Elegir entre varios casos con `case` y convertir tiempos a segundos.
@@ -195,28 +195,12 @@ lessons:
     title: "Ejercicios"
     collapsed: true
     description: |
-      Cuatro *scripts* cortos con lo de la semana: `while read`, `case`, `read -p` y tiempos a segundos, sobre salidas guardadas de `ps` y `who`.
+      Cinco *scripts* cortos con lo de la semana.
+      Cuatro usan `while read`, `case`, `read -p` y tiempos a segundos sobre salidas guardadas de `ps` y `who`; el quinto lanza y vigila un proceso real con `$!`, `kill -0` y `wait`.
       Cada uno se comprueba con *Comprobar ejercicio*.
-    duration: 90
+    duration: 110
     content: exercises/intro.md
     lessonParts:
-      - id: to-seconds
-        title: "Tiempos a segundos"
-        type: script
-        duration: 25
-        content: exercises/to-seconds.md
-        showEditor: true
-        showTerminal: true
-        editors: [segundos.sh]
-        workspace:                          # workdir: exercises/s05/to-seconds
-          starter: exercises/to-seconds/starter
-        exercise:
-          solution: ../../solutions/s05/to-seconds
-          script: segundos.sh
-          tests: exercises/to-seconds/tests
-          shellcheck: { severity: info, notes: style }
-          timeout: 5
-
       - id: sessions
         title: "Sesiones de un usuario"
         type: script
@@ -265,5 +249,39 @@ lessons:
           solution: ../../solutions/s05/confirm-delete
           script: borrar.sh
           tests: exercises/confirm-delete/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: time-limit
+        title: "Límite de tiempo"
+        type: script
+        duration: 20
+        content: exercises/time-limit.md
+        showEditor: true
+        showTerminal: true
+        editors: [limite.sh]
+        workspace:                          # workdir: exercises/s05/time-limit
+          starter: exercises/time-limit/starter
+        exercise:
+          solution: ../../solutions/s05/time-limit
+          script: limite.sh
+          tests: exercises/time-limit/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 10
+
+      - id: to-seconds
+        title: "Tiempos a segundos"
+        type: script
+        duration: 25
+        content: exercises/to-seconds.md
+        showEditor: true
+        showTerminal: true
+        editors: [segundos.sh]
+        workspace:                          # workdir: exercises/s05/to-seconds
+          starter: exercises/to-seconds/starter
+        exercise:
+          solution: ../../solutions/s05/to-seconds
+          script: segundos.sh
+          tests: exercises/to-seconds/tests
           shellcheck: { severity: info, notes: style }
           timeout: 5

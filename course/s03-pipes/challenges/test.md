@@ -101,15 +101,17 @@ No se cumple: `README.md` existe, pero está vacío.
 
 ## Reto 5 · Combina
 
-Para cada valor de la lista `42`, `4.2`, `-3` y la cadena vacía, imprime si es un número entero sin signo.
+Comprueba uno a uno si los valores `42`, `4.2`, `-3` y la cadena vacía son números enteros sin signo.
+Usa una variable `v` y la misma condición para todos.
 
 ::: details Solución
 
 ```bash
 re='^[0-9]+$'
-for v in 42 4.2 -3 ''; do
-    [[ $v =~ $re ]] && echo "[$v] sí" || echo "[$v] no"
-done
+v=42;  [[ $v =~ $re ]] && echo "[$v] sí" || echo "[$v] no"
+v=4.2; [[ $v =~ $re ]] && echo "[$v] sí" || echo "[$v] no"
+v=-3;  [[ $v =~ $re ]] && echo "[$v] sí" || echo "[$v] no"
+v='';  [[ $v =~ $re ]] && echo "[$v] sí" || echo "[$v] no"
 ```
 
 ```text
@@ -123,19 +125,23 @@ done
 
 ## Reto 6 · Combina
 
-Recorre `proyecto/*` e imprime solo las entradas que son directorios.
+Si `acceso.log` tiene más de 5 líneas, imprime cuántas tiene; si no, imprime «pocas peticiones».
 
 ::: details Solución
 
 ```bash
-for f in proyecto/*; do
-    [[ -d $f ]] && echo "$f"
-done
+n=$(wc -l < acceso.log)
+if [[ $n -gt 5 ]]; then
+    echo "$n peticiones"
+else
+    echo "pocas peticiones"
+fi
 ```
 
 ```text
-proyecto/docs
-proyecto/src
+6 peticiones
 ```
+
+`$(wc -l < acceso.log)` guarda en `n` solo el número, sin el nombre del fichero, como en `resumen_log.sh`.
 
 :::

@@ -8,7 +8,7 @@ kill -l [NÚMERO]
 ```
 
 La señal se da por nombre (`-TERM`, `-s TERM`) o por número (`-15`).
-En bash, `kill` es una orden interna y también acepta trabajos: `kill %1`.
+En bash, `kill` es un comando interno y también acepta trabajos: `kill %1`.
 
 ## Ejemplo
 
@@ -84,7 +84,8 @@ tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
 ```
 
-`xargs -r` pasa los PID que recibe como argumentos de `kill`, y no lo ejecuta si no recibe ninguno.
+`xargs -r` pasa los PID que recibe como argumentos de `kill`, y no ejecuta el comando si no recibe ninguno.
+`xargs` se explica en [Tuberías](../../s03-pipes/pipes.md).
 
 ## Errores frecuentes
 

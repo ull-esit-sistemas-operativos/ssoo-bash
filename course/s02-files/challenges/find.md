@@ -57,36 +57,36 @@ proyecto/src/main.c
 - id: "4"
   type: string
   content: |
-    ¿Cuántos bytes ocupan en total los ficheros de `proyecto`?
-    Resuélvelo con `find` y `awk`.
+    ¿Qué fichero de `proyecto` ocupa más de 1 KiB?
+    Escribe su ruta tal y como la muestra `find`.
   options:
     - id: a
-      value: "2053"
+      value: "proyecto/src/main.c"
 ```
 
 ::: details Solución
 
 ```bash
-find proyecto -type f -printf '%s\n' | awk '{ s += $1 } END { print s }'
+find proyecto -type f -size +1k
 ```
 
-`2053`: los 2048 de `main.c` y los 5 de `.oculto`.
+`proyecto/src/main.c`, que tiene 2048 bytes.
+`-size` redondea hacia arriba, así que `.oculto`, con 5 bytes, cuenta como 1 KiB y no lo supera.
 
 :::
 
 ## Reto 5 · Prueba
 
-Muestra cuántos bytes tiene cada fichero `.txt` de `proyecto`, aunque su nombre tenga espacios, ejecutando `wc` desde el propio `find`.
+Muestra con `ls -l` los datos de cada fichero `.txt` de `proyecto`, aunque su nombre tenga espacios, ejecutando `ls` desde el propio `find`.
 
 ::: details Solución
 
 ```bash
-find proyecto -name '*.txt' -exec wc -c {} +
+find proyecto -name '*.txt' -exec ls -l {} +
 ```
 
-```text
-0 proyecto/docs/guía de uso.txt
-```
+Sale una sola línea, la de `proyecto/docs/guía de uso.txt`, con tamaño 0.
+En la terminal, `ls` muestra el nombre entre comillas simples porque tiene espacios.
 
 `find` pasa cada ruta como un solo argumento, así que el espacio del nombre no la parte.
 

@@ -59,3 +59,32 @@ who | cut -d' ' -f1 | sort | uniq -c | sort -rn | head -n 1
 ```
 
 :::
+
+## Reto 4 · Combina
+
+Este reto es sobre tu propia máquina, no sobre `who.txt`.
+Ejecuta `sleep 300` en una terminal.
+Desde otra, dibuja con `pstree` la cadena de procesos que lleva hasta ese `sleep` y muestra en qué terminal se ejecuta.
+
+::: details Solución
+
+```bash
+pstree -p -s "$(pgrep -n -x sleep)"
+ps -o tty= -p "$(pgrep -n -x sleep)"
+```
+
+En una máquina a la que nos conectamos por SSH, sale algo así:
+
+```text
+systemd(1)───sshd(812)───sshd(2201)───bash(2215)───sleep(2290)
+pts/0
+```
+
+`-s` dibuja los antepasados del proceso en vez de sus hijos, y `pgrep -n` se queda con el `sleep` más reciente, por si hay varios.
+El `sleep` cuelga de la `bash` de la terminal `pts/0`, que es la que `who` muestra en su segunda columna, y es lo que `w` pondría en la columna `WHAT` de esa sesión.
+La cadena de antes de la `bash` cambia de una máquina a otra.
+Por ejemplo, en Codespaces no hay `sshd`.
+
+Termina el `sleep` con [[Ctrl]]+[[C]].
+
+:::

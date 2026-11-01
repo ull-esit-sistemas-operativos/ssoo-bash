@@ -9,7 +9,7 @@ test EXPRESIÓN       # POSIX
 [ EXPRESIÓN ]        # POSIX, igual que test
 ```
 
-Los espacios junto a los corchetes son obligatorios: pues `[[` es una palabra.
+Los espacios junto a los corchetes son obligatorios, porque `[[` es una palabra aparte.
 En los *scripts* del curso se usa `[[ ]]` pero podemos encontrarnos `test` y `[ ]` en *scripts* antiguos y en los que tienen que funcionar en `sh`.
 
 ## Ejemplo

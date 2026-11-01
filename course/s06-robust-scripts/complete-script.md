@@ -15,7 +15,7 @@ log=
 error_exit() {
     echo "$(basename "$0"): $1" >&2
     echo "Prueba «$(basename "$0") -h» para ver la ayuda." >&2
-    exit 1
+    exit "${2:-1}"
 }
 
 uso() {
@@ -70,7 +70,7 @@ done
 
 # Comprobaciones
 [[ -n $log ]] || error_exit "falta el fichero de log"
-[[ -r $log ]] || error_exit "no se puede leer $log"
+[[ -r $log ]] || error_exit "no se puede leer $log" 2
 [[ $top =~ ^[0-9]+$ ]] || error_exit "el valor de -n debe ser un número: $top"
 [[ ${#codigos[@]} -gt 0 ]] || codigos=(404)
 

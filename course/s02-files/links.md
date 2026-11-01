@@ -14,8 +14,20 @@ Para eso existen los enlaces, que se crean con `ln`.
 ```console
 $ ln -s /home/alu/ssoo/datos datos
 $ ls -l datos
-lrwxrwxrwx 1 alu alumnos 20 oct 22 11:02 datos -> /home/alu/ssoo/datos
+lrwxrwxrwx 1 alu alu 20 oct 22 11:02 datos -> /home/alu/ssoo/datos
 ```
 
 La `l` inicial indica que es un enlace simbólico y la flecha muestra a dónde apunta.
 El número de la segunda columna de `ls -l` es el número de enlaces duros del fichero.
+
+`readlink` escribe la ruta que guarda un enlace simbólico, y `readlink -f`, la ruta absoluta del fichero al que lleva, como `realpath`:
+
+```console
+$ readlink datos
+/home/alu/ssoo/datos
+```
+
+`ln -s` guarda la ruta tal cual, sin comprobar que exista.
+Si es relativa, se sigue desde el directorio donde está el enlace, no desde donde estábamos al crearlo.
+Por eso `ln -s notas.csv proyecto/notas` crea un enlace roto: lleva a `proyecto/notas.csv`.
+Desde `proyecto`, el fichero es `../notas.csv`, y esa es la ruta que tiene que guardar el enlace: `ln -s ../notas.csv proyecto/notas`.

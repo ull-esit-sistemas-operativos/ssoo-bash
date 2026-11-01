@@ -42,6 +42,17 @@ setup() {
   assert_file_exists "mis apuntes/a b.md"
 }
 
+@test "si el fichero nuevo ya existe, no lo sobrescribe, lo dice por stderr y termina con código 4" {
+  echo "no me borres" > apuntes/tema2.md
+  run_script apuntes txt md
+  ((status == 4)) || fail "Se esperaba el código de salida 4 y ha sido $status"
+  assert_stderr --partial "apuntes/tema2.md ya existe"
+  [[ $(< apuntes/tema2.md) == "no me borres" ]] ||
+    fail "Se ha sobrescrito apuntes/tema2.md: comprueba con -e si el nombre nuevo ya existe antes de mover"
+  assert_file_exists apuntes/tema2.txt
+  assert_file_exists "apuntes/tema 1.md"
+}
+
 @test "sin tres argumentos muestra el uso por stderr y termina con código 1" {
   run_script apuntes txt
   assert_failure 1

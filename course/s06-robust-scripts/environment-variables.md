@@ -6,7 +6,7 @@ Las variables normales no se pasan: hay que marcarlas con `export`.
 También se puede dar una variable a una sola orden, escribiéndola delante:
 
 ```bash
-export RESUMEN_TOP=5                        # Para todos los comandos de esta shell
+export RESUMEN_TOP=5                        # Para todas las órdenes de esta shell
 RESUMEN_TOP=5 ./resumen_log.sh acceso.log   # Solo para esta ejecución
 ```
 

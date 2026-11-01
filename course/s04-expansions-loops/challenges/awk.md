@@ -168,3 +168,27 @@ verde
 `visto[$0]++` vale 0 la primera vez que aparece una línea, así que `!` la deja pasar solo esa vez.
 
 :::
+
+## Reto 9 · Combina
+
+```quiz
+- id: "9"
+  type: string
+  content: |
+    ¿Cuántos bytes ocupan en total los ficheros de `proyecto`?
+    Resuélvelo con `find` y `awk`.
+  options:
+    - id: a
+      value: "2053"
+```
+
+::: details Solución
+
+```bash
+find proyecto -type f -printf '%s\n' | awk '{ s += $1 } END { print s }'
+```
+
+`2053`: los 2048 de `main.c` y los 5 de `.oculto`.
+Los demás ficheros están vacíos.
+
+:::

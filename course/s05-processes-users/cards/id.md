@@ -15,7 +15,7 @@ Para saber quién está conectado se usa `who` (ver la [ficha de `who` y `w`](wh
 
 ```console
 $ id
-uid=1001(alu) gid=1001(alu) groups=1001(alu),1002(alumnos)
+uid=1000(alu) gid=1000(alu) groups=1000(alu),1001(alumnos)
 $ id -un
 alu
 $ id -Gn
@@ -38,7 +38,7 @@ alu : alu alumnos
 
 Atajos de la misma familia:
 
-| Orden | Equivale a | Diferencia |
+| Comando | Equivale a | Diferencia |
 | --- | --- | --- |
 | `whoami` | `id -un` | Solo para el usuario actual |
 | `groups` | `id -Gn` | Con un usuario como argumento, antepone `usuario :` |
@@ -48,14 +48,14 @@ Cuando las cuentas están centralizadas en un servidor, no todos los usuarios ni
 
 ## Tablas de referencia
 
-Campos de `/etc/passwd`, separados por `:`; usando como ejemplo la línea `alu:x:1001:1001:Alumno ULL:/home/alu:/bin/bash`:
+Campos de `/etc/passwd`, separados por `:`; usando como ejemplo la línea `alu:x:1000:1000:Alumno ULL:/home/alu:/bin/bash`:
 
 | Campo | Ejemplo | Contiene |
 | --- | --- | --- |
 | 1 | `alu` | Nombre de usuario |
 | 2 | `x` | Contraseña. La `x` indica que está en `/etc/shadow` |
-| 3 | `1001` | UID |
-| 4 | `1001` | GID del grupo principal |
+| 3 | `1000` | UID |
+| 4 | `1000` | GID del grupo principal |
 | 5 | `Alumno ULL` | Nombre completo y otros datos (GECOS) |
 | 6 | `/home/alu` | Directorio personal |
 | 7 | `/bin/bash` | *Shell*; `/usr/sbin/nologin` en las cuentas que no pueden iniciar sesión |
@@ -63,13 +63,13 @@ Campos de `/etc/passwd`, separados por `:`; usando como ejemplo la línea `alu:x
 En Ubuntu, los usuarios personas tienen UID desde 1000.
 Los inferiores son cuentas del sistema, y `root` tiene el 0.
 
-Campos de `/etc/group`, con la línea `alumnos:x:1002:alu`: como ejemplo
+Campos de `/etc/group`, con la línea `alumnos:x:1001:alu`: como ejemplo
 
 | Campo | Ejemplo | Contiene |
 | --- | --- | --- |
 | 1 | `alumnos` | Nombre del grupo |
 | 2 | `x` | Contraseña del grupo; casi nunca se usa |
-| 3 | `1002` | GID |
+| 3 | `1001` | GID |
 | 4 | `alu` | Miembros secundarios, separados por comas |
 
 ## Combinaciones habituales
@@ -124,12 +124,12 @@ El grupo principal de cada usuario está en el cuarto campo de `/etc/passwd`, as
 
 ```console
 $ grep '^alu:' /etc/group
-alu:x:1001:
+alu:x:1000:
 $ id -Gn alu
 alu alumnos
 ```
 
-Para saber si un usuario pertenece a un grupo, mejor  `id -Gn`, que incluye los dos.
+Para saber si un usuario pertenece a un grupo, mejor `id -Gn`, que incluye los dos.
 
 **`whoami` no es `who am i`.**
 `whoami` da el usuario con el que se ejecuta la orden; `who am i`, la sesión del terminal.

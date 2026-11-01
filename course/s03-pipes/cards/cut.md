@@ -43,7 +43,7 @@ Qué se extrae (las listas se escriben como indica la [tabla de referencia](#com
 | Opción | Qué hace | Ejemplo |
 | --- | --- | --- |
 | `-f LISTA`, `--fields=LISTA` | Esos campos | `cut -d, -f1,3` |
-| `-c LISTA`, `--characters=LISTA` | Esos caracteres. En GNU cuenta bytes, así que una tilde o una ñ ocupan dos —en codificación UTF-8—y pueden quedar cortadas | `cut -c1-10` |
+| `-c LISTA`, `--characters=LISTA` | Esos caracteres. En GNU cuenta bytes, así que una tilde o una ñ ocupan dos (en UTF-8) y pueden quedar cortadas | `cut -c1-10` |
 | `-b LISTA`, `--bytes=LISTA` | Esos bytes. En GNU hace lo mismo que `-c` | `cut -b1-10` |
 | `--complement` | Todo menos lo indicado | `cut -d, --complement -f2` |
 
@@ -57,7 +57,7 @@ Delimitadores:
 
 ## Tablas de referencia
 
-Como se definen los campos o caracteres a extraer con `-f`, `-c` o `-b`:
+Cómo se definen los campos o caracteres a extraer con `-f`, `-c` o `-b`:
 
 | Lista | Significa |
 | --- | --- |
@@ -190,8 +190,8 @@ $ printf '  ana   12\n luis    3\n' | awk '{print $2}'
 3
 ```
 
-Una solución es usar `tr -s ' '` , que reduce los espacios a uno, pero si la línea empieza por espacio el primer campo sigue vacío.
-`awk` separa por blancos y se salta los iniciales, Por tanto es la opción segura.
+Una solución es usar `tr -s ' '`, que reduce los espacios a uno, pero si la línea empieza por espacio el primer campo sigue vacío.
+`awk` separa por blancos y se salta los iniciales; por tanto, es la opción segura.
 
 **`cut` no reordena.**
 Los campos salen siempre en su orden original.

@@ -110,4 +110,4 @@ $ echo 'canción' | wc -m
 
 ## Ver también
 
-`man wc` · [ficha de `grep`](grep.md) (`-c`) · [ficha de `ls`](../../s01-shell/cards/ls.md) · [ficha de `head` y `tail`](head-tail.md)&#32;
+`man wc` · [ficha de `grep`](grep.md) (`-c`) · [ficha de `ls`](../../s01-shell/cards/ls.md) · [ficha de `head` y `tail`](head-tail.md)

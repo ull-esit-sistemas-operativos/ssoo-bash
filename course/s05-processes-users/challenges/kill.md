@@ -45,7 +45,7 @@ El estado pasa de `T` (detenido) a `S` (dormido).
 
 ## Reto 3 · Combina
 
-Pide a un proceso que termine y, si sigue vivo cinco segundos después, fúerzalo.
+Pide a un proceso que termine y, si sigue vivo cinco segundos después, fuérzalo.
 
 ::: details Solución
 
@@ -56,5 +56,32 @@ kill -0 "$pid" 2>/dev/null && kill -KILL "$pid"
 ```
 
 `kill -0` no envía nada: solo comprueba si el proceso sigue existiendo.
+
+:::
+
+## Reto 4 · Combina
+
+```quiz
+- id: "4"
+  type: string
+  content: |
+    Lanza `sleep 300` en segundo plano, pídele que termine y espéralo con `wait`.
+    ¿Con qué estado termina `wait`?
+  options:
+    - id: a
+      value: "143"
+```
+
+::: details Solución
+
+```bash
+sleep 300 &
+pid=$!
+kill "$pid"
+wait "$pid"
+echo $?
+```
+
+`143`: el proceso terminó por `SIGTERM`, y `wait` da 128 más el número de la señal, 15.
 
 :::

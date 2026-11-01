@@ -36,7 +36,7 @@ Cada línea de `ps` trae dos campos, y `read` deja el primero en `pid` y el segu
 > Cada comando de una tubería se ejecuta en un proceso aparte.
 > Si el `while` está al final de una tubería, las variables que modifica desaparecen al terminar el bucle.
 > Por ejemplo, un contador incrementado dentro valdrá 0 después.
-> Si necesitamos el valor tras el bucle, mejor usar `done < <(comando)`, que mantiene el bucle en la *shell* actual.
+> Si necesitamos el valor tras el bucle, mejor usar `done < <(orden)`, que mantiene el bucle en la *shell* actual.
 
 ## Esperar con until
 

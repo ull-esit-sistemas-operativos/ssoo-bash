@@ -159,16 +159,16 @@ $ for f in docs/*; do echo "[$f]"; done
 ```
 
 Para recorrer ficheros, mejor usar comodines (`for f in docs/*`) o `find` con `-print0`.
-`ls` es para que los usuarios o para contar archivos, no para recorrerlos.
+`ls` sirve para que lo lean las personas o para contar entradas, no para recorrerlas.
 
 **`ls -l` de un directorio muestra su contenido.**
-Para ver los permisos del propio directorio hace falta `-d` o `--directory` .
+Para ver los permisos del propio directorio hace falta `-d` o `--directory`.
 
 ```bash
 # ✗ Lista lo que hay dentro de src
 ls -l src
 
-# ✓ Muestra la informacion de src
+# ✓ Muestra la información de src
 ls -ld src
 ```
 

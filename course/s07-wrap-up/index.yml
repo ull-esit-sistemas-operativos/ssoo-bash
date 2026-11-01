@@ -65,23 +65,6 @@ lessons:
     duration: 120
     content: exercises/intro.md
     lessonParts:
-      - id: report-card
-        title: "Boletín de notas"
-        type: script
-        duration: 30
-        content: exercises/report-card.md
-        showEditor: true
-        showTerminal: true
-        editors: [boletin.sh]
-        workspace:                          # workdir: exercises/s07/report-card
-          starter: exercises/report-card/starter
-        exercise:
-          solution: ../../solutions/s07/report-card
-          script: boletin.sh
-          tests: exercises/report-card/tests
-          shellcheck: { severity: info, notes: style }
-          timeout: 5
-
       - id: log-report
         title: "Informe de códigos"
         type: script
@@ -113,6 +96,23 @@ lessons:
           solution: ../../solutions/s07/backup-sources
           script: copiar_fuentes.sh
           tests: exercises/backup-sources/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: report-card
+        title: "Boletín de notas"
+        type: script
+        duration: 30
+        content: exercises/report-card.md
+        showEditor: true
+        showTerminal: true
+        editors: [boletin.sh]
+        workspace:                          # workdir: exercises/s07/report-card
+          starter: exercises/report-card/starter
+        exercise:
+          solution: ../../solutions/s07/report-card
+          script: boletin.sh
+          tests: exercises/report-card/tests
           shellcheck: { severity: info, notes: style }
           timeout: 5
 

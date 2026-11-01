@@ -52,7 +52,7 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
   type: choice
   scrambleOrder: true
   content: |
-    ¿Qué imprime `echo 'alu:x:1001:1001:Alumno ULL:/home/alu:/bin/bash' | cut -d: -f6`?
+    ¿Qué imprime `echo 'alu:x:1000:1000:Alumno ULL:/home/alu:/bin/bash' | cut -d: -f6`?
   options:
     - id: a
       value: "`/home/alu`"
@@ -65,7 +65,7 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
       value: "`/bin/bash`"
       incorrectExplanation: Ese es el séptimo y último campo, la *shell* del usuario.
     - id: d
-      value: "`1001`"
+      value: "`1000`"
       incorrectExplanation: Los campos tercero y cuarto son el UID y el GID; el sexto es el directorio personal.
 
 - id: case-sensitive

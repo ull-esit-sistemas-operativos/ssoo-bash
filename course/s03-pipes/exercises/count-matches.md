@@ -4,6 +4,7 @@
 
 - Con dos argumentos, el patrón y el fichero, muestra solo el número de líneas que lo contienen.
 - El patrón puede tener espacios, como `"el perro"`, y el nombre del fichero también.
+- El patrón puede empezar por guion, como `-v`: es un texto que buscar, no una opción.
 - Si ninguna línea lo contiene, muestra `0` y termina con éxito.
 
 ```console
@@ -30,5 +31,6 @@ Los mensajes de error van al error estándar, y la salida estándar queda vacía
 
 `grep -c` cuenta las líneas que encajan, pero termina con 1 cuando no encuentra ninguna.
 Sin `exit`, el *script* devuelve el estado de su última orden.
+Repasa en la ficha de `grep` qué pasa si el patrón empieza por guion.
 
 :::

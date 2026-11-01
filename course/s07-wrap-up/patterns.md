@@ -31,8 +31,8 @@ Un *array* de `awk` indexado por la clave acumula lo que haga falta, y se muestr
 awk '{ bytes[$1] += $10 } END { for (ip in bytes) print ip, bytes[ip] }' acceso.log
 
 # Nota máxima de cada asignatura, en el CSV
-awk -F, 'NR > 1 && $3 != "" && (!($2 in max) || $3 > max[$2]) { max[$2] = $3 }
-         END { for (a in max) print a, max[a] }' notas.csv
+LC_ALL=C awk -F, 'NR > 1 && $3 != "" && (!($2 in max) || $3 > max[$2]) { max[$2] = $3 }
+                  END { for (a in max) print a, max[a] }' notas.csv
 ```
 
 Para contar apariciones sin más, `sort | uniq -c` es más corto.
@@ -49,8 +49,8 @@ ps -e -o user= | sort | uniq -c | sort -k1,1nr -k2,2 |
     while read -r n usuario; do printf '%-12s %8s\n' "$usuario" "$n"; done
 
 printf '%-10s %5s\n' ASIGNATURA MEDIA
-awk -F, 'NR > 1 && $3 != "" { s[$2] += $3; n[$2]++ }
-         END { for (a in s) printf "%-10s %5.2f\n", a, s[a] / n[a] }' notas.csv | sort
+LC_ALL=C awk -F, 'NR > 1 && $3 != "" { s[$2] += $3; n[$2]++ }
+                  END { for (a in s) printf "%-10s %5.2f\n", a, s[a] / n[a] }' notas.csv | sort
 ```
 
 En el primero, `-k1,1nr -k2,2` desempata por nombre a igual número de procesos.

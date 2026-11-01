@@ -21,3 +21,6 @@ La tercera convierte un [[Ctrl]]+[[C]] o un `kill` en una salida normal, de form
 De las señales de la semana 5, las que tiene sentido capturar son las que piden terminar, como `INT` y `TERM`.
 `KILL` no se puede capturar.
 Por lo que enviar `kill -KILL` al *script* lo termina sin pasar por el `trap`, haciendo que el fichero temporal se quede en `/tmp`.
+
+Algunos comandos aplican esta técnica por nosotros.
+Por ejemplo, `sed -i`, que cambia un fichero en su sitio, escribe el resultado en un temporal del mismo directorio y, al terminar, le da el nombre del original (ver la [ficha de `sed`](cards/sed.md)).

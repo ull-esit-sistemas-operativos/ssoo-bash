@@ -139,7 +139,7 @@ tail -n +2 notas.csv | LC_ALL=C sort -t, -k3,3nr
    pablo,SSOO,
    ```
 
-3. Las llaves juntan las dos salidas en una, con la cabecera arriba:
+3. Las llaves forman un grupo de órdenes, que junta las dos salidas en una, con la cabecera arriba (ver la lectura «[Redirecciones](../redirections.md)»):
 
    ```text
    alumno,asignatura,nota

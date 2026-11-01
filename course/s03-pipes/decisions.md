@@ -58,6 +58,8 @@ mkdir -p informes && echo "Directorio listo"
 Sirven para casos sencillos.
 Cuando hay que hacer más de una acción, un `if` es más claro.
 
+Con el grupo de órdenes entre paréntesis de la lectura «[Redirecciones](redirections.md)», `(cd proyecto && ls)` es más seguro que `(cd proyecto; ls)`: si `proyecto` no existe, `ls` no llega a ejecutarse y no lista el directorio equivocado.
+
 ## Aritmética entera
 
 Todo en bash es texto: `1+1` es una cadena de tres caracteres.

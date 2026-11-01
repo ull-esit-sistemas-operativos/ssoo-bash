@@ -181,9 +181,14 @@ $ sort colores.txt | uniq -c
 # ✗ Imprime líneas vacías
 sort colores.txt | uniq -c | cut -d' ' -f1
 
+# ✓ tr -s deja un solo espacio delante, así que el contador es el campo 2
+sort colores.txt | uniq -c | tr -s ' ' | cut -d' ' -f2
+
 # ✓ awk separa por blancos y se salta los iniciales
 sort colores.txt | uniq -c | awk '{print $1}'
 ```
+
+`awk` se explica en la semana 4.
 
 **`-f` separa por blancos.**
 No hay opción de delimitador, así que `-f` no sirve para saltar campos de un CSV.

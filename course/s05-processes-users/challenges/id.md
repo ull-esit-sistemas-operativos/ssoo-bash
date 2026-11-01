@@ -1,4 +1,4 @@
-Los retos suponen un usuario `alu` con UID 1001, grupo principal `alu` y grupo secundario `alumnos`.
+Los retos suponen el usuario `alu` del contenedor del curso, con UID 1000, grupo principal `alu` y grupo secundario `alumnos`.
 
 ## Reto 1 · Predice
 
@@ -35,7 +35,7 @@ id -un
 ```
 
 ```text
-1001
+1000
 alu
 ```
 
@@ -54,5 +54,39 @@ Escribe la línea que, al principio de un *script*, lo termina con un mensaje de
 ```
 
 Se compara el UID y no el nombre, porque lo que da los privilegios es el UID 0.
+
+:::
+
+## Reto 4 · Combina
+
+```quiz
+- id: "4"
+  type: string
+  content: |
+    Ejecuta `passwd` en una terminal y déjalo esperando la contraseña actual.
+    Desde otra terminal, muestra con `ps` el usuario de ese proceso.
+    ¿Qué usuario aparece?
+  options:
+    - id: a
+      value: "root"
+```
+
+::: details Solución
+
+```bash
+ps -o pid,user,ruser,comm -C passwd
+```
+
+```text
+    PID USER     RUSER    COMMAND
+   2301 root     alu      passwd
+```
+
+`passwd` tiene el permiso *setuid* y es de root (ver el apartado «Permisos especiales» de la lectura «[Permisos](../../s02-files/permissions.md)» de la semana 2).
+Por eso el proceso tiene dos usuarios: el **UID real** es el de quien lo ha lanzado, `alu`, y el **UID efectivo**, el que decide los permisos, es el de root.
+La columna `user` de `ps` muestra el efectivo y `ruser`, el real, igual que `id -u` y `id -ru`.
+`/proc` da los dos números: la línea `Uid:` de `/proc/PID/status` empieza por el real y el efectivo, `1000` y `0`.
+
+Termina `passwd` con [[Ctrl]]+[[C]] sin escribir nada.
 
 :::

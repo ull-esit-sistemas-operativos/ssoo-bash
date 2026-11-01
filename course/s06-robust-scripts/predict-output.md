@@ -61,9 +61,9 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
   content: ¿Qué ocurre al ejecutar `./resumen_log.sh acceso.log -c 500 -x`, con la versión completa de esta lectura?
   options:
     - id: a
-      value: Imprime «opción desconocida» y la ayuda en el error estándar, y termina con estado 1
+      value: Imprime «opción desconocida» y cómo ver la ayuda en el error estándar, y termina con estado 1
       isCorrect: true
-      explanation: "`-c` toma `500` como código y se detiene en `-x`, que no es un número. Después, `-x` cae en el caso `-*`: el *script* imprime «opción desconocida: -x» y la línea de ayuda, y termina con estado 1."
+      explanation: "`-c` toma `500` como código y se detiene en `-x`, que no es un número. Después, `-x` cae en el caso `-*`: el *script* imprime «opción desconocida: -x» y la línea que dice cómo ver la ayuda, y termina con estado 1."
     - id: b
       value: Ignora `-x` y resume el *log* con el código 500
       incorrectExplanation: "`-x` cae en el caso `-*`, que trata cualquier opción desconocida como un error."

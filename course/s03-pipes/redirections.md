@@ -11,7 +11,7 @@ El comando no se entera: sigue escribiendo en su descriptor 1, sin saber que aho
 | `>&2` / `1>&2` | Salida estándar al mismo sitio que el error |
 
 Un destino especial es `/dev/null`, un fichero que descarta todo lo que se escribe en él.
-Es decir, `comando 2> /dev/null` ejecuta el comando sin mostrar sus errores.
+Es decir, `orden 2> /dev/null` ejecuta la orden sin mostrar sus errores.
 
 La redirección de entrada tiene un uso práctico inmediato.
 `wc -l acceso.log` imprime el número de líneas seguido del nombre del fichero, mientras que `wc -l < acceso.log` imprime solo el número.
@@ -29,6 +29,38 @@ ls /etc /noexiste 2>&1 > salida.txt   # error en pantalla, listado en salida.txt
 
 En la primera, la salida ya apunta a `salida.txt` cuando el error se une a ella.
 En la segunda, el error se une a la salida cuando esta aún apunta a la pantalla, y después solo la salida se redirige al fichero.
+
+## Agrupar órdenes
+
+¿Cómo guardamos en un fichero un título seguido del contenido de `proyecto`?
+Con `echo "Contenido de proyecto:"; ls proyecto > lista.txt`, la redirección solo afecta a `ls`, y el título sale por la pantalla.
+
+Un **grupo de órdenes** son varias órdenes entre llaves que se redirigen o se pasan a una tubería como si fueran una sola:
+
+```console
+$ { echo "Contenido de proyecto:"; ls proyecto; } > lista.txt
+$ cat lista.txt
+Contenido de proyecto:
+README.md
+docs
+src
+```
+
+Las llaves necesitan un espacio después de `{` y un `;` o un salto de línea antes de `}`.
+Sin el espacio, bash busca un comando llamado `{echo`; sin el `;`, toma `}` como un argumento más de `ls`, el último comando.
+
+Con paréntesis, las órdenes también se agrupan, pero se ejecutan en una ***subshell***, una copia de la *shell* que finaliza al terminar el grupo.
+Por eso, lo que cambie dentro, como el directorio actual o una variable, se pierde al salir:
+
+```console
+alu@ull:~/ssoo$ (cd proyecto; ls)
+README.md  docs  src
+alu@ull:~/ssoo$ x=1; (x=2); echo "$x"
+1
+```
+
+`(cd dir; …)` sirve para trabajar un momento en otro directorio sin tener que volver después.
+Cuando lo que queremos es conservar los cambios, como al asignar una variable, usamos llaves.
 
 ## Mensajes de error en un *script*
 

@@ -24,7 +24,7 @@ Lo construimos en cuatro pasos.
    ```
 3. **Contar los 404.**
    Guardamos los dos recuentos en variables para poder operar con ellos.
-   Para guardar en una variable lo que imprime un comando se escribe `variable=$(comando)`.
+   Para guardar en una variable lo que imprime una orden se escribe `variable=$(orden)`.
    Esto es la sustitución de comandos, que estudiaremos a fondo la semana que viene.
 
    ```bash

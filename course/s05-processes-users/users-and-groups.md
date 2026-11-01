@@ -14,9 +14,9 @@ Los usuarios se agrupan en grupos, cada uno con su identificador de grupo (GID).
 
 ```console
 $ id
-uid=1001(alu) gid=1001(alu) grupos=1001(alu),1002(alumnos)
+uid=1000(alu) gid=1000(alu) grupos=1000(alu),1001(alumnos)
 $ grep '^alu:' /etc/passwd
-alu:x:1001:1001:Alumno ULL:/home/alu:/bin/bash
+alu:x:1000:1000:Alumno ULL:/home/alu:/bin/bash
 ```
 
 Los campos de `/etc/passwd` son el nombre, una `x`, el UID, el GID principal, el nombre completo, el directorio personal y la *shell*.

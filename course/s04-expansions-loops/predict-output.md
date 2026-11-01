@@ -128,4 +128,54 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
     - id: d
       value: "`[a b c]`; después `<a>`, `<b>` y `<c>`"
       incorrectExplanation: "Eso haría `\"$*\"`, que une los argumentos en una sola palabra; `\"$@\"` los mantiene separados."
+
+- id: replace-once-all
+  type: choice
+  scrambleOrder: true
+  content: |
+    ¿Qué imprime el `echo`?
+
+    ```bash
+    s=banana
+    echo "${s/a/o} ${s//a/o}"
+    ```
+  options:
+    - id: a
+      value: "`bonana bonono`"
+      isCorrect: true
+      explanation: Con una barra se cambia solo la primera `a`; con dos, todas.
+    - id: b
+      value: "`bonono bonono`"
+      incorrectExplanation: Con una sola barra, solo se cambia la primera `a`.
+    - id: c
+      value: "`banano bonono`"
+      incorrectExplanation: Con una barra se cambia la primera `a` que aparece, empezando por la izquierda.
+    - id: d
+      value: "`bonana bonana`"
+      incorrectExplanation: Con dos barras, se cambian todas las `a`, no solo la primera.
+
+- id: substring-space
+  type: choice
+  scrambleOrder: true
+  content: |
+    ¿Qué imprime el `echo`?
+
+    ```bash
+    d=2026-10-31
+    echo "${d:-2} ${d: -2}"
+    ```
+  options:
+    - id: a
+      value: "`2026-10-31 31`"
+      isCorrect: true
+      explanation: Sin espacio, `:-` da un valor por defecto, que no se usa porque `d` tiene valor; con el espacio, `-2` es una posición contada desde el final.
+    - id: b
+      value: "`31 31`"
+      incorrectExplanation: Sin espacio, bash lee `:-` como un valor por defecto, que no se usa porque `d` tiene valor.
+    - id: c
+      value: "`2 31`"
+      incorrectExplanation: El valor por defecto de `:-` solo se usa si la variable está vacía o no existe, y `d` tiene valor.
+    - id: d
+      value: "`2026-10-31 2026-10-31`"
+      incorrectExplanation: Con el espacio, `-2` es una posición contada desde el final, así que salen los 2 últimos caracteres.
 ```

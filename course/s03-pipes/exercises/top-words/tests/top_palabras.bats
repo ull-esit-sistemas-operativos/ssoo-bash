@@ -47,6 +47,17 @@ bats_load_library check_helpers
   assert_output ""
 }
 
+@test "si N no es un número, muestra un error por stderr y termina con código 1" {
+  local n
+  for n in 2x abc -3; do
+    run_script texto.txt "$n"
+    assert_failure 1
+    assert_stderr "Error: N tiene que ser un número de 1 o más" ||
+      fail "Con N=$n se esperaba solo el mensaje de error del script: comprueba con =~ que N tiene solo dígitos antes de compararlo con -lt"
+    assert_output ""
+  done
+}
+
 @test "si no puede leer el fichero, muestra un error por stderr y termina con código 2" {
   run_script no_existe.txt 3
   assert_failure 2

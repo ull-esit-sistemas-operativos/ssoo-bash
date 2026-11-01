@@ -43,6 +43,13 @@ setup() {
   assert_file_exists "copia/raíz.h"
 }
 
+@test "el directorio puede acabar en /" {
+  run_script proyecto/
+  assert_success
+  assert_file_exists copia/src/main.c
+  assert_file_not_exists copia/proyecto/src/main.c
+}
+
 @test "sin directorio, o con una opción desconocida, es un error por stderr con código 1" {
   run_script
   assert_failure 1

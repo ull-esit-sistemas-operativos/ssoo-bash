@@ -41,7 +41,7 @@ fi
 
 `-ne` significa «no es igual», comparando números.
 `exit 1` termina el *script* con estado de salida 1, que indica un error.
-Sin `exit`, el *script* devuelve el estado del último comando que ejecutó.
+Sin `exit`, el *script* devuelve el estado de la última orden que ejecutó.
 `exit 0` lo termina indicando éxito.
 
 Con el mismo patrón comprobamos que el argumento es un directorio, con la condición `-d`:

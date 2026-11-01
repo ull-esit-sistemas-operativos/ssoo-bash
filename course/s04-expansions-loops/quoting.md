@@ -10,7 +10,7 @@ Hay tres mecanismos:
   Todo es literal salvo `$`, `` ` `` y `\`.
   Por tanto, dentro de comillas dobles se expanden las variables `$var`, la aritmética `$(( ))` y la sustitución de comandos `$( )`, pero no hay división en palabras ni expansión de nombres de fichero.
 
-| Escrito | `$var` | `$(comando)` | `*` | Se parte por espacios |
+| Escrito | `$var` | `$(orden)` | `*` | Se parte por espacios |
 | --- | --- | --- | --- | --- |
 | Sin comillas | sí | sí | sí | sí |
 | `"…"` | sí | sí | no | no |

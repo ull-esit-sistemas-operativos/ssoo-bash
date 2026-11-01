@@ -26,7 +26,7 @@ Los mensajes de error van al error estándar, y la salida estándar queda vacía
 
 ::: details Pista
 
-Son dos patrones de la semana: «Agregar por clave» con `awk`, que suma por IP, y «Tablas alineadas» con `printf`.
+Son dos patrones de la semana: «Agregar por clave con awk», que suma por IP, y «Tablas alineadas» con `printf`.
 La cabecera va fuera de la tubería, para que `sort` no la ordene con los datos.
 
 :::

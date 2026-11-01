@@ -6,7 +6,7 @@ No es la terminal, que solo es una aplicación que muestra texto y recoge lo que
 > Originalmente, una terminal era un aparato aparte: una pantalla de texto y un teclado conectados a un ordenador central.
 > Hoy usamos un **emulador de terminal**, un programa que imita aquella terminal dentro de una ventana y que, al abrirse, lanza una *shell*.
 > Hay muchos emuladores de terminal: GNOME Terminal, Konsole, Windows Terminal o la terminal integrada de VS Code.
-> Su aspecto y sus atajos cambian; por ejemplo, en muchos para copiar se usa [[Ctrl]]+[[Mayús]]+[[C]], porque [[Ctrl]]+[[C]] interrumpe el comando en ejecución.
+> Su aspecto y sus atajos cambian; por ejemplo, en muchos para copiar se usa [[Ctrl]]+[[Mayús]]+[[C]], porque [[Ctrl]]+[[C]] interrumpe la orden en ejecución.
 > Pero las órdenes que escribimos son las mismas en todos, porque vienen determinadas por la *shell*.
 > Linux ofrece además varias terminales virtuales sin entorno gráfico, a las que se llega con [[Ctrl]]+[[Alt]]+[[F1]], [[Ctrl]]+[[Alt]]+[[F2]], etc.; pero no las necesitaremos en el curso.
 
@@ -40,5 +40,5 @@ También podemos escribir varias órdenes en una misma línea separándolas con 
 La *shell* las ejecuta una detrás de otra y espera a que termine cada una antes de empezar la siguiente: `cd /etc; ls; cd`.
 
 > [!NOTE] Si algo se queda colgado
-> [[Ctrl]]+[[C]] interrumpe el comando que se está ejecutando y nos devuelve el *prompt*.
+> [[Ctrl]]+[[C]] interrumpe la orden que se está ejecutando y nos devuelve el *prompt*.
 > Es lo primero que hay que probar cuando algo tarda demasiado o parece que no responde.

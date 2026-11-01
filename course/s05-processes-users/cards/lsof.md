@@ -10,6 +10,9 @@ Indicando un fichero, solo los procesos que lo tienen abierto.
 
 ## Ejemplo
 
+Usamos `exec 3< notas.csv` para hacer que la propia *shell* abra `notas.csv` como descriptor 3 para lectura (`3r`).
+Lo deja abierto hasta que lo cerremos con `exec 3<&-`.
+
 ```console
 $ exec 3< notas.csv
 $ tail -f acceso.log > /dev/null &
@@ -21,8 +24,7 @@ $ lsof -t acceso.log
 976
 ```
 
-La *shell* abre `notas.csv` como descriptor 3 para lectura (`3r`).
-Pero `tail` también lo tiene abierto aunque no lo usa, pues lo heredó al crearse como hijo de la *shell*.
+El fichero aparece dos veces porque `tail` también lo tiene abierto aunque no lo usa, pues lo heredó al crearse como hijo de la *shell*.
 
 ## Opciones útiles
 
@@ -47,7 +49,7 @@ Cómo se muestra:
 | Opción | Qué hace | Ejemplo |
 | --- | --- | --- |
 | `-t` | Solo los PID, uno por línea y sin cabecera: para pasarlos a `kill` | `lsof -t notas.csv` |
-| `-F CAMPOS` | Salida para programas: un campo por línea, con una letra delante (`p` PID, `c` orden, `u` UID, `f` descriptor, `n` nombre) | `lsof -F pcn notas.csv` |
+| `-F CAMPOS` | Salida para programas: un campo por línea, con una letra delante (`p` PID, `c` comando, `u` UID, `f` descriptor, `n` nombre) | `lsof -F pcn notas.csv` |
 | `-n` | No traduce direcciones IP a nombres (más rápido) | `lsof -n -i` |
 | `-P` | No traduce números de puerto a nombres | `lsof -P -i` |
 | `+c N` | Ancho de la columna `COMMAND` (0 = sin recortar) | `lsof +c 0` |

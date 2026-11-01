@@ -8,6 +8,7 @@ La copia mantiene la estructura de directorios del original.
 - `-d DESTINO` elige el destino.
 - Al terminar dice cuántos ficheros ha copiado.
 - Funciona con nombres que tienen espacios, en el origen, en sus subdirectorios y en el destino.
+- El directorio puede acabar en `/`: `bash copiar_fuentes.sh proyecto/` hace la misma copia.
 
 ```console
 $ bash copiar_fuentes.sh proyecto
@@ -32,5 +33,6 @@ Los mensajes de error van al error estándar, precedidos de `copiar_fuentes.sh: 
 
 `find … -print0` y `while IFS= read -r -d '' f` recorren los ficheros aunque tengan espacios.
 `${f#"$origen"/}` da la ruta dentro del origen, y `dirname` el directorio que hay que crear en el destino.
+Si el origen acaba en `/`, quítasela antes con `${origen%/}`, o `${f#"$origen"/}` no quitará nada.
 
 :::

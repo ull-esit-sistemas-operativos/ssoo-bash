@@ -70,3 +70,6 @@ references:
   - id: lsof
     title: "lsof"
     part: s05:lsof:card
+  - id: sed
+    title: "sed"
+    part: s06:sed:card

@@ -23,6 +23,16 @@ no_temporales() {
   assert_output $'rojo\nverde\nazul'
 }
 
+@test "las líneas que solo se distinguen por los espacios del final cuentan como la misma" {
+  printf 'rojo  \nverde\t\nrojo\nverde\n' > espacios.txt
+  run_script espacios.txt
+  assert_success
+  assert_output "Quitadas 2 líneas repetidas de espacios.txt"
+  run cat espacios.txt
+  assert_output $'rojo\nverde' ||
+    fail "Quita los espacios y tabuladores del final con sed antes de comparar: sed 's/[[:space:]]*\$//'"
+}
+
 @test "no deja ficheros temporales" {
   run_script colores.txt
   no_temporales
