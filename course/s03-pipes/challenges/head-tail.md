@@ -35,6 +35,8 @@ Con un número negativo, `head` muestra todo menos esas últimas líneas.
 
 :::
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Combina
 
 ```quiz

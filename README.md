@@ -24,11 +24,10 @@ Después elige **una** de estas opciones:
 - **VS Code + Docker Desktop**: instala la extensión *Dev Containers*, clona tu
   *fork* (o este repositorio) y, en VS Code, ejecuta *Dev Containers: Open
   Folder in Container...* y elige su carpeta.
-- **VS Code en tu propio Linux o en WSL**: si puedes, usa Ubuntu, porque en el
-  curso trabajamos con `mawk`, que es el que trae Ubuntu por defecto.
-  Otras distribuciones pueden traer `gawk`, que no lee los decimales con coma.
-  Para saber cuál tienes, ejecuta `awk -W version`: la primera línea debe
-  empezar por `mawk`.
+- **VS Code en tu propio Linux o en WSL**: el curso usa `gawk` y `lsof`, que
+  algunas instalaciones no traen.
+  Comprueba que los tienes con `gawk --version` y `lsof -v`, y si no,
+  instálalos con el gestor de paquetes de tu distribución.
 
   Clona tu *fork* (o este repositorio) y, en su carpeta, ejecuta `./setup.sh`
   (en WSL, desde el terminal de WSL). El *script* instala la extensión *Bash
@@ -72,3 +71,11 @@ Las carpetas `exercises/` y `.bash-learn/` no están en este repositorio, así
 que una actualización no toca tus ejercicios ni tu progreso. En cambio, si
 modificas ficheros de `course/`, la actualización puede dar conflictos.
 Por tanto, no los edites. La extensión *Bash Learn* se actualiza sola.
+
+## Licencia
+
+El contenido del curso, en `course/`, es de Jesús Torres (Universidad de La Laguna) y se
+distribuye bajo la licencia [Creative Commons Atribución 4.0 Internacional](https://creativecommons.org/licenses/by/4.0/deed.es)
+(CC BY 4.0), cuyo texto está en `course/LICENSE`.
+El código, como `setup.sh` y el corrector de `.devcontainer/check/`, se distribuye bajo la
+licencia MIT, en `LICENSE`.

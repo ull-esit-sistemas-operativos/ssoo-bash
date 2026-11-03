@@ -1,0 +1,202 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s08
+title: "Semana 8 · Cierre y resolución de problemas"
+collapsed: true
+description: |
+  Esta semana no hay comandos nuevos.
+  Cualquier tarea que queramos automatizar, sea un encargo, un ejercicio o una necesidad propia, mezcla diferentes piezas en un contexto que quizá no hemos visto.
+  ¿Cómo reconocemos en ella lo que ya sabemos hacer?
+  Esta lectura reúne las competencias del curso, propone un método para pasar de un problema a un *script* y recopila los patrones generales con ejemplos en más de un contexto.
+  En clase lo pondremos en práctica con un problema integrador.
+objectives: |
+  - Relacionar cada requisito de un problema con una competencia y un patrón conocido.
+  - Empezar cualquier *script* desde un esqueleto que ya maneja opciones y errores.
+  - Aplicar los patrones generales a contextos nuevos.
+  - Comprobar un *script* antes de entregarlo.
+content: class.md
+workspace:
+  fixtures: fixtures
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: competencies
+        title: "Las diez competencias"
+        type: lecture
+        content: competencies.md
+
+      - id: problem-solving
+        title: "Cómo abordar un problema"
+        type: lecture
+        content: problem-solving.md
+
+      - id: skeleton
+        title: "El esqueleto"
+        type: lecture
+        content: skeleton.md
+
+      - id: patterns
+        title: "Patrones generales"
+        type: lecture
+        content: patterns.md
+
+      - id: checklist
+        title: "Antes de darlo por terminado"
+        type: lecture
+        content: checklist.md
+
+      - id: capstone-problem
+        title: "El problema integrador"
+        type: lecture
+        content: capstone-problem.md
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Ocho *scripts* de repaso, de menos a más difíciles, que reúnen lo de todo el curso, empezando desde el esqueleto.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 240
+    content: exercises/intro.md
+    lessonParts:
+      - id: log-report
+        title: "Informe de códigos"
+        type: script
+        duration: 25
+        content: exercises/log-report.md
+        showEditor: true
+        showTerminal: true
+        editors: [informe.sh]
+        workspace:                          # workdir: exercises/s08/log-report
+          starter: exercises/log-report/starter
+        exercise:
+          solution: ../../solutions/s08/log-report
+          script: informe.sh
+          tests: exercises/log-report/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: log-summary
+        title: "Resumen de varios logs"
+        type: script
+        duration: 25
+        content: exercises/log-summary.md
+        showEditor: true
+        showTerminal: true
+        editors: [resumen.sh]
+        workspace:                          # workdir: exercises/s08/log-summary
+          starter: exercises/log-summary/starter
+        exercise:
+          solution: ../../solutions/s08/log-summary
+          script: resumen.sh
+          tests: exercises/log-summary/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: normalize-names
+        title: "Normalizar nombres"
+        type: script
+        duration: 25
+        content: exercises/normalize-names.md
+        showEditor: true
+        showTerminal: true
+        editors: [normalizar.sh]
+        workspace:                          # workdir: exercises/s08/normalize-names
+          starter: exercises/normalize-names/starter
+        exercise:
+          solution: ../../solutions/s08/normalize-names
+          script: normalizar.sh
+          tests: exercises/normalize-names/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: backup-sources
+        title: "Copiar las fuentes"
+        type: script
+        duration: 30
+        content: exercises/backup-sources.md
+        showEditor: true
+        showTerminal: true
+        editors: [copiar_fuentes.sh]
+        workspace:                          # workdir: exercises/s08/backup-sources
+          starter: exercises/backup-sources/starter
+        exercise:
+          solution: ../../solutions/s08/backup-sources
+          script: copiar_fuentes.sh
+          tests: exercises/backup-sources/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: who-uses
+        title: "Quién usa un fichero"
+        type: script
+        duration: 30
+        content: exercises/who-uses.md
+        showEditor: true
+        showTerminal: true
+        editors: [quien_usa.sh]
+        workspace:                          # workdir: exercises/s08/who-uses
+          starter: exercises/who-uses/starter
+        exercise:
+          solution: ../../solutions/s08/who-uses
+          script: quien_usa.sh
+          tests: exercises/who-uses/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: report-card
+        title: "Boletín de notas"
+        type: script
+        duration: 30
+        content: exercises/report-card.md
+        showEditor: true
+        showTerminal: true
+        editors: [boletin.sh]
+        workspace:                          # workdir: exercises/s08/report-card
+          starter: exercises/report-card/starter
+        exercise:
+          solution: ../../solutions/s08/report-card
+          script: boletin.sh
+          tests: exercises/report-card/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: validate-csv
+        title: "Validar un CSV"
+        type: script
+        duration: 35
+        content: exercises/validate-csv.md
+        showEditor: true
+        showTerminal: true
+        editors: [validar.sh]
+        workspace:                          # workdir: exercises/s08/validate-csv
+          starter: exercises/validate-csv/starter
+        exercise:
+          solution: ../../solutions/s08/validate-csv
+          script: validar.sh
+          tests: exercises/validate-csv/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: rename-identifier
+        title: "Cambiar un identificador"
+        type: script
+        duration: 40
+        content: exercises/rename-identifier.md
+        showEditor: true
+        showTerminal: true
+        editors: [sustituir.sh]
+        workspace:                          # workdir: exercises/s08/rename-identifier
+          starter: exercises/rename-identifier/starter
+        exercise:
+          solution: ../../solutions/s08/rename-identifier
+          script: sustituir.sh
+          tests: exercises/rename-identifier/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

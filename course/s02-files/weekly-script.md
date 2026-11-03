@@ -53,8 +53,8 @@ Por tres razones:
 - **Espacios.**
   `{}` llega a `mv` como un solo argumento, aunque el nombre tenga espacios.
 
-`-maxdepth 1` también es necesario: sin él, `find` entraría en las subcarpetas recién creadas y el paso 4 sacaría de ellas lo que ya habíamos clasificado.
-Fíjate, además, en que `find` no ignora los ficheros ocultos como hace `*`: un `.borrador` acabaría en `otros`.
+`-maxdepth 1` también es necesario, porque, sin él, `find` entraría en las subcarpetas recién creadas y el paso 4 sacaría de ellas lo que ya habíamos clasificado.
+Fíjate, además, en que `find` no ignora los ficheros ocultos como hace `*`, así que un `.borrador` acabaría en `otros`.
 
 Las cuatro líneas del paso 3 se parecen demasiado.
 En la semana 4 veremos cómo recorrer los ficheros con un bucle y decidir la carpeta a partir de la extensión de cada uno.

@@ -51,7 +51,8 @@ setup() {
 }
 
 @test "si no es un directorio, muestra un error, termina con código 2 y no borra nada" {
-  run_script no_existe
+  run_script p/README.md
   assert_failure 2
-  assert_message "Error: no_existe no es un directorio"
+  assert_message "Error: p/README.md no es un directorio"
+  assert_file_exists p/README.md
 }

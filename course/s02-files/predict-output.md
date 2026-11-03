@@ -49,7 +49,7 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
     - id: a
       value: "`-rw-------`"
       isCorrect: true
-      explanation: "Es decir, `600`: a los `666` que pide `touch` se les quitan todos los permisos de grupo y otros."
+      explanation: "Es decir, `600`, porque a los `666` que pide `touch` se les quitan todos los permisos de grupo y otros."
     - id: b
       value: "`-rwx------`"
       incorrectExplanation: "`touch` pide `666`, sin ejecución, y la máscara solo quita permisos; nunca los añade."

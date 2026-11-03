@@ -81,6 +81,24 @@ lessons:
         content: predict-output.md
         showTerminal: true
 
+  - id: cp-mv-rm
+    title: "cp, mv y rm"
+    collapsed: true
+    description: |
+      Copian, mueven o renombran y borran ficheros y directorios, con opciones para preguntar antes de sobrescribir o de borrar.
+    lessonParts:
+      - id: card
+        title: "Ficha de cp, mv y rm"
+        type: lecture
+        content: cards/cp-mv-rm.md
+
+      - id: challenges
+        title: "Retos de cp, mv y rm"
+        type: terminal
+        content: challenges/cp-mv-rm.md
+        dependsOn: [s02:cp-mv-rm:card]
+        showTerminal: true
+
   - id: wildcards
     title: "Comodines"
     collapsed: true
@@ -105,6 +123,24 @@ lessons:
         type: terminal
         content: challenges/links.md
         dependsOn: [s02:lecture:links]
+        showTerminal: true
+
+  - id: chmod
+    title: "chmod"
+    collapsed: true
+    description: |
+      Cambia los permisos de ficheros y directorios, en notación octal o simbólica, también en todo un árbol.
+    lessonParts:
+      - id: card
+        title: "Ficha de chmod"
+        type: lecture
+        content: cards/chmod.md
+
+      - id: challenges
+        title: "Retos de chmod"
+        type: terminal
+        content: challenges/chmod.md
+        dependsOn: [s02:chmod:card]
         showTerminal: true
 
   - id: find

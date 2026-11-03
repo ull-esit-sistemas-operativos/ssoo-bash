@@ -43,25 +43,6 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
       value: Cuatro líneas con un 1 las dos veces
       incorrectExplanation: Tras `sort`, las líneas iguales quedan juntas y `uniq -c` las cuenta.
 
-- id: integer-division
-  type: choice
-  scrambleOrder: true
-  content: ¿Qué imprime `echo $(( 7 / 2 * 2 ))`?
-  options:
-    - id: a
-      value: "`6`"
-      isCorrect: true
-      explanation: La división entera da 3, y 3 por 2 es 6.
-    - id: b
-      value: "`7`"
-      incorrectExplanation: "La aritmética de bash es entera: `7 / 2` da 3, no 3,5."
-    - id: c
-      value: "`1`"
-      incorrectExplanation: "`/` y `*` tienen la misma prioridad y se evalúan de izquierda a derecha: `(7 / 2) * 2`."
-    - id: d
-      value: Un error, porque 7 no es divisible entre 2
-      incorrectExplanation: bash descarta los decimales de la división sin avisar.
-
 - id: top-path
   type: choice
   scrambleOrder: true
@@ -79,5 +60,5 @@ Intenta responder sin ejecutar nada; después compruébalo en la terminal.
       incorrectExplanation: "`head -n 1` deja solo la primera línea."
     - id: d
       value: La ruta menos frecuente, con un 1 delante
-      incorrectExplanation: "`-r` invierte el orden: los números mayores quedan arriba."
+      incorrectExplanation: "`-r` invierte el orden, así que los números mayores quedan arriba."
 ```

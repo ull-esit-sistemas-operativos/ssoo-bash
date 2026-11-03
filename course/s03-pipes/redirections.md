@@ -1,5 +1,5 @@
 Una redirección cambia el origen o el destino de un flujo antes de que el comando empiece a ejecutarse.
-El comando no se entera: sigue escribiendo en su descriptor 1, sin saber que ahora es un fichero.
+El comando no se entera y sigue escribiendo en su descriptor 1, sin saber que ahora es un fichero.
 
 | Redirección | Efecto |
 | --- | --- |
@@ -7,6 +7,7 @@ El comando no se entera: sigue escribiendo en su descriptor 1, sin saber que aho
 | `>> fichero` | Salida estándar al final del fichero, sin borrar lo que había |
 | `< fichero` | Entrada estándar desde el fichero |
 | `2> fichero` | Error estándar al fichero |
+| `2>> fichero` | Error estándar al final del fichero, sin borrar lo que había |
 | `2>&1` | Error estándar al mismo sitio al que apunte la salida en ese momento |
 | `>&2` / `1>&2` | Salida estándar al mismo sitio que el error |
 
@@ -41,8 +42,8 @@ Un **grupo de órdenes** son varias órdenes entre llaves que se redirigen o se 
 $ { echo "Contenido de proyecto:"; ls proyecto; } > lista.txt
 $ cat lista.txt
 Contenido de proyecto:
-README.md
 docs
+README.md
 src
 ```
 
@@ -54,7 +55,7 @@ Por eso, lo que cambie dentro, como el directorio actual o una variable, se pier
 
 ```console
 alu@ull:~/ssoo$ (cd proyecto; ls)
-README.md  docs  src
+docs  README.md  src
 alu@ull:~/ssoo$ x=1; (x=2); echo "$x"
 1
 ```

@@ -2,7 +2,8 @@
 Lo construimos en cuatro pasos.
 
 1. **Comprobar el argumento.**
-   Los mensajes van al error estándar y cada error tiene su propio estado de salida:
+   Es el patrón de la semana pasada, con dos cambios.
+   Los mensajes van al error estándar, y la condición `-r` comprueba que el fichero se puede leer:
 
    ```bash
    if [[ $# -ne 1 ]]; then
@@ -31,15 +32,10 @@ Lo construimos en cuatro pasos.
    total=$(wc -l < "$log")
    errores=$(cut -d' ' -f9 "$log" | grep -c '^404$')
    ```
-4. **Mostrar el porcentaje.**
-   Un fichero vacío daría una división por cero, así que lo comprobamos antes:
+4. **Mostrar los recuentos.**
 
    ```bash
-   if [[ $total -eq 0 ]]; then
-       echo "El log está vacío"
-   else
-       echo "Errores 404: $errores de $total ($(( errores * 100 / total ))%)"
-   fi
+   echo "Errores 404: $errores de $total"
    ```
 
 **Resultado** con el *log* de ejemplo:
@@ -50,7 +46,7 @@ Las 10 IP con más peticiones:
       3 192.168.1.10
       2 10.0.0.7
       1 172.16.0.3
-Errores 404: 3 de 6 (50%)
+Errores 404: 3 de 6
 ```
 
-Volveremos a `resumen_log.sh` en la semana 6 para añadirle opciones, como elegir cuántas IP mostrar o qué códigos contar.
+Volveremos a `resumen_log.sh` en la semana 7 para añadirle opciones, como elegir cuántas IP mostrar o qué códigos contar.

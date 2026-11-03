@@ -35,7 +35,7 @@ El primer campo está vacío, porque la línea empieza por un espacio; por eso l
 ### Sumar, media o máximo
 
 `uniq -c` solo cuenta.
-Para sumar los bytes servidos a cada IP, o calcular la media de cada asignatura, hace falta `awk`, que veremos en la semana 4: es la segunda parte de este patrón, «[Agregar por clave con awk](../../s04-expansions-loops/patterns/aggregate-with-awk.md)».
+Para sumar los bytes servidos a cada IP, o calcular la media de cada asignatura, hace falta `awk`, que veremos en la semana 5, en la segunda parte de este patrón, «[Agregar por clave con awk](../../s05-text-processing/patterns/aggregate-with-awk.md)».
 
 ## En otros contextos
 
@@ -53,7 +53,7 @@ tr -s ' ' '\n' < texto.txt | sort | uniq -c | sort -rn | head -n 3
 ## Errores frecuentes
 
 **`uniq` sin `sort`.**
-`uniq -c` solo junta líneas seguidas: sin ordenar antes, la misma clave sale en varios grupos.
+`uniq -c` solo junta líneas seguidas, así que sin ordenar antes la misma clave sale en varios grupos.
 
 **`cut -d' '` sobre la salida de `uniq -c`.**
 Los espacios de delante hacen que el contador no sea el campo 1.
@@ -61,4 +61,4 @@ Antes hay que juntarlos con `tr -s ' '`.
 
 ## Ver también
 
-[Ficha de `sort`](../cards/sort.md) · [ficha de `uniq`](../cards/uniq.md) · [ficha de `cut`](../cards/cut.md) · [ficha de `tr`](../cards/tr.md) · patrón «[Agregar por clave con awk](../../s04-expansions-loops/patterns/aggregate-with-awk.md)»
+[Ficha de `sort`](../cards/sort.md) · [ficha de `uniq`](../cards/uniq.md) · [ficha de `cut`](../cards/cut.md) · [ficha de `tr`](../cards/tr.md) · patrón «[Agregar por clave con awk](../../s05-text-processing/patterns/aggregate-with-awk.md)»

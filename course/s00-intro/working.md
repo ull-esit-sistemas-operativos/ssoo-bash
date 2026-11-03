@@ -11,7 +11,7 @@ El árbol los distingue por el icono, y cada uno se completa de una manera disti
 
 Las secciones completadas llevan una marca verde en el árbol, y una semana o una lección se marca cuando lo están todas sus secciones.
 Una sección con un candado depende de otra que aún no has completado, como los retos de un comando, que recomiendan que primero hayas completado su ficha.
-Puedes abrirla igualmente: la página empieza con un aviso «Antes de empezar» que enlaza a las secciones que conviene hacer antes.
+Puedes abrirla igualmente, pero la página empieza con un aviso «Antes de empezar» que enlaza a las secciones que conviene hacer antes.
 
 ![El árbol del curso: secciones de cada tipo, una completada, una con candado y un ejercicio con 4/6](images/tree.png)
 
@@ -34,7 +34,7 @@ Cada semana trabaja con unos ficheros de datos, como `notas.csv` o `acceso.log`,
 Los ejemplos de la lectura, las fichas y los retos usan esos mismos ficheros, así que puedes repetirlos y cambiarlos.
 
 El contenido que ya está en tu directorio nunca se sobrescribe.
-Si estropeas un fichero de datos, bórralo y vuelve a abrir la sección: se copia de nuevo.
+Si estropeas un fichero de datos, bórralo y vuelve a abrir la sección, y se copiará de nuevo.
 
 ## Tu progreso
 

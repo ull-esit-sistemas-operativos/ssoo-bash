@@ -1,4 +1,4 @@
-Linux es un sistema multiusuario: en la misma máquina conviven ficheros de muchos usuarios y del propio sistema.
+Linux es un sistema multiusuario, es decir, en la misma máquina conviven ficheros de muchos usuarios y del propio sistema.
 ¿Cómo se decide quién puede leer, modificar o ejecutar cada uno?
 
 Los **permisos** de un fichero son tres derechos (leer, escribir y ejecutar) que se conceden por separado a tres clases de usuarios: el propietario, el grupo del fichero y el resto.
@@ -9,7 +9,7 @@ Aparecen en las diez primeras columnas de `ls -l`:
 ```
 
 El primer carácter es el tipo: `-` para un fichero normal, `d` para un directorio y `l` para un enlace simbólico.
-Después vienen tres grupos de tres: `rwx` para el propietario (`alu`), `r-x` para el grupo (también `alu`: en muchas distribuciones de Linux cada usuario tiene un grupo con su mismo nombre) y `---` para los demás.
+Después vienen tres grupos de tres: `rwx` para el propietario (`alu`), `r-x` para el grupo (también `alu`, porque en muchas distribuciones de Linux cada usuario tiene un grupo con su mismo nombre) y `---` para los demás.
 Un guion significa que ese permiso falta, es decir, que no se tiene ese derecho.
 
 En un directorio, los mismos tres permisos significan cosas distintas:

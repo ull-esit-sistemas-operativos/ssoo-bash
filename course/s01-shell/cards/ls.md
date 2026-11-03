@@ -160,6 +160,7 @@ $ for f in docs/*; do echo "[$f]"; done
 
 Para recorrer ficheros, mejor usar comodines (`for f in docs/*`) o `find` con `-print0`.
 `ls` sirve para que lo lean las personas o para contar entradas, no para recorrerlas.
+Los bucles `for` y `$( )` se explican en la semana 4, y `find` en la semana 2.
 
 **`ls -l` de un directorio muestra su contenido.**
 Para ver los permisos del propio directorio hace falta `-d` o `--directory`.
@@ -185,4 +186,4 @@ ls -A | wc -l
 
 ## Ver también
 
-`man ls` · [ficha de `find`](../../s02-files/cards/find.md) · [ficha de `wc`](../../s03-pipes/cards/wc.md) · [ficha de `head` y `tail`](../../s03-pipes/cards/head-tail.md)
+`man ls` · [ficha de `chmod`](../../s02-files/cards/chmod.md) · [ficha de `find`](../../s02-files/cards/find.md) · [ficha de `wc`](../../s03-pipes/cards/wc.md) · [ficha de `head` y `tail`](../../s03-pipes/cards/head-tail.md)

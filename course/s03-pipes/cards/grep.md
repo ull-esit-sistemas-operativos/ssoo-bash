@@ -7,7 +7,7 @@ grep [opciones] PATRÓN [fichero...]
 
 Sin fichero, lee de la entrada estándar.
 Su estado de salida es 0 si encontró alguna línea, 1 si no encontró ninguna y 2 si hubo un error.
-Así que sirve directamente como condición de un `if`.
+Así que sirve directamente como condición de un `if`, que se explica en la semana 4.
 
 ## Ejemplo
 
@@ -95,7 +95,8 @@ Expresiones regulares básicas (sin opción) y extendidas (`-E`):
 | `\<`, `\>` | `\<`, `\>` | Principio y final de palabra |
 | `\.` | `\.` | Un punto literal (igual con cualquier carácter especial) |
 
-Para indicar patrones alternativos («este o aquel») se escribe con una barra vertical: en extendidas es `grep -E 'GET|POST'`; en expresiones básicas hay que escaparla con una barra invertida delante `\|`.
+Para indicar patrones alternativos («este o aquel») se usa una barra vertical, como en `grep -E 'GET|POST'`.
+En las expresiones básicas hay que escaparla con una barra invertida: `\|`.
 En básicas, `+`, `?`, `{` y los paréntesis sin barra invertida `\` para escapar son caracteres normales.
 
 Clases con nombre, dentro de corchetes:
@@ -160,11 +161,11 @@ grep -rlw read --include='*.sh' .
 ```
 
 ```bash
-# Como condición: ¿existe el usuario?
-if grep -q "^$usuario:" /etc/passwd; then echo "existe"; fi
+# Como condición: ¿tiene alguna nota el alumno?
+if grep -q "^$alumno," notas.csv; then echo "tiene notas"; fi
 ```
 
-En la última, los dos puntos tras el nombre evitan que `alu` encaje con `alumno:`.
+En la última, la coma tras el nombre evita que `alu` encaje con `alumno,`.
 
 ## Errores frecuentes
 
@@ -210,4 +211,4 @@ El patrón va siempre entre comillas simples, o dobles si lleva una variable.
 
 ## Ver también
 
-`man grep` · [ficha de `cut`](cut.md) · [ficha de `wc`](wc.md) · [ficha de `awk`](../../s04-expansions-loops/cards/awk.md) (filtrar por campo)
+`man grep` · [ficha de `cut`](cut.md) · [ficha de `wc`](wc.md) · [ficha de `awk`](../../s05-text-processing/cards/awk.md) (filtrar por campo)

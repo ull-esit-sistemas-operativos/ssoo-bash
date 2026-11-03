@@ -2,16 +2,16 @@
 FROM mcr.microsoft.com/devcontainers/base:bookworm
 
 # Restore man pages if the base image excludes them, then install the tools used in the course.
-# awk is mawk, as on Ubuntu: the lectures' locale examples (decimal comma) assume it.
+# The course calls gawk directly (awk may be mawk on other systems).
 RUN set -eux; \
     if ls /etc/dpkg/dpkg.cfg.d/* > /dev/null 2>&1; then sed -i '/usr\/share\/man/d' /etc/dpkg/dpkg.cfg.d/*; fi; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       man-db manpages manpages-es manpages-dev locales \
-      tree less procps psmisc file bc jq nano vim-tiny; \
+      tree less procps psmisc lsof file bc jq nano vim-tiny; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --reinstall --no-install-recommends \
-      bash coreutils findutils grep sed mawk tar gzip util-linux; \
-    apt-get purge -y gawk; update-alternatives --set awk /usr/bin/mawk; awk -W version 2>&1 | grep -q mawk; \
+      bash coreutils findutils grep sed gawk mawk tar gzip util-linux; \
+    gawk --version | head -n 1; \
     sed -i 's/^# *\(es_ES.UTF-8\)/\1/' /etc/locale.gen; locale-gen; \
     mandb -q || true; \
     rm -rf /var/lib/apt/lists/*

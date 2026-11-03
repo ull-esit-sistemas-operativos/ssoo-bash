@@ -2,7 +2,7 @@ Guardar la salida de un comando en un fichero temporal para que lo lea el siguie
 ¿Y si pudiéramos conectarlos directamente?
 
 Una **tubería** conecta la salida estándar de un comando con la entrada estándar del siguiente.
-Se escribe con `|`, y los dos comandos se ejecutan a la vez: el segundo procesa los datos según el primero los produce.
+Se escribe con `|`, y los dos comandos se ejecutan a la vez, de modo que el segundo procesa los datos según el primero los produce.
 El error estándar no pasa por la tubería; sigue mostrándose en la pantalla.
 
 La idea de fondo es usar muchos comandos pequeños, cada uno con una sola tarea, y combinarlos.
@@ -38,12 +38,12 @@ Cuenta cuántas veces aparece cada valor y los ordena de más a menos frecuente,
 
 El estado de salida de una tubería es el de su último comando.
 Si `cut` falla porque el fichero no existe, pero `head` termina bien, la tubería entera devuelve 0.
-Veremos cómo cambiar eso en la semana 6.
+Veremos cómo cambiar eso en la semana 7.
 
 ## De líneas a argumentos: `xargs`
 
 Algunos comandos, como `rm`, `ls` o `wc` con nombres de fichero, no leen de la entrada estándar lo que tienen que tratar, sino de sus argumentos.
-**`xargs`** hace de puente: lee palabras de la entrada estándar y ejecuta el comando que se le indica con ellas como argumentos.
+**`xargs`** hace de puente, ya que lee palabras de la entrada estándar y ejecuta el comando que se le indica con ellas como argumentos.
 
 ```console
 $ find proyecto -name '*.[ch]' | xargs wc -c

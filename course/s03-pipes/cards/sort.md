@@ -155,8 +155,8 @@ tail -n +2 notas.csv | LC_ALL=C sort -t, -k3,3nr
 :::
 
 ```bash
-# Cuentas ordenadas por UID
-sort -t: -k3,3n /etc/passwd
+# Peticiones del log, de más a menos bytes (el campo 10)
+sort -k10,10nr acceso.log
 ```
 
 ```bash

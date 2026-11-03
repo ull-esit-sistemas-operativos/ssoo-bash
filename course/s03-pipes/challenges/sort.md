@@ -44,6 +44,8 @@
       incorrectExplanation: "En español, el punto es el separador de miles: `7.5` vale 75 y `6.25` vale 625, más que `9` y `10`."
 ```
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Prueba
 
 Ordena `f10`, `f2` y `f1` de forma que `f2` vaya antes que `f10`.
@@ -83,7 +85,7 @@ pablo,SSOO,
 ```
 
 `LC_ALL=C` hace falta por los decimales con punto.
-La nota vacía de `luis` va primero: como número vale 0.
+La nota vacía de `luis` va primero, porque como número vale 0.
 
 :::
 

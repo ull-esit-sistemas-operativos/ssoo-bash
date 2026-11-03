@@ -22,6 +22,10 @@ Algunas combinaciones resuelven problemas que aparecen continuamente:
   `tr -s ' '` los reduce a uno antes de cortar.
 - **Vigilar un *log*.**
   `tail -f acceso.log | grep ' 404 '` muestra los errores 404 según llegan, hasta que pulsamos [[Ctrl]]+[[C]].
+- **Probar un filtro con unas líneas.**
+  `printf` escribe su primer argumento cambiando cada `\n` por un salto de línea, así que `printf 'b\na\n' | sort` ordena dos líneas sin crear un fichero.
+  Con `'%s\n'`, escribe cada uno de los argumentos siguientes en su línea, como en `printf '%s\n' b a | sort`.
+  `printf` se explica a fondo en la semana 5.
 
 ## Buscar en un campo concreto
 

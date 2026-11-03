@@ -3,7 +3,7 @@ Pero ¿quién entiende lo que tecleamos?
 No es la terminal, que solo es una aplicación que muestra texto y recoge lo que pulsamos en el teclado.
 
 > [!NOTE] Terminales y emuladores de terminal
-> Originalmente, una terminal era un aparato aparte: una pantalla de texto y un teclado conectados a un ordenador central.
+> Originalmente, una terminal era un aparato aparte, formado por una pantalla de texto y un teclado conectados a un ordenador central.
 > Hoy usamos un **emulador de terminal**, un programa que imita aquella terminal dentro de una ventana y que, al abrirse, lanza una *shell*.
 > Hay muchos emuladores de terminal: GNOME Terminal, Konsole, Windows Terminal o la terminal integrada de VS Code.
 > Su aspecto y sus atajos cambian; por ejemplo, en muchos para copiar se usa [[Ctrl]]+[[Mayús]]+[[C]], porque [[Ctrl]]+[[C]] interrumpe la orden en ejecución.

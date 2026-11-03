@@ -21,7 +21,7 @@ Cuando usamos una variable, las comillas deciden qué llega al comando:
   `"$dir"` se sustituye por el valor y lo mantiene como un solo argumento, aunque tenga espacios.
   Es la forma que usaremos casi siempre.
 - **Comillas simples.**
-  `'$dir'` no se sustituye: llega el texto literal `$dir`.
+  `'$dir'` no se sustituye, así que llega el texto literal `$dir`.
 - **Sin comillas.**
   `$dir` se sustituye y después se parte por los espacios.
   Un directorio llamado `mis fotos` llegaría como dos argumentos, `mis` y `fotos`.
@@ -30,7 +30,7 @@ Cuando usamos una variable, las comillas deciden qué llega al comando:
 
 La variable especial `$#` contiene el número de argumentos que recibió el *script*.
 Con ella podemos parar a tiempo si nos llaman mal.
-La estructura `if` la estudiaremos a fondo la semana que viene; de momento basta con este patrón:
+La estructura `if` la estudiaremos a fondo en la semana 4; de momento basta con este patrón:
 
 ```bash
 if [[ $# -ne 1 ]]; then

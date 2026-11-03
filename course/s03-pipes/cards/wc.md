@@ -61,17 +61,12 @@ tail -n +2 notas.csv | wc -l
 :::
 
 ```bash
-# Sesiones abiertas en el sistema
-who | wc -l
-```
-
-```bash
 # Cuántos scripts hay en el árbol
 find . -type f -name '*.sh' | wc -l
 ```
 
 ```bash
-# Guardar la cuenta en una variable, sin el nombre del fichero
+# Guardar la cuenta en una variable, sin el nombre del fichero ($( ) se explica en la semana 4)
 n=$(wc -l < notas.csv)
 ```
 

@@ -29,7 +29,7 @@ marta,FP,8.5
 pablo,SSOO,
 ```
 
-El tercero empieza en la línea 2: es la forma de saltar la cabecera.
+El tercero empieza en la línea 2, que es la forma de saltar la cabecera.
 
 ## Opciones útiles
 
@@ -52,7 +52,7 @@ De `tail`:
 | `-n +N` | Desde la línea N hasta el final | `tail -n +2` |
 | `-c N`, `--bytes=N` | Los N últimos bytes | `tail -c 100` |
 | `-c +N` | Desde el byte N hasta el final | `tail -c +5` |
-| `-f`, `--follow` | Sigue mostrando lo que se añade al fichero, hasta Ctrl+C | `tail -f acceso.log` |
+| `-f`, `--follow` | Sigue mostrando lo que se añade al fichero, hasta [[Ctrl]]+[[C]] | `tail -f acceso.log` |
 | `-F` | Como `-f`, y sigue aunque el fichero se renombre o se cree de nuevo (rotación de *logs*) | `tail -F /var/log/syslog` |
 | `--pid=PID` | Con `-f`, termina cuando acaba ese proceso | `tail -f log --pid=1234` |
 | `-q`, `-v` | Sin o con cabeceras, como en `head` | `tail -q -n 1 *.log` |
@@ -208,7 +208,7 @@ tail -f acceso.log | grep 404 | cut -d' ' -f1
 tail -f acceso.log | grep --line-buffered 404 | cut -d' ' -f1
 ```
 
-Si `grep` es el último comando y escribe directamente en la terminal, no hace falta: ya muestra cada línea al momento.
+Si `grep` es el último comando y escribe directamente en la terminal, no hace falta, porque ya muestra cada línea al momento.
 
 ## Ver también
 

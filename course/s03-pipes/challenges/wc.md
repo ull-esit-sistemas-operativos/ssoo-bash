@@ -32,7 +32,7 @@
     - id: a
       value: "`9` y `8`"
       isCorrect: true
-      explanation: "`echo` añade el salto de línea, y la `ó` ocupa dos bytes en UTF-8: `-c` cuenta bytes y `-m`, caracteres."
+      explanation: "`echo` añade el salto de línea, y la `ó` ocupa dos bytes en UTF-8. `-c` cuenta bytes y `-m`, caracteres."
     - id: b
       value: "`8` y `7`"
       incorrectExplanation: "`echo` añade un salto de línea, que también se cuenta."
@@ -41,8 +41,10 @@
       incorrectExplanation: La `ó` ocupa dos bytes en UTF-8, así que `-c`, que cuenta bytes, da uno más que `-m`.
     - id: d
       value: "`8` y `9`"
-      incorrectExplanation: "Es al revés: `-c` cuenta bytes y `-m`, caracteres, y la `ó` ocupa dos bytes."
+      incorrectExplanation: "Es al revés. `-c` cuenta bytes y `-m`, caracteres, y la `ó` ocupa dos bytes."
 ```
+
+Los retos que siguen son para practicar más.
 
 ## Reto 3 · Prueba
 

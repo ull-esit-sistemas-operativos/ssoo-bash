@@ -1,0 +1,201 @@
+# yaml-language-server: $schema=../../schema/course.schema.json
+id: s04
+title: "Semana 4 · Decisiones, expansiones y bucles"
+collapsed: true
+description: |
+  Un *script* que ejecuta sus órdenes una tras otra no puede reaccionar a lo que encuentra.
+  ¿Y si el fichero no existe?
+  ¿Y si hay que hacer lo mismo con cada fichero de un directorio, o algo distinto según su extensión?
+  Esta semana aprenderemos a tomar decisiones con `if`, `[[ ]]` y `case`, y a repetir acciones con `for` y `while read`.
+  Antes, entenderemos qué hace bash con cada línea que escribimos, porque de ahí vienen la mitad de los errores de un *script*.
+  Todo se integra en una nueva versión de `ordenar.sh`, de la semana 2, que reparte los ficheros de un directorio en carpetas según su extensión.
+objectives: |
+  - Tomar decisiones con `if`, `[[ ]]`, `&&` y `||`, y hacer cálculos enteros con `$(( ))`.
+  - Conocer el orden en que bash aplica las expansiones y predecir su resultado.
+  - Elegir el tipo de comillas adecuado en cada caso.
+  - Guardar la salida de un comando con la sustitución de comandos, y recortar, medir o cambiar el valor de una variable con las expansiones de parámetros.
+  - Escribir expresiones regulares básicas y extendidas para `grep` y `=~`.
+  - Recorrer ficheros, listas y rangos con `for`, y líneas con `while read`.
+  - Elegir entre varios casos con `case` y pedir datos con `read -p`.
+content: class.md
+workspace:
+  fixtures: fixtures
+  mtimes:
+    "proyecto/.oculto": "2026-10-01 10:00"
+    "proyecto/README.md": "2026-10-02 09:30"
+    "proyecto/docs": "2026-10-01 10:00"
+    "proyecto/docs/guía de uso.txt": "2026-10-01 10:00"
+    "proyecto/src": "2026-10-01 10:00"
+    "proyecto/src/main.c": "2026-10-03 12:00"
+    "proyecto/src/util.h": "2026-10-01 10:00"
+lessons:
+  - id: lecture
+    title: "Lectura"
+    lessonParts:
+      - id: weekly-data
+        title: "Los datos de la semana"
+        type: lecture
+        content: weekly-data.md
+        preview: notas.csv
+
+      - id: decisions
+        title: "Decidir en un script"
+        type: lecture
+        content: decisions.md
+
+      - id: command-line-processing
+        title: "Qué hace bash con una línea"
+        type: lecture
+        content: command-line-processing.md
+
+      - id: quoting
+        title: "Comillas a fondo"
+        type: lecture
+        content: quoting.md
+
+      - id: command-substitution
+        title: "Sustitución de comandos"
+        type: lecture
+        content: command-substitution.md
+
+      - id: parameter-expansion
+        title: "Recortar y transformar el valor de una variable"
+        type: lecture
+        content: parameter-expansion.md
+
+      - id: regular-expressions
+        title: "Expresiones regulares"
+        type: lecture
+        content: regular-expressions.md
+
+      - id: for-loops
+        title: "Bucles for"
+        type: lecture
+        content: for-loops.md
+
+      - id: reading-lines
+        title: "Leer línea a línea"
+        type: lecture
+        content: reading-lines.md
+
+      - id: case
+        title: "Elegir entre varios casos"
+        type: lecture
+        content: case.md
+
+      - id: weekly-script
+        title: "El script de la semana: ordenar.sh"
+        type: script
+        content: weekly-script.md
+        showEditor: true
+        showTerminal: true
+        editors: [ordenar.sh]
+        workspace:
+          workdir: exercises/s04              # the lecture runs ./ordenar.sh here, with the week's data
+          starter: weekly-script/starter
+        exercise:
+          solution: ../../solutions/s04/weekly-script
+          script: ordenar.sh
+          tests: weekly-script/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: predict-output
+        title: "Predice qué sale"
+        type: quiz
+        content: predict-output.md
+        showTerminal: true
+
+  - id: patterns
+    title: "Patrones"
+    collapsed: true
+    description: |
+      En la lectura han aparecido dos patrones: recorrer ficheros, con `for`, y recorrer líneas, con `while read`.
+    lessonParts:
+      - id: loop-over-files
+        title: "Recorrer ficheros"
+        type: lecture
+        content: patterns/loop-over-files.md
+
+      - id: loop-over-lines
+        title: "Recorrer líneas"
+        type: lecture
+        content: patterns/loop-over-lines.md
+
+  - id: test
+    title: "[[ ]] y test"
+    collapsed: true
+    description: |
+      Evalúa una condición sobre cadenas, números o ficheros y devuelve un estado de salida de éxito o fallo, para usarla con `if`, `while`, `&&` o `||` en un *script*.
+    lessonParts:
+      - id: card
+        title: "Ficha de [[ ]] y test"
+        type: lecture
+        content: cards/test.md
+
+      - id: challenges
+        title: "Retos de [[ ]] y test"
+        type: terminal
+        content: challenges/test.md
+        dependsOn: [s04:test:card]
+        showTerminal: true
+
+  - id: exercises
+    title: "Ejercicios"
+    collapsed: true
+    description: |
+      Tres *scripts* cortos con lo de la semana: `[[ ]]` con `=~`, expansiones de parámetros, bucles `for`, `case` y `read`.
+      Cada uno se comprueba con *Comprobar ejercicio*.
+    duration: 70
+    content: exercises/intro.md
+    lessonParts:
+      - id: rename-ext
+        title: "Cambiar la extensión"
+        type: script
+        duration: 20
+        content: exercises/rename-ext.md
+        showEditor: true
+        showTerminal: true
+        editors: [renombrar.sh]
+        workspace:                          # workdir: exercises/s04/rename-ext
+          starter: exercises/rename-ext/starter
+        exercise:
+          solution: ../../solutions/s04/rename-ext
+          script: renombrar.sh
+          tests: exercises/rename-ext/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: top-words
+        title: "Palabras más frecuentes"
+        type: script
+        duration: 25
+        content: exercises/top-words.md
+        showEditor: true
+        showTerminal: true
+        editors: [top_palabras.sh]
+        workspace:                          # workdir: exercises/s04/top-words
+          starter: exercises/top-words/starter
+        exercise:
+          solution: ../../solutions/s04/top-words
+          script: top_palabras.sh
+          tests: exercises/top-words/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5
+
+      - id: confirm-delete
+        title: "Borrar con confirmación"
+        type: script
+        duration: 25
+        content: exercises/confirm-delete.md
+        showEditor: true
+        showTerminal: true
+        editors: [borrar.sh]
+        workspace:                          # workdir: exercises/s04/confirm-delete
+          starter: exercises/confirm-delete/starter
+        exercise:
+          solution: ../../solutions/s04/confirm-delete
+          script: borrar.sh
+          tests: exercises/confirm-delete/tests
+          shellcheck: { severity: info, notes: style }
+          timeout: 5

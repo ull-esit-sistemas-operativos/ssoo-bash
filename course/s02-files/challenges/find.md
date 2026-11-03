@@ -9,7 +9,7 @@
     - id: a
       value: "`2`"
       isCorrect: true
-      explanation: "Con `-maxdepth 1` no entra en `docs` ni en `src`, y `-type f` deja fuera los directorios: quedan `proyecto/.oculto` y `proyecto/README.md`."
+      explanation: "Con `-maxdepth 1` no entra en `docs` ni en `src`, y `-type f` deja fuera los directorios, así que quedan `proyecto/.oculto` y `proyecto/README.md`."
     - id: b
       value: "`5`"
       incorrectExplanation: Con `-maxdepth 1` no entra en `docs` ni en `src`, así que no cuenta sus ficheros.
@@ -34,6 +34,8 @@ find proyecto -type f -empty
 Tres ficheros: `proyecto/src/util.h`, `proyecto/README.md` y `proyecto/docs/guía de uso.txt`, en el orden en que los devuelva el sistema de ficheros.
 
 :::
+
+Los retos que siguen son para practicar más.
 
 ## Reto 3 · Prueba
 
@@ -89,5 +91,63 @@ Sale una sola línea, la de `proyecto/docs/guía de uso.txt`, con tamaño 0.
 En la terminal, `ls` muestra el nombre entre comillas simples porque tiene espacios.
 
 `find` pasa cada ruta como un solo argumento, así que el espacio del nombre no la parte.
+
+:::
+
+## Reto 6 · Prueba
+
+Lista los ficheros `.c` y `.h` de `proyecto` con una sola orden `find`.
+
+::: details Solución
+
+```bash
+find proyecto -type f \( -name '*.c' -o -name '*.h' \)
+```
+
+Salen `proyecto/src/main.c` y `proyecto/src/util.h`, en el orden en que los devuelva el sistema de ficheros.
+Los paréntesis agrupan las dos pruebas de `-name`, así que `-type f` se aplica a las dos.
+
+:::
+
+## Reto 7 · Prueba
+
+```quiz
+- id: "7"
+  type: string
+  content: ¿Cuántos ficheros de `proyecto` se modificaron hace más de una semana?
+  options:
+    - id: a
+      value: "5"
+```
+
+::: details Solución
+
+```bash
+find proyecto -type f -mtime +7 | wc -l
+```
+
+`5`.
+Los datos de la semana tienen fechas de principios de octubre de 2026, así que todos los ficheros tienen más de una semana.
+`-mtime +7` encaja con los modificados hace 8 días o más.
+
+:::
+
+## Reto 8 · Combina
+
+Haz una copia de `proyecto` llamada `prueba` y da permiso de ejecución a su `src/main.c`.
+Después, borra con una sola orden `find` los ficheros de `prueba` que su propietario puede ejecutar, y comprueba que solo ha desaparecido `main.c`.
+
+::: details Solución
+
+```bash
+cp -r proyecto prueba
+chmod u+x prueba/src/main.c
+find prueba -type f -perm -u+x -delete
+find prueba -type f
+```
+
+El último `find` muestra los cuatro ficheros que quedan: `.oculto`, `README.md`, `guía de uso.txt` y `util.h`.
+`-perm -u+x` encaja con los ficheros que tienen al menos el permiso de ejecución del propietario.
+Prueba siempre la orden sin `-delete` antes de añadirlo, porque `find` borra sin preguntar.
 
 :::

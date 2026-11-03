@@ -1,9 +1,11 @@
-Cada ejercicio abre su *script* en el editor, con el *shebang* y un comentario que dice qué hace, y un terminal en su propio directorio, con los datos de la semana: `notas.csv` y el directorio `proyecto`.
+Cada ejercicio abre su *script* en el editor, con el *shebang* y un comentario que dice qué hace, y una terminal en su propio directorio, con los datos de la semana: `notas.csv` y el directorio `proyecto`.
+
+Los dos primeros ejercicios son lo esencial de la semana; los demás, práctica adicional.
 
 1. Escribe el *script* debajo del comentario.
-2. Pruébalo en el terminal, por ejemplo `bash ver.sh notas.csv`, también con un nombre con espacios y con un fichero que no existe.
+2. Pruébalo en la terminal, por ejemplo `bash ver.sh notas.csv`, también con un nombre con espacios y con un fichero que no existe.
    Si le das permiso de ejecución con `chmod +x ver.sh`, también puedes ejecutarlo como `./ver.sh notas.csv`.
-3. Pulsa **Comprobar ejercicio**, o ejecuta `check` en el terminal.
+3. Pulsa **Comprobar ejercicio**, o ejecuta `check` en la terminal.
 
 La comprobación tiene dos partes:
 
@@ -12,4 +14,5 @@ La comprobación tiene dos partes:
 - **Pruebas.** Ejecutan tu *script* sobre una copia nueva de los datos y comprueban lo que muestra y su estado de salida.
   El nombre de cada prueba dice qué se espera; si falla, debajo aparece lo que se esperaba y lo que se ha obtenido.
 
-Esta semana los *scripts* no comprueban sus argumentos: si algo falla, el error lo muestra el comando que falla, y el *script* termina con el estado de su última orden.
+Esta semana los *scripts* no comprueban sus argumentos.
+Si algo falla, el error lo muestra el comando que falla, y el *script* termina con el estado de su última orden.

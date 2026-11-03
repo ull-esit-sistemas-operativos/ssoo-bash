@@ -4,7 +4,7 @@
 
 - Con dos argumentos, el patrón y el fichero, muestra solo el número de líneas que lo contienen.
 - El patrón puede tener espacios, como `"el perro"`, y el nombre del fichero también.
-- El patrón puede empezar por guion, como `-v`: es un texto que buscar, no una opción.
+- El patrón puede empezar por guion, como `-v`, y sigue siendo un texto que buscar, no una opción.
 - Si ninguna línea lo contiene, muestra `0` y termina con éxito.
 
 ```console

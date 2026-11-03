@@ -2,6 +2,9 @@
 
 En la sesión construiremos `info.sh` paso a paso, de la terminal al fichero.
 
+**Lo esencial** es la lectura con `info.sh` y «Predice qué sale», la ficha de `ls` con sus dos primeros retos y los ejercicios «Ver un fichero» y «Contar entradas».
+Los demás retos y ejercicios son para practicar más.
+
 Para afianzar lo de esta semana:
 
 - **Fichas.**

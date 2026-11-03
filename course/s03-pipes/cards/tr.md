@@ -5,7 +5,7 @@
 tr [opciones] CONJUNTO1 [CONJUNTO2]
 ```
 
-Solo lee de la entrada estándar: no acepta nombres de fichero.
+Solo lee de la entrada estándar y no acepta nombres de fichero.
 Cada carácter de `CONJUNTO1` se cambia por el que ocupa la misma posición en `CONJUNTO2`.
 
 ## Ejemplo
@@ -122,18 +122,13 @@ tr -s ' ' '\n' < texto.txt | sort | uniq -c | sort -rn | head
 
 :::
 
-```bash
-# Usuario y PID de cada proceso, comprimiendo los espacios para cut
-ps aux | tr -s ' ' | cut -d' ' -f1,2
-```
-
 ## Errores frecuentes
 
 **`tr` no lee ficheros.**
 El nombre del fichero se toma como un conjunto de más.
 
 ```bash
-# ✗ tr: extra operand ‘notas.csv’
+# ✗ tr: operando extra ‘notas.csv’
 tr a-z A-Z notas.csv
 
 # ✓
@@ -149,7 +144,7 @@ adio
 ```
 
 Para cambiar palabras se usa `sed 's/hola/adios/g'`.
-`sed` se explica en la semana 6, en la [Ficha de sed](../../s06-robust-scripts/cards/sed.md).
+`sed` se explica en la semana 5, en la [Ficha de sed](../../s05-text-processing/cards/sed.md).
 
 **Tildes y eñes.**
 GNU `tr` trabaja byte a byte, así que no convierte las letras con tilde ni la ñ, aunque el *locale* sea español.
@@ -160,7 +155,7 @@ CANCIóN ñANDú
 ```
 
 Para textos con tildes se puede usar GNU `sed`: `sed 's/.*/\U&/'` devuelve `CANCIÓN ÑANDÚ`.
-La función `toupper` de `mawk` tiene el mismo problema que `tr`.
+La función `toupper` de `gawk`, que se explica en la semana 5, también las convierte, pero la de `mawk` tiene el mismo problema que `tr`.
 
 ## Ver también
 

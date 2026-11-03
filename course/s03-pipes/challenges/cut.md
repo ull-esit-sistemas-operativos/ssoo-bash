@@ -43,6 +43,8 @@ pab
 
 :::
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Prueba
 
 Muestra `notas.csv` sin la columna de la asignatura, sin nombrar las columnas que quieres conservar.

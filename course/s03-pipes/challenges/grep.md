@@ -9,7 +9,7 @@
     - id: a
       value: "`1`"
       isCorrect: true
-      explanation: "`-c` cuenta líneas, no apariciones: `ana` sale dos veces, pero en la misma línea."
+      explanation: "`-c` cuenta líneas, no apariciones, y `ana` sale dos veces, pero en la misma línea."
     - id: b
       value: "`2`"
       incorrectExplanation: "`-c` cuenta líneas, no apariciones, y las dos `ana` están en la misma línea."
@@ -49,6 +49,8 @@
       incorrectExplanation: "`-c` imprime cuántas líneas encajan, no las líneas."
 ```
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Prueba
 
 Muestra las líneas del *log* que no son de la IP `192.168.1.10`.
@@ -71,7 +73,7 @@ Muestra las IP distintas del *log* usando `grep` en lugar de `cut`.
 ::: details Solución
 
 ```bash
-grep -oE '^[0-9.]+' acceso.log | sort -u
+grep -o '^[0-9.]*' acceso.log | sort -u
 ```
 
 ```text
@@ -123,5 +125,43 @@ ls -l proyecto | grep -c '^d'
 
 `2`.
 En `ls -l`, la primera letra de cada línea es el tipo, y `d` es directorio.
+
+:::
+
+## Reto 7 · Prueba
+
+Lista los ficheros del directorio de la semana que contienen `ana`, también los que están dentro de subdirectorios, sin mostrar las líneas.
+
+::: details Solución
+
+```bash
+grep -rl ana .
+```
+
+Salen `notas.csv` y `n.txt`, en el orden en que los devuelva el sistema de ficheros.
+`-r` recorre el directorio y sus subdirectorios, y `-l` escribe solo el nombre de cada fichero con alguna línea que encaja.
+
+:::
+
+## Reto 8 · Combina
+
+```quiz
+- id: "8"
+  type: string
+  content: |
+    ¿Cuántas peticiones del *log* son de la IP `10.0.0.7`?
+    Compara la IP como texto literal y con el campo entero, para que los puntos no encajen con cualquier carácter y `10.0.0.7` no encaje con `10.0.0.70`.
+  options:
+    - id: a
+      value: "2"
+```
+
+::: details Solución
+
+```bash
+cut -d' ' -f1 acceso.log | grep -cxF 10.0.0.7
+```
+
+`2`, porque `-F` trata el patrón como texto, sin caracteres especiales, y `-x` exige que ocupe la línea entera.
 
 :::

@@ -29,5 +29,6 @@ cd ssoo/practicas
 
 > [!NOTE] Una nota sobre los alias
 > Un alias es un nombre corto para una orden más larga: `alias ll='ls -l'` hace que `ll` liste en formato largo.
-> Solo persiste hasta que cerramos la terminal, salvo que lo añadamos a un *script* de configuración de bash, como `~/.bashrc`.
-> Los alias son una comodidad personal: no se expanden dentro de los *scripts*, así que nunca debemos contar con ellos al programar.
+> Solo persiste hasta que cerramos la terminal, salvo que lo añadamos a un archivo de configuración de bash, como `~/.bashrc`.
+> Los alias son una comodidad personal.
+> No se expanden dentro de los *scripts*, así que nunca debemos contar con ellos al programar.

@@ -40,6 +40,8 @@ El `\n` del conjunto conserva el salto de línea.
 
 :::
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Prueba
 
 Convierte `notas.csv` a la convención española: coma decimal y punto y coma como separador de campos.

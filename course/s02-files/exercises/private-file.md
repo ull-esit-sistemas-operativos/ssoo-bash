@@ -9,9 +9,9 @@ Después muestra cómo han quedado con `ls -l`.
 
 ```console
 $ ls -l notas.csv
--rw-r--r-- 1 alu alu 117 oct 21 10:00 notas.csv
+-rw-r--r-- 1 alu alu 106 oct 21 10:00 notas.csv
 $ bash privado.sh notas.csv
--rw------- 1 alu alu 117 oct 21 10:00 notas.csv
+-rw------- 1 alu alu 106 oct 21 10:00 notas.csv
 ```
 
 ## Errores

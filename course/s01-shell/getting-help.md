@@ -17,11 +17,11 @@ Lo que sí conviene es saber dónde mirar:
 $ type cd
 cd es una orden interna del shell
 $ type ls
-ls es un alias de «ls --color=auto»
+ls es un alias de `ls --color=auto'
 $ help cd
 ```
 
 Los mensajes exactos dependen del idioma configurado y de la distribución.
-Lo importante es la idea: `cd` no es un programa aparte, sino parte de la propia *shell*, y por eso su ayuda está en `help` y no en `man`.
+Lo importante es que `cd` no es un programa aparte, sino parte de la propia *shell*, y por eso su ayuda está en `help` y no en `man`.
 
 Para entender una orden que encontramos escrita, [explainshell](https://explainshell.com) separa cada parte y muestra el fragmento de la página de manual que la explica.

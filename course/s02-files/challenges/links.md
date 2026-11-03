@@ -50,10 +50,12 @@ ln a.csv b.csv
 ls -l a.csv b.csv
 ```
 
-Las dos líneas muestran `2`: el fichero tiene dos nombres, `a.csv` y `b.csv`.
+Las dos líneas muestran `2`, porque el fichero tiene dos nombres, `a.csv` y `b.csv`.
 Con `rm b.csv`, `ls -l a.csv` vuelve a mostrar `1`.
 
 :::
+
+Los retos que siguen son para practicar más.
 
 ## Reto 3 · Prueba
 

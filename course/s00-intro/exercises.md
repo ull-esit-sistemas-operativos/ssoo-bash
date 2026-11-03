@@ -4,7 +4,7 @@ El curso tiene dos clases de ejercicios: los retos, que se hacen en la terminal,
 
 Cada reto de un comando pide predecir qué hace una orden, probar una opción o combinarlo con otros comandos.
 Los de predecir y los que tienen una respuesta exacta, como un número, se responden en la propia página, que indica si la respuesta es correcta.
-Los demás llevan la solución en un desplegable cerrado: resuélvelos antes de abrirlo, y compara.
+Los demás llevan la solución en un desplegable cerrado, así que resuélvelos antes de abrirlo y compara después.
 Cuando termines los retos, pulsa *Marcar como completado*.
 
 ## Los ejercicios de *script*
@@ -12,7 +12,7 @@ Cuando termines los retos, pulsa *Marcar como completado*.
 Un **ejercicio de *script*** pide escribir un *script* que hace algo concreto con los datos de la semana.
 Son el *script* de cada semana y los de la lección «Ejercicios».
 
-Al abrir uno, se abre un archivo de *script* vacio en el editor y una terminal en su directorio:
+Al abrir uno, se abre un archivo de *script* vacío en el editor y una terminal en su directorio:
 
 1. **Prográmalo** debajo del último comentario.
 2. **Pruébalo** en la terminal con distintos argumentos, como `bash ver.sh notas.csv`, también con nombres con espacios y con ficheros que no existen.
@@ -27,7 +27,8 @@ La comprobación tiene dos partes:
 ![Resultado de Comprobar ejercicio: shellcheck señala una variable sin comillas y falla la prueba con un nombre con espacios](images/check.png)
 
 El ejercicio se completa cuando supera todas las comprobaciones.
-Mientras tanto, el árbol muestra junto a él cuántas superó la última vez, por ejemplo: `4/6`.
+Mientras tanto, el árbol muestra junto a él cuántas superó la última vez, por ejemplo, `4/6`.
 
 Como las pruebas usan una copia nueva de los datos, tu *script* puede crear, mover o borrar ficheros sin que eso afecte a la comprobación.
-Si quieres empezar de cero, pulsa con el botón derecho sobre el ejercicio en el árbol y elige *Restablecer ficheros del ejercicio*: vuelve el *script* inicial y los datos, y pierdes los cambios que hayas hecho en ellos.
+Si quieres empezar de cero, pulsa con el botón derecho sobre el ejercicio en el árbol y elige *Restablecer ficheros del ejercicio*.
+Vuelven el *script* inicial y los datos, y pierdes los cambios que hayas hecho en ellos.

@@ -100,11 +100,6 @@ cut -d' ' -f1 acceso.log | sort | uniq -c | sort -rn | head
 :::
 
 ```bash
-# Usuarios ordenados por número de procesos
-ps -eo user= | sort | uniq -c | sort -rn
-```
-
-```bash
 # Valores que aparecen más de una vez (alumnos con varias notas)
 tail -n +2 notas.csv | cut -d, -f1 | sort | uniq -d
 ```
@@ -185,10 +180,10 @@ sort colores.txt | uniq -c | cut -d' ' -f1
 sort colores.txt | uniq -c | tr -s ' ' | cut -d' ' -f2
 
 # ✓ awk separa por blancos y se salta los iniciales
-sort colores.txt | uniq -c | awk '{print $1}'
+sort colores.txt | uniq -c | gawk '{print $1}'
 ```
 
-`awk` se explica en la semana 4.
+`awk` se explica en la semana 5.
 
 **`-f` separa por blancos.**
 No hay opción de delimitador, así que `-f` no sirve para saltar campos de un CSV.
@@ -196,4 +191,4 @@ Por tanto nos obliga a usar primero `cut` o `awk`.
 
 ## Ver también
 
-`man uniq` · [ficha de `sort`](sort.md) · [ficha de `cut`](cut.md) · [ficha de `awk`](../../s04-expansions-loops/cards/awk.md) · patrón «[Agregar por clave](../patterns/aggregate-by-key.md)»
+`man uniq` · [ficha de `sort`](sort.md) · [ficha de `cut`](cut.md) · [ficha de `awk`](../../s05-text-processing/cards/awk.md) · patrón «[Agregar por clave](../patterns/aggregate-by-key.md)»

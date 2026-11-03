@@ -13,15 +13,22 @@ units:
   - s01-shell/index.yml
   - s02-files/index.yml
   - s03-pipes/index.yml
-  - s04-expansions-loops/index.yml
-  - s05-processes-users/index.yml
-  - s06-robust-scripts/index.yml
-  - s07-wrap-up/index.yml
+  - s04-decisions-loops/index.yml
+  - s05-text-processing/index.yml
+  - s06-processes-users/index.yml
+  - s07-robust-scripts/index.yml
+  - s08-wrap-up/index.yml
 
 references:
   - id: ls
     title: "ls"
     part: s01:ls:card
+  - id: cp-mv-rm
+    title: "cp, mv y rm"
+    part: s02:cp-mv-rm:card
+  - id: chmod
+    title: "chmod"
+    part: s02:chmod:card
   - id: find
     title: "find"
     part: s02:find:card
@@ -48,28 +55,28 @@ references:
     part: s03:head-tail:card
   - id: test
     title: "[[ ]] y test"
-    part: s03:test:card
+    part: s04:test:card
   - id: awk
     title: "awk"
-    part: s04:awk:card
+    part: s05:awk:card
   - id: printf
     title: "printf"
-    part: s04:printf:card
+    part: s05:printf:card
   - id: ps
     title: "ps"
-    part: s05:ps:card
+    part: s06:ps:card
   - id: who-w
     title: "who y w"
-    part: s05:who-w:card
+    part: s06:who-w:card
   - id: id
     title: "id"
-    part: s05:id:card
+    part: s06:id:card
   - id: kill
     title: "kill"
-    part: s05:kill:card
+    part: s06:kill:card
   - id: lsof
     title: "lsof"
-    part: s05:lsof:card
+    part: s06:lsof:card
   - id: sed
     title: "sed"
-    part: s06:sed:card
+    part: s05:sed:card

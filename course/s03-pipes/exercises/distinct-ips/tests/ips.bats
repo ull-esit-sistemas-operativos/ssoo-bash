@@ -5,10 +5,11 @@ setup() {
   cd "$CHECK_WORKDIR" && rm -f ips.txt "lista de ips.txt"
 }
 
-@test "dice cuántas IP distintas ha guardado" {
+@test "muestra las IP y dice cuántas ha guardado" {
   run_script acceso.log ips.txt
   assert_success
-  assert_output "3 IP distintas guardadas en ips.txt"
+  assert_output $'10.0.0.7\n172.16.0.3\n192.168.1.10\n3 IP distintas guardadas en ips.txt' ||
+    fail "Se esperaban las IP y, al final, el total: tee guarda las IP en el fichero y las muestra a la vez"
 }
 
 @test "guarda en el fichero cada IP una vez, ordenadas" {
@@ -29,7 +30,7 @@ setup() {
   cp acceso.log "acceso de hoy.log"
   run_script "acceso de hoy.log" "lista de ips.txt"
   assert_success
-  assert_output "3 IP distintas guardadas en lista de ips.txt"
+  assert_line --index 3 "3 IP distintas guardadas en lista de ips.txt"
   assert_file_exists "lista de ips.txt"
 }
 

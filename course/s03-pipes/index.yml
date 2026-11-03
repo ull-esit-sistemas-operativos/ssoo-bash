@@ -7,14 +7,13 @@ description: |
   ¿Qué direcciones IP lo visitan más?
   ¿Cuántas páginas no se encontraron?
   Ningún comando responde a eso por sí solo, pero varios comandos pequeños encadenados sí.
-  Esta semana aprenderemos a decidir de dónde lee y a dónde escribe cada comando, a conectar unos con otros y a tomar decisiones en un *script*.
+  Esta semana aprenderemos a decidir de dónde lee y a dónde escribe cada comando, y a conectar unos con otros.
   Todo ello se integra en `resumen_log.sh`, que resume un *log* de acceso web.
 objectives: |
   - Distinguir la entrada, la salida y el error estándar de un comando.
   - Redirigirlos a ficheros, en el orden correcto, y descartar lo que no interesa.
   - Encadenar comandos con tuberías.
   - Filtrar y resumir texto con `grep`, `cut`, `sort`, `uniq`, `wc`, `head`, `tail`, `tr` y `tee`.
-  - Tomar decisiones con `if`, `[[ ]]`, `&&` y `||`, y hacer cálculos enteros con `$(( ))`.
 content: class.md
 workspace:
   fixtures: fixtures
@@ -55,11 +54,6 @@ lessons:
         title: "Filtros de texto"
         type: lecture
         content: text-filters.md
-
-      - id: decisions
-        title: "Decidir en un script"
-        type: lecture
-        content: decisions.md
 
       - id: weekly-script
         title: "El script de la semana: resumen_log.sh"
@@ -227,31 +221,13 @@ lessons:
         dependsOn: [s03:head-tail:card]
         showTerminal: true
 
-  - id: test
-    title: "[[ ]] y test"
-    collapsed: true
-    description: |
-      Evalúa una condición sobre cadenas, números o ficheros y devuelve un estado de salida de éxito o fallo, para usarla con `if`, `while`, `&&` o `||` en un *script*.
-    lessonParts:
-      - id: card
-        title: "Ficha de [[ ]] y test"
-        type: lecture
-        content: cards/test.md
-
-      - id: challenges
-        title: "Retos de [[ ]] y test"
-        type: terminal
-        content: challenges/test.md
-        dependsOn: [s03:test:card]
-        showTerminal: true
-
   - id: exercises
     title: "Ejercicios"
     collapsed: true
     description: |
-      Cinco *scripts* cortos que reúnen lo de la semana: argumentos, `[[ ]]`, redirecciones, tuberías y filtros.
+      Cuatro *scripts* cortos que reúnen lo de la semana: argumentos, redirecciones, tuberías y filtros.
       Cada uno se comprueba con *Comprobar ejercicio*.
-    duration: 90
+    duration: 65
     content: exercises/intro.md
     lessonParts:
       - id: count-matches
@@ -319,22 +295,5 @@ lessons:
           solution: ../../solutions/s03/distinct-ips
           script: ips.sh
           tests: exercises/distinct-ips/tests
-          shellcheck: { severity: info, notes: style }
-          timeout: 5
-
-      - id: top-words
-        title: "Palabras más frecuentes"
-        type: script
-        duration: 25
-        content: exercises/top-words.md
-        showEditor: true
-        showTerminal: true
-        editors: [top_palabras.sh]
-        workspace:                          # workdir: exercises/s03/top-words
-          starter: exercises/top-words/starter
-        exercise:
-          solution: ../../solutions/s03/top-words
-          script: top_palabras.sh
-          tests: exercises/top-words/tests
           shellcheck: { severity: info, notes: style }
           timeout: 5

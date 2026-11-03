@@ -3,7 +3,7 @@ Para eso existen los enlaces, que se crean con `ln`.
 
 - **Enlace duro.**
   Un segundo nombre para el mismo fichero.
-  Los dos nombres son iguales a todos los efectos: el contenido solo desaparece cuando se borra el último.
+  Los dos nombres son iguales a todos los efectos, y el contenido solo desaparece cuando se borra el último.
   Se crea con `ln original nombre`.
   No puede apuntar a un directorio ni a un fichero en otro sistema de ficheros.
 - **Enlace simbólico.**
@@ -29,5 +29,5 @@ $ readlink datos
 
 `ln -s` guarda la ruta tal cual, sin comprobar que exista.
 Si es relativa, se sigue desde el directorio donde está el enlace, no desde donde estábamos al crearlo.
-Por eso `ln -s notas.csv proyecto/notas` crea un enlace roto: lleva a `proyecto/notas.csv`.
+Por eso `ln -s notas.csv proyecto/notas` crea un enlace roto, porque lleva a `proyecto/notas.csv`.
 Desde `proyecto`, el fichero es `../notas.csv`, y esa es la ruta que tiene que guardar el enlace: `ln -s ../notas.csv proyecto/notas`.

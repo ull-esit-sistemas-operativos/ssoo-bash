@@ -30,6 +30,15 @@ setup() {
   assert_file_exists copias/colores.txt.bak
 }
 
+@test "añade cada copia al final de copias/registro.txt" {
+  run_script texto.txt
+  run_script colores.txt
+  assert_file_exists copias/registro.txt
+  run cat copias/registro.txt
+  assert_output $'texto.txt\ncolores.txt' ||
+    fail "Se esperaba una línea por copia, en orden: >> añade al final, y > borraría la anterior"
+}
+
 @test "funciona con un fichero cuyo nombre tiene espacios" {
   cp texto.txt "mi texto.txt"
   run_script "mi texto.txt"

@@ -18,7 +18,7 @@
       incorrectExplanation: "`-c` antepone a cada línea el número de veces que se repite seguida."
     - id: d
       value: "`1 verde` y `3 rojo`"
-      incorrectExplanation: "`uniq` no ordena: escribe los grupos en el orden en que aparecen, y los dos de `rojo` por separado."
+      incorrectExplanation: "`uniq` no ordena, sino que escribe los grupos en el orden en que aparecen, y los dos de `rojo` por separado."
 ```
 
 ## Reto 2 · Prueba
@@ -46,6 +46,8 @@ cut -d' ' -f1 acceso.log | sort | uniq -u
 
 :::
 
+Los retos que siguen son para practicar más.
+
 ## Reto 3 · Combina
 
 ```quiz
@@ -70,7 +72,8 @@ cut -d' ' -f1 acceso.log | sort | uniq -c | sort -rn | head -n 1 | tr -s ' ' | c
 ```
 
 `uniq -c` pone espacios delante del contador, así que `cut` no puede usar el espacio como separador directamente.
-`tr -s ' '` deja un solo espacio en cada hueco, y la línea queda ` 3 192.168.1.10`, que empieza por un espacio: el primer campo está vacío, el contador es el 2 y la IP, el 3.
+`tr -s ' '` deja un solo espacio en cada hueco, y la línea queda ` 3 192.168.1.10`, que empieza por un espacio.
+Por eso el primer campo está vacío, el contador es el 2 y la IP, el 3.
 
 :::
 
@@ -88,11 +91,11 @@ cut -d' ' -f1 acceso.log | sort | uniq -c | sort -rn | head -n 1 | tr -s ' ' | c
       explanation: "Solo las dos primeras líneas son iguales y seguidas, así que forman el único grupo repetido. El último `rojo` va solo, detrás de `verde`."
     - id: b
       value: "`rojo`, dos veces"
-      incorrectExplanation: "`-d` escribe una línea por cada grupo de repetidas, y el último `rojo` no forma grupo: va solo, detrás de `verde`."
+      incorrectExplanation: "`-d` escribe una línea por cada grupo de repetidas, y el último `rojo` no forma grupo, porque va solo, detrás de `verde`."
     - id: c
       value: "`verde`"
       incorrectExplanation: "`-d` muestra las líneas repetidas; `verde` aparece una sola vez. Eso sería `-u`, que aquí también daría el último `rojo`."
     - id: d
       value: "`rojo`, `rojo` y `rojo`"
-      incorrectExplanation: "Ni siquiera `-D`, que escribe todas las copias de cada grupo repetido, daría eso: solo las dos primeras líneas forman grupo, así que sale `rojo` dos veces."
+      incorrectExplanation: "Ni siquiera `-D`, que escribe todas las copias de cada grupo repetido, daría eso. Solo las dos primeras líneas forman grupo, así que sale `rojo` dos veces."
 ```

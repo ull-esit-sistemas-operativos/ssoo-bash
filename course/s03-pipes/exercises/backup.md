@@ -4,13 +4,19 @@
 
 - Crea `copias` si no existe, y no falla si ya existe.
 - Copia el fichero, sin moverlo, a `copias/FICHERO.bak`, y lo dice.
+- Añade una línea con el nombre del fichero al final de `copias/registro.txt`, sin borrar las de copias anteriores.
 - Funciona con nombres que tienen espacios: `mi texto.txt` se copia en `copias/mi texto.txt.bak`.
 
 ```console
 $ bash copia_seguridad.sh texto.txt
 Copia guardada en copias/texto.txt.bak
+$ bash copia_seguridad.sh colores.txt
+Copia guardada en copias/colores.txt.bak
 $ ls copias
-texto.txt.bak
+colores.txt.bak  registro.txt  texto.txt.bak
+$ cat copias/registro.txt
+texto.txt
+colores.txt
 ```
 
 ## Errores
@@ -22,12 +28,13 @@ Los mensajes de error van al error estándar, la salida estándar queda vacía y
 | No recibe un argumento | `Uso: copia_seguridad.sh <fichero>` | 1 |
 | El argumento no es un fichero normal (no existe o es un directorio) | `Error: FICHERO no es un fichero` | 2 |
 
-Las pruebas ejecutan tu *script* sobre una copia nueva de los datos de la semana, así que tus pruebas en el terminal no les afectan.
+Las pruebas ejecutan tu *script* sobre una copia nueva de los datos de la semana, así que tus pruebas en la terminal no les afectan.
 Si borras algún fichero de datos, vuelve a abrir esta página para recuperarlo.
 
 ::: details Pista
 
 Comprueba los errores antes de crear nada.
 `mkdir` tiene una opción para no fallar si el directorio ya existe.
+Repasa en «Redirecciones» cuál de ellas añade al final del fichero.
 
 :::

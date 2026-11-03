@@ -146,6 +146,25 @@ find . -type f -name '*.sh' -exec wc -l {} +
 ```
 
 ```bash
+# Pasar los ficheros a otro comando con xargs, aunque tengan espacios
+find proyecto -name '*.txt' -print0 | xargs -0 wc -c
+```
+
+::: details Paso a paso
+
+1. `find proyecto -name '*.txt' -print0` escribe `proyecto/docs/guía de uso.txt` terminada en un carácter nulo.
+2. `xargs -0` corta su entrada por los nulos, así que pasa la ruta a `wc -c` como un solo argumento, con sus espacios:
+
+   ```text
+   0 proyecto/docs/guía de uso.txt
+   ```
+
+:::
+
+`-exec wc -c {} +` hace lo mismo sin tubería, y basta cuando el comando trabaja directamente con lo que encuentra `find`.
+`xargs`, que se explica en la semana 3, hace falta cuando se quiere que la lista pase antes por otro comando, como `sort -z`, que ordena líneas terminadas en nulo.
+
+```bash
 # Recorrer los ficheros en un bucle, aunque tengan espacios
 find "$dir" -type f -print0 | while IFS= read -r -d '' f; do echo "$f"; done
 ```
@@ -171,7 +190,7 @@ find "$dir" -type f -print0 | while IFS= read -r -d '' f; do echo "$f"; done
 
 :::
 
-El bucle con `-print0` y `read -d ''` es el patrón «[Recorrer ficheros](../../s04-expansions-loops/patterns/loop-over-files.md)».
+El bucle con `-print0` y `read -d ''` es el patrón «[Recorrer ficheros](../../s04-decisions-loops/patterns/loop-over-files.md)».
 
 ## Errores frecuentes
 
@@ -212,4 +231,4 @@ find /tmp -name '*.tmp' -delete
 
 ## Ver también
 
-`man find` · [ficha de `ls`](../../s01-shell/cards/ls.md) · [ficha de `wc`](../../s03-pipes/cards/wc.md) · patrón «[Recorrer ficheros](../../s04-expansions-loops/patterns/loop-over-files.md)»
+`man find` · [ficha de `ls`](../../s01-shell/cards/ls.md) · [ficha de `wc`](../../s03-pipes/cards/wc.md) · patrón «[Recorrer ficheros](../../s04-decisions-loops/patterns/loop-over-files.md)»

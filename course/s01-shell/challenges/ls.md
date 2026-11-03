@@ -9,7 +9,7 @@
     - id: a
       value: "`4`"
       isCorrect: true
-      explanation: "`-A` incluye las entradas ocultas (`.oculto`) pero no `.` ni `..`: `.oculto`, `docs`, `README.md` y `src`."
+      explanation: "`-A` incluye las entradas ocultas (`.oculto`) pero no `.` ni `..`, así que salen `.oculto`, `docs`, `README.md` y `src`."
     - id: b
       value: "`3`"
       incorrectExplanation: "`-A` también incluye las entradas ocultas, como `.oculto`."
@@ -39,6 +39,8 @@ main.c
 `-t` ordena por fecha, del más reciente al más antiguo, y `-r` invierte el orden.
 
 :::
+
+Los retos que siguen son para practicar más.
 
 ## Reto 3 · Prueba
 
@@ -78,10 +80,30 @@ ls -AF proyecto
 ```
 
 ```text
-.oculto  README.md  docs/  src/
+docs/  .oculto  README.md  src/
 ```
 
-`2`: `-A` añade las entradas ocultas y `-F` marca los directorios con `/`.
+`2`, porque `-A` añade las entradas ocultas y `-F` marca los directorios con `/`.
 `.oculto` sale, pero sin `/`, porque es un fichero.
+
+:::
+
+## Reto 5 · Prueba
+
+Lista los ficheros de `proyecto/src` del más grande al más pequeño, con su tamaño.
+
+::: details Solución
+
+```bash
+ls -lS proyecto/src
+```
+
+```text
+total 4
+-rw-r--r-- 1 alu alu 2048 oct  3 12:00 main.c
+-rw-r--r-- 1 alu alu    0 oct  1 10:00 util.h
+```
+
+`-S` ordena por tamaño, el mayor primero; con `-r` además, el menor primero.
 
 :::

@@ -15,7 +15,7 @@ setup() {
 
 @test "con acceso.log cuenta 3 errores 404 de 6 peticiones" {
   run_script acceso.log
-  assert_line --index 4 "Errores 404: 3 de 6 (50%)"
+  assert_line --index 4 "Errores 404: 3 de 6"
 }
 
 @test "muestra solo las 10 IP con más peticiones" {
@@ -27,7 +27,7 @@ setup() {
   assert_success
   ((${#lines[@]} == 12)) ||
     fail "Se esperaban 12 líneas (el título, 10 IP y los 404) y han salido ${#lines[@]}: head -n 10 se queda con las 10 primeras"
-  assert_line --index 11 "Errores 404: 0 de 12 (0%)"
+  assert_line --index 11 "Errores 404: 0 de 12"
 }
 
 @test "solo cuenta los 404 del código de respuesta, no los de la ruta" {
@@ -38,23 +38,22 @@ setup() {
 10.0.0.2 - - [21/Oct/2026:10:00:03 +0200] "GET / HTTP/1.1" 200 100
 LOG
   run_script rutas.log
-  assert_line "Errores 404: 1 de 4 (25%)" ||
+  assert_line "Errores 404: 1 de 4" ||
     fail "Solo la segunda línea es un 404: compara el campo 9 entero (cut -d' ' -f9 y grep '^404$'), no busques 404 en toda la línea"
 }
 
-@test "con un log vacío lo dice y termina con código 0" {
+@test "con un log vacío cuenta 0 errores 404 de 0 peticiones" {
   : > vacio.log
   run_script vacio.log
-  assert_success ||
-    fail "Ha terminado con código $status: con 0 peticiones el porcentaje divide por cero, compruébalo antes"
-  assert_line "El log está vacío"
+  assert_success
+  assert_line "Errores 404: 0 de 0"
 }
 
 @test "funciona con un log cuyo nombre tiene espacios" {
   cp acceso.log "acceso de octubre.log"
   run_script "acceso de octubre.log"
   assert_success
-  assert_line "Errores 404: 3 de 6 (50%)"
+  assert_line "Errores 404: 3 de 6"
 }
 
 @test "sin un argumento muestra el uso por stderr y termina con código 1" {

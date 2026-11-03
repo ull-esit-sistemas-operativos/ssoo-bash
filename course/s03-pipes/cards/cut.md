@@ -30,10 +30,10 @@ luis,
 marta,9
 marta,8.5
 pablo,
-$ cut -d: -f1,7 /etc/passwd | head -n 3
-root:/bin/bash
-daemon:/usr/sbin/nologin
-bin:/usr/sbin/nologin
+$ cut -d' ' -f1,9 acceso.log | head -n 3
+192.168.1.10 200
+10.0.0.7 404
+192.168.1.10 200
 ```
 
 ## Opciones útiles
@@ -70,8 +70,8 @@ Cómo se definen los campos o caracteres a extraer con `-f`, `-c` o `-b`:
 ## Combinaciones habituales
 
 ```bash
-# Usuario y shell de cada cuenta
-cut -d: -f1,7 /etc/passwd
+# Código de respuesta de cada petición del log
+cut -d' ' -f9 acceso.log
 ```
 
 ```bash
@@ -176,7 +176,7 @@ tail -n +2 notas.csv | cut -d, -f2 | sort -u
 
 **Varios espacios seguidos.**
 Cada espacio es un separador, así que dos espacios seguidos delimitan un campo vacío.
-Ocurre con la salida de `ps`, `ls -l`, `who` o `uniq -c`, que alinean las columnas usando espacios.
+Ocurre con la salida de `ls -l`, `uniq -c` o `wc` con varios ficheros, que alinean las columnas usando espacios.
 
 ```console
 $ printf '  ana   12\n luis    3\n' | cut -d' ' -f2
@@ -185,13 +185,14 @@ luis
 $ printf '  ana   12\n luis    3\n' | tr -s ' ' | cut -d' ' -f2
 ana
 luis
-$ printf '  ana   12\n luis    3\n' | awk '{print $2}'
+$ printf '  ana   12\n luis    3\n' | gawk '{print $2}'
 12
 3
 ```
 
 Una solución es usar `tr -s ' '`, que reduce los espacios a uno, pero si la línea empieza por espacio el primer campo sigue vacío.
 `awk` separa por blancos y se salta los iniciales; por tanto, es la opción segura.
+`awk` se explica en la semana 5.
 
 **`cut` no reordena.**
 Los campos salen siempre en su orden original.
@@ -201,7 +202,7 @@ Los campos salen siempre en su orden original.
 cut -d, -f3,1 notas.csv
 
 # ✓
-awk -F, '{print $3 "," $1}' notas.csv
+gawk -F, '{print $3 "," $1}' notas.csv
 ```
 
 **El delimitador por defecto es el tabulador.**
@@ -209,4 +210,4 @@ Sin `-d`, una línea separada por espacios no tiene delimitador y `cut` la impri
 
 ## Ver también
 
-`man cut` · [ficha de `awk`](../../s04-expansions-loops/cards/awk.md) · [ficha de `tr`](tr.md) · [ficha de `sort`](sort.md)
+`man cut` · [ficha de `awk`](../../s05-text-processing/cards/awk.md) · [ficha de `tr`](tr.md) · [ficha de `sort`](sort.md)

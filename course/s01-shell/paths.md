@@ -2,7 +2,7 @@ Los ficheros de Linux se organizan en un único árbol de directorios que parte 
 Para nombrar un fichero tenemos que decir cómo llegar a él dentro de ese árbol.
 ¿Desde dónde empezamos a contar?
 
-Cada *shell* tiene en todo momento un **directorio de trabajo**: el directorio desde el que se interpretan los nombres que no empiezan por `/`.
+Cada *shell* tiene en todo momento un **directorio de trabajo**, que es el directorio desde el que se interpretan los nombres que no empiezan por `/`.
 El comando `pwd` lo muestra y `cd` lo cambia.
 
 Con eso podemos distinguir dos formas de escribir una ruta:
@@ -58,5 +58,5 @@ alu@ull:~$ pwd
 /home/alu
 ```
 
-Fíjate en `cd ../datos`: primero sube al padre de `practicas`, que es `ssoo`, y desde ahí entra en `datos`.
+Fíjate en `cd ../datos`, que primero sube al padre de `practicas`, que es `ssoo`, y desde ahí entra en `datos`.
 Y `cd -` imprime el directorio al que vuelve, para que sepamos dónde nos hemos quedado.

@@ -15,7 +15,7 @@ Llegar a ejecutarlo lleva tres pasos.
    realpath "$1"
    ```
 
-   La primera línea es el ***shebang***: los caracteres `#!` seguidos de la ruta del intérprete que debe ejecutar el fichero.
+   La primera línea es el ***shebang***, formado por los caracteres `#!` seguidos de la ruta del intérprete que debe ejecutar el fichero.
    Sin ella, el sistema no sabe si el fichero es de bash, de Python o de otra cosa.
    El resto de líneas que empiezan por `#` son comentarios.
 2. **Darle permiso de ejecución.**
@@ -48,12 +48,12 @@ $ echo $PATH
 ```
 
 El contenido exacto varía de una máquina a otra, pero el directorio de trabajo no está incluido.
-Es una medida de seguridad: si lo estuviera, alguien podría dejar en un directorio compartido un programa malicioso llamado `ls` y lo ejecutaríamos sin darnos cuenta.
+Es una medida de seguridad, porque si lo estuviera, alguien podría dejar en un directorio compartido un programa malicioso llamado `ls` y lo ejecutaríamos sin darnos cuenta.
 Por eso, para ejecutar un *script* que está en el directorio actual, le damos una ruta; en este caso, relativa: `./info.sh`.
 
 ## Argumentos
 
-Lo que escribimos detrás del nombre del *script* llega dentro de él como **parámetros posicionales**: `$1` es el primer argumento, `$2` el segundo, y así sucesivamente.
+Lo que escribimos detrás del nombre del *script* llega dentro de él como **parámetros posicionales**, donde `$1` es el primer argumento, `$2` el segundo, y así sucesivamente.
 `$0` contiene el nombre con el que se invocó el *script*.
 
 Escribimos `"$1"` entre comillas dobles para que un directorio con espacios en el nombre llegue entero al comando `realpath`.
@@ -74,7 +74,7 @@ ls -t "$1" | head -n 5
 ```
 
 La opción `-A` funciona como `-a`, pero sin incluir `.` ni `..`, que no son entradas reales.
-El carácter `|` envía la salida de `ls` a otro comando: `wc -l` cuenta sus líneas y `head -n 5` recorta y se queda con las 5 primeras.
+El carácter `|` envía la salida de `ls` a otro comando, como `wc -l`, que cuenta sus líneas, o `head -n 5`, que se queda con las 5 primeras.
 Cuando la salida de `ls` no va a la pantalla de la terminal, imprime un nombre por línea, y eso es lo que hace que la cuenta funcione.
 Estas combinaciones, las tuberías, son el tema de la semana 3.
 

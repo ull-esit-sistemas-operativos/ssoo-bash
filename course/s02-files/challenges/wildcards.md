@@ -7,18 +7,18 @@
   content: ¿Qué imprime `echo proyecto/*`?
   options:
     - id: a
-      value: "`proyecto/README.md proyecto/docs proyecto/src`"
+      value: "`proyecto/docs proyecto/README.md proyecto/src`"
       isCorrect: true
       explanation: "`*` encaja con los directorios igual que con los ficheros, pero no con `.oculto`, que empieza por punto."
     - id: b
-      value: "`proyecto/.oculto proyecto/README.md proyecto/docs proyecto/src`"
+      value: "`proyecto/docs proyecto/.oculto proyecto/README.md proyecto/src`"
       incorrectExplanation: "`*` no encaja con los nombres que empiezan por punto, así que `.oculto` no sale."
     - id: c
       value: "`proyecto/README.md`"
       incorrectExplanation: "`*` encaja con cualquier nombre, también con el de un directorio como `docs` o `src`."
     - id: d
-      value: "`proyecto/README.md proyecto/docs/guía de uso.txt proyecto/src/main.c proyecto/src/util.h`"
-      incorrectExplanation: "`*` no encaja con `/`, así que no entra en los subdirectorios: da los nombres que hay en `proyecto`, también `docs` y `src`."
+      value: "`proyecto/docs/guía de uso.txt proyecto/README.md proyecto/src/main.c proyecto/src/util.h`"
+      incorrectExplanation: "`*` no encaja con `/`, así que no entra en los subdirectorios, sino que da los nombres que hay en `proyecto`, también `docs` y `src`."
 ```
 
 ## Reto 2 · Prueba
@@ -39,6 +39,8 @@ El patrón pide un punto al principio y, detrás, un carácter que no sea otro p
 En bash 5.2, `proyecto/.*` da lo mismo, pero en versiones anteriores incluye también `proyecto/.` y `proyecto/..`.
 
 :::
+
+Los retos que siguen son para practicar más.
 
 ## Reto 3 · Predice
 
