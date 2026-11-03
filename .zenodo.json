@@ -1,0 +1,23 @@
+{
+  "title": "Programación en Bash · Sistemas Operativos",
+  "upload_type": "lesson",
+  "description": "<p>Curso interactivo de Bash en 8 semanas para la asignatura Sistemas Operativos de la Universidad de La Laguna. Cada semana tiene lecciones, retos y ejercicios de <em>scripts</em> que se comprueban automáticamente en VS Code con la extensión Bash Learn.</p><p>El contenido del curso, en <code>course/</code>, está bajo la licencia CC BY 4.0; el código, bajo la licencia MIT.</p>",
+  "creators": [
+    {
+      "name": "Torres, Jesús",
+      "affiliation": "Universidad de La Laguna",
+      "orcid": "0000-0003-4391-0170"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "language": "spa",
+  "access_right": "open",
+  "keywords": ["bash", "shell scripting", "Linux", "operating systems", "education"],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/ull-esit-sistemas-operativos/ssoo-bash-learn",
+      "relation": "isSupplementedBy",
+      "resource_type": "software"
+    }
+  ]
+}
