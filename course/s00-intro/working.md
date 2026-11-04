@@ -34,7 +34,9 @@ Cada semana trabaja con unos ficheros de datos, como `notas.csv` o `acceso.log`,
 Los ejemplos de la lectura, las fichas y los retos usan esos mismos ficheros, así que puedes repetirlos y cambiarlos.
 
 El contenido que ya está en tu directorio nunca se sobrescribe.
+Los datos solo se copian al abrir una sección, así que lo que borres o muevas mientras trabajas en ella se queda así.
 Si estropeas un fichero de datos, bórralo y vuelve a abrir la sección, y se copiará de nuevo.
+También puedes pulsar con el botón derecho sobre la sección en el árbol y elegir *Recuperar los ficheros que faltan*.
 
 ## Tu progreso
 

@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s08
 title: "Semana 8 · Cierre y resolución de problemas"
+shortTitle: "Semana 8"
 collapsed: true
 description: |
   Esta semana no hay comandos nuevos.

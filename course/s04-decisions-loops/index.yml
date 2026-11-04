@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s04
 title: "Semana 4 · Decisiones, expansiones y bucles"
+shortTitle: "Semana 4"
 collapsed: true
 description: |
   Un *script* que ejecuta sus órdenes una tras otra no puede reaccionar a lo que encuentra.

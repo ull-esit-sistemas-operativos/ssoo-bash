@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s07
 title: "Semana 7 · Scripts robustos"
+shortTitle: "Semana 7"
 collapsed: true
 description: |
   Un *script* que funciona con los datos de prueba no está terminado.

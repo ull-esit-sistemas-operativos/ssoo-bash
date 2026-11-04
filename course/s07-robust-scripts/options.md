@@ -36,6 +36,12 @@ Estas son las operaciones que necesitaremos:
 | `${#codigos[@]}` | Número de elementos | `2` |
 | `${codigos[0]}` | Un elemento concreto. Los índices empiezan en 0 | `200` |
 
+Este *script* no lo necesita, pero un *array* también se puede llenar con las líneas de un fichero.
+`mapfile -t lineas < fichero` guarda una línea en cada elemento, y `-t` quita el salto de línea.
+Para guardar la salida estándar de una orden, `mapfile -t lineas < <(orden)`.
+Conviene cuando hacen falta todas las líneas a la vez: contarlas, recorrerlas dos veces o tomar una por su índice.
+Para tratarlas y hacer algo con ellas de una en una, sigue siendo mejor `while read`.
+
 ## El bucle de opciones
 
 ```bash

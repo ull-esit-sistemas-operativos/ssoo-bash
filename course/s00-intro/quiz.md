@@ -31,7 +31,7 @@ Unas preguntas para repasar cómo funciona el curso.
       incorrectExplanation: Lo que ya está en tu directorio nunca se sobrescribe, así que el fichero estropeado se queda como está.
     - id: c
       value: No se puede; hay que volver a clonar el repositorio
-      incorrectExplanation: Los datos se copian desde el curso cada vez que faltan.
+      incorrectExplanation: Basta con que falte, porque al abrir una sección se copian los datos que no están.
 
 - id: script-done
   type: choice

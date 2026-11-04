@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s00
 title: "Presentación · Cómo funciona el curso"
+shortTitle: "Presentación"
 description: |
   Antes de abrir la terminal, conviene saber qué vas a encontrar en el curso y cómo se usa.
   Esta presentación recorre las semanas y sus lecciones, la sección *Referencia* y los distintos tipos de sección, y explica cómo se hacen y se comprueban los ejercicios.

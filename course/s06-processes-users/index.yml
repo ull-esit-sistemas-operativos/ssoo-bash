@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s06
 title: "Semana 6 · Procesos y usuarios"
+shortTitle: "Semana 6"
 collapsed: true
 description: |
   Hasta ahora hemos trabajado con ficheros que no cambian mientras los leemos.

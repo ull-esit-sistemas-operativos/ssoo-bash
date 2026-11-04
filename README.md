@@ -21,7 +21,7 @@ Después elige **una** de estas opciones:
 
   ![Menú Code, pestaña Codespaces, en tu fork](.github/images/codespace.png)
 
-- **VS Code + Docker Desktop**: instala la extensión *Dev Containers*, clona tu
+- **VS Code + Docker**: instala la extensión *Dev Containers*, clona tu
   *fork* (o este repositorio) y, en VS Code, ejecuta *Dev Containers: Open
   Folder in Container...* y elige su carpeta.
 - **VS Code en tu propio Linux o en WSL**: el curso usa `gawk` y `lsof`, que

@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s01
 title: "Semana 1 · La shell y el primer script"
+shortTitle: "Semana 1"
 description: |
   Casi todo lo que hacemos con el ratón en un explorador de archivos se puede hacer dando órdenes a la *shell*.
   ¿Qué ganamos con ello?

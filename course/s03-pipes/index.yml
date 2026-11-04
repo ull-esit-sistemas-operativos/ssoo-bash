@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s03
 title: "Semana 3 · Redirecciones, tuberías y filtros"
+shortTitle: "Semana 3"
 collapsed: true
 description: |
   Un servidor web anota en un fichero cada petición que recibe.

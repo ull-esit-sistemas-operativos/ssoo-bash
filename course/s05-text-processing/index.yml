@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s05
 title: "Semana 5 · Texto estructurado"
+shortTitle: "Semana 5"
 collapsed: true
 description: |
   Hasta ahora hemos tratado el texto línea a línea.

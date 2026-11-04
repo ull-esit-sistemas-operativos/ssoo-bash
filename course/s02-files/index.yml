@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../schema/course.schema.json
 id: s02
 title: "Semana 2 · Ficheros, comodines y permisos"
+shortTitle: "Semana 2"
 collapsed: true
 description: |
   La semana pasada aprendimos a mirar: listar directorios, leer ficheros y pedir ayuda.
