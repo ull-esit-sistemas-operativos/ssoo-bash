@@ -49,6 +49,14 @@ MSG_nothing_checked='Nothing to check.'
 MSG_summary_ok='All checks passed: %s/%s ✔'
 MSG_summary_fail='%s/%s checks passed'
 
+# Failures of the test helpers (lib/check_helpers), shown to students.
+MSG_helper_no_script="CHECK_SCRIPT is not set: configure 'script' for this exercise"
+MSG_helper_not_executable='%s is not executable (fix it with: chmod +x %s)'
+MSG_helper_no_shebang="the first line must be a shebang such as '#!/usr/bin/env %s' (found: '%s')"
+MSG_helper_should_use='the script should use: %s'
+MSG_helper_should_not_use='the script should not use: %s'
+MSG_helper_no_message="expected the message '%s', on the standard output or error; got:\n%s"
+
 # Translations of bats-assert failure text, applied to test details.
 # MSG_TR: "-- <phrase> --" headers. MSG_TR_LABEL: "<label> :" prefixes.
 MSG_tr_lines='%s (%s lines):'

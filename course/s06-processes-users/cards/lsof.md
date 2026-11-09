@@ -126,4 +126,4 @@ Con `-F n`, el nombre va en su propia línea.
 
 ## Ver también
 
-`man lsof` · [ficha de `ps`](ps.md) · [ficha de `kill`](kill.md) · [ficha de `awk`](../../s05-text-processing/cards/awk.md)
+`man lsof` · [ficha de `ps`](ps.md) · [ficha de `kill`](kill.md) · [ficha de `awk`](../../s05-text-processing/cards/awk.md) · [ficha de redirecciones](../../s04-decisions-loops/cards/redirections.md) (`exec 3<`)

@@ -25,3 +25,5 @@ El delimitador de cierre tiene que ir al principio de la línea, sin espacios de
 Si se escribe `<<-` en lugar de `<<`, bash quita los tabuladores del principio de cada línea, también los de la línea del delimitador.
 Así el *here document* se puede indentar con el resto de la función.
 Solo funciona con tabuladores, no con espacios, y hay que tener cuidado porque muchos editores convierten los tabuladores en espacios sin avisar.
+
+La [ficha de redirecciones](../s04-decisions-loops/cards/redirections.md) reúne estas y las demás redirecciones del curso.

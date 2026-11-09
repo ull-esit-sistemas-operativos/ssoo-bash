@@ -112,4 +112,4 @@ Si las fechas pueden cambiar de día, `date -d`.
 
 ## Ver también
 
-[Ficha de `awk`](../../s05-text-processing/cards/awk.md) · [ficha de `ps`](../cards/ps.md)
+[Ficha de `awk`](../../s05-text-processing/cards/awk.md) · [ficha de `ps`](../cards/ps.md) · [ficha de redirecciones](../../s04-decisions-loops/cards/redirections.md) (`<<<`)

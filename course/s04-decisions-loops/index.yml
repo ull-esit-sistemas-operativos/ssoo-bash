@@ -141,6 +141,25 @@ lessons:
         dependsOn: [s04:test:card]
         showTerminal: true
 
+  - id: redirections
+    title: "Redirecciones"
+    collapsed: true
+    description: |
+      Resumen de todas las redirecciones: salida, error y entrada estándar, tuberías, grupos de órdenes y descriptores de la *shell*.
+      Incluye algunas que veremos en las semanas 6 y 7, para tenerlas todas en un mismo sitio.
+    lessonParts:
+      - id: card
+        title: "Ficha de redirecciones"
+        type: lecture
+        content: cards/redirections.md
+
+      - id: challenges
+        title: "Retos de redirecciones"
+        type: terminal
+        content: challenges/redirections.md
+        dependsOn: [s04:redirections:card]
+        showTerminal: true
+
   - id: exercises
     title: "Ejercicios"
     collapsed: true

@@ -13,30 +13,27 @@ bats_load_library bats-support
 bats_load_library bats-assert
 bats_load_library bats-file
 
-# _check_msg KEY [ARGS...]: failure messages shown to students.
+# Messages from check/messages: English, then the CHECK_LANG translation over it.
+_check_messages="$(cd "${BASH_SOURCE[0]%/*}/../../messages" && pwd)"
+# shellcheck source=/dev/null
+source "$_check_messages/en.sh"
+if [[ ${CHECK_LANG:-en} != en && -f $_check_messages/$CHECK_LANG.sh ]]; then
+  # shellcheck source=/dev/null
+  source "$_check_messages/$CHECK_LANG.sh"
+fi
+
+# _check_msg KEY [ARGS...]: failure messages shown to students (MSG_helper_KEY).
 _check_msg() {
-  local key="$1"
+  local key="MSG_helper_$1"
   shift
-  local -A en=(
-    [no_script]="CHECK_SCRIPT is not set: configure 'script' for this exercise"
-    [not_executable]="%s is not executable (fix it with: chmod +x %s)"
-    [no_shebang]="the first line must be a shebang such as '#!/usr/bin/env %s' (found: '%s')"
-    [should_use]="the script should use: %s"
-    [should_not_use]="the script should not use: %s"
-    [no_message]="expected the message '%s', on the standard output or error; got:\n%s"
-  )
-  local -A es=(
-    [no_script]="CHECK_SCRIPT no está definido: configura 'script' en este ejercicio"
-    [not_executable]="%s no tiene permiso de ejecución (arréglalo con: chmod +x %s)"
-    [no_shebang]="la primera línea debe ser un shebang como '#!/usr/bin/env %s' (encontrado: '%s')"
-    [should_use]="el script debería usar: %s"
-    [should_not_use]="el script no debería usar: %s"
-    [no_message]="se esperaba el mensaje «%s», por la salida estándar o la de error; ha salido:\n%s"
-  )
-  local fmt
-  if [[ ${CHECK_LANG:-en} == es ]]; then fmt="${es[$key]}"; else fmt="${en[$key]}"; fi
   # shellcheck disable=SC2059
-  printf "$fmt" "$@"
+  printf "${!key}" "$@"
+}
+
+# _check_enter: fail without a script under test, else move to the sandbox.
+_check_enter() {
+  _check_require_script || return
+  cd "$CHECK_WORKDIR" || return
 }
 
 _check_require_script() {
@@ -48,25 +45,22 @@ _check_require_script() {
 # run_script [ARGS...]: run the script under test with bash, from the sandbox.
 # Sets $status, $output and $stderr (stdout and stderr are kept separate).
 run_script() {
-  _check_require_script
-  cd "$CHECK_WORKDIR" || return
+  _check_enter || return
   run --separate-stderr bash "$CHECK_SCRIPT" "$@"
 }
 
 # run_script_with_input TEXT [ARGS...]: like run_script, with TEXT on stdin.
 run_script_with_input() {
-  _check_require_script
   local input="$1"
   shift
-  cd "$CHECK_WORKDIR" || return
+  _check_enter || return
   # shellcheck disable=SC2016
   run --separate-stderr bash -c 'printf "%s" "$1" | bash "$2" "${@:3}"' _ "$input" "$CHECK_SCRIPT" "$@"
 }
 
 # run_script_direct [ARGS...]: execute the script itself (needs +x and a shebang).
 run_script_direct() {
-  _check_require_script
-  cd "$CHECK_WORKDIR" || return
+  _check_enter || return
   run --separate-stderr "$CHECK_SCRIPT" "$@"
 }
 
@@ -74,7 +68,7 @@ run_script_direct() {
 assert_script_executable() {
   _check_require_script
   [[ -x $CHECK_SCRIPT ]] ||
-    fail "$(_check_msg not_executable "$(basename "$CHECK_SCRIPT")" "$(basename "$CHECK_SCRIPT")")"
+    fail "$(_check_msg not_executable "${CHECK_SCRIPT##*/}" "${CHECK_SCRIPT##*/}")"
 }
 
 # assert_shebang [INTERPRETER]: the first line is a shebang for INTERPRETER (default bash).

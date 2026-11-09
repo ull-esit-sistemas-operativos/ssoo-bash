@@ -37,10 +37,15 @@ msg() {
   printf "${!key}" "$@"
 }
 
-die() {
-  printf '%s: ' check >&2
+# warn KEY [ARGS...]: print a translated message and a newline to stderr.
+warn() {
   msg "$@" >&2
   echo >&2
+}
+
+die() {
+  printf '%s: ' check >&2
+  warn "$@"
   exit 2
 }
 
@@ -75,29 +80,28 @@ install_shellcheck() {
   esac
   asset="shellcheck-$SHELLCHECK_VERSION.$os.$arch.tar.gz"
   sum="$(awk -v a="$asset" '$2 == a { print $1 }' "$CHECK_HOME/vendor/shellcheck.sha256")"
-  [[ -n $sum ]] || { msg install_unsupported "$os.$arch" >&2; echo >&2; return 1; }
+  [[ -n $sum ]] || { warn install_unsupported "$os.$arch"; return 1; }
   url="$SHELLCHECK_RELEASES/$SHELLCHECK_VERSION/$asset"
 
   mkdir -p -- "$CHECK_TOOLS_DIR" || return 1
   tmp="$(mktemp -d "$CHECK_TOOLS_DIR/.download.XXXXXX")" || return 1
   # shellcheck disable=SC2064
   trap "rm -rf -- '$tmp'" EXIT
-  msg install_downloading "$SHELLCHECK_VERSION" >&2
-  echo >&2
+  warn install_downloading "$SHELLCHECK_VERSION"
   if command -v curl > /dev/null; then
     curl -fsSL --retry 2 -o "$tmp/$asset" "$url"
   elif command -v wget > /dev/null; then
     wget -q -O "$tmp/$asset" "$url"
   else
-    msg install_no_downloader >&2; echo >&2; return 1
-  fi || { msg install_download_failed "$url" >&2; echo >&2; return 1; }
+    warn install_no_downloader; return 1
+  fi || { warn install_download_failed "$url"; return 1; }
 
   if command -v sha256sum > /dev/null; then
     actual="$(sha256sum "$tmp/$asset")"
   else
     actual="$(shasum -a 256 "$tmp/$asset")"
   fi
-  [[ ${actual%% *} == "$sum" ]] || { msg install_bad_checksum "$asset" >&2; echo >&2; return 1; }
+  [[ ${actual%% *} == "$sum" ]] || { warn install_bad_checksum "$asset"; return 1; }
 
   tar -xzf "$tmp/$asset" -C "$tmp" || return 1
   rm -rf -- "$CHECK_TOOLS_DIR/shellcheck-$SHELLCHECK_VERSION"
@@ -120,17 +124,13 @@ opt_notes=
 opt_exclude=
 opt_timeout=
 
-usage() {
-  msg usage
-}
-
 while (($#)); do
   case "$1" in
     --tap) tap=true ;;
     --lint-only) mode=lint ;;
     --tests-only) mode=tests ;;
     -v | --verbose) verbose=true ;;
-    -h | --help) usage; exit 0 ;;
+    -h | --help) msg usage; exit 0 ;;
     --install-shellcheck) action=install ;;
     --shellcheck-path) action=path ;;
     --tests) opt_tests="${2:?}"; shift ;;
@@ -236,10 +236,8 @@ else
   done < <(cd "$workdir" && find . -maxdepth 1 -type f -name '*.sh' -print0 | sort -z)
 fi
 
-has_tests=false
-[[ -n $ex_tests ]] && has_tests=true
-[[ $has_tests == true && ! -e $ex_tests ]] && die not_found "$ex_tests"
-[[ $mode == tests && $has_tests == false ]] && die no_tests
+[[ -n $ex_tests && ! -e $ex_tests ]] && die not_found "$ex_tests"
+[[ $mode == tests && -z $ex_tests ]] && die no_tests
 
 # --- output helpers -----------------------------------------------------------
 
@@ -295,23 +293,27 @@ run_lint() {
     [[ $tap == true ]] || printf '  %s%s%s\n' "$c_dim" "$(msg no_scripts)" "$c_off"
     return
   fi
-  local f out
+  local f name out notes
   local -a sc_opts=(--format=tty --color=never)
   [[ -n $ex_exclude ]] && sc_opts+=(--exclude="$ex_exclude")
+  # sc LEVEL: shellcheck the current file at LEVEL, output in $out.
+  sc() { out="$(cd "$workdir" && "$shellcheck" --severity="$1" "${sc_opts[@]}" -- "$f" 2>&1)"; }
   for f in "${lint_files[@]}"; do
+    name="$(msg lint_name "$f")"
     if [[ ! -f $workdir/$f ]]; then
-      report false "$(msg lint_name "$f")" "$(msg not_found "$f")"
-      continue
-    fi
-    if out="$(cd "$workdir" && "$shellcheck" --severity="$ex_severity" "${sc_opts[@]}" -- "$f" 2>&1)"; then
-      if [[ -n $ex_notes ]] &&
-        ! out="$(cd "$workdir" && "$shellcheck" --severity="$ex_notes" "${sc_opts[@]}" -- "$f" 2>&1)"; then
-        report true "$(msg lint_name "$f")" "$(msg lint_notes)"$'\n'"$out" note
-      else
-        report true "$(msg lint_name "$f")"
-      fi
+      report false "$name" "$(msg not_found "$f")"
+    # A script clean down to the notes level needs a single run.
+    elif [[ -n $ex_notes ]] && sc "$ex_notes"; then
+      report true "$name"
     else
-      report false "$(msg lint_name "$f")" "$out"
+      notes="${ex_notes:+$out}"
+      if ! sc "$ex_severity"; then
+        report false "$name" "$out"
+      elif [[ -n $notes ]]; then
+        report true "$name" "$(msg lint_notes)"$'\n'"$notes" note
+      else
+        report true "$name"
+      fi
     fi
   done
 }
@@ -342,7 +344,6 @@ tidy_detail() {
 # --- 2. bats tests ------------------------------------------------------------
 
 tmp_base=''
-sandbox=''
 cleanup() {
   [[ -n $tmp_base && -d $tmp_base ]] && rm -rf -- "$tmp_base"
 }
@@ -351,7 +352,7 @@ trap cleanup EXIT
 run_tests() {
   heading tests_heading
   tmp_base="$(mktemp -d "${TMPDIR:-/tmp}/check.XXXXXX")"
-  sandbox="$tmp_base/work"
+  local sandbox="$tmp_base/work"
   mkdir -- "$sandbox"
   [[ -n $ex_fixtures && -d $ex_fixtures ]] && cp -a -- "$ex_fixtures/." "$sandbox/"
   cp -a -- "$workdir/." "$sandbox/"
@@ -360,10 +361,13 @@ run_tests() {
   local script_path=
   [[ -n $ex_script ]] && script_path="$sandbox/$ex_script"
 
-  local count out errlog="$tmp_base/stderr"
-  count="$("$BATS" --count "$ex_tests" 2> /dev/null)" || count=0
+  local estimate out errlog="$tmp_base/stderr"
+  # Tests in the files, for the time limit; the plan line of the run gives bats' own count.
+  local -a test_files=("$ex_tests")
+  [[ -d $ex_tests ]] && test_files=("$ex_tests"/*.bats)
+  estimate="$(cat -- "${test_files[@]}" 2> /dev/null | grep -c '^[[:space:]]*@test')"
   # Hard limit for the whole run, in case a test escapes BATS_TEST_TIMEOUT.
-  local limit=$((ex_timeout * (count + 1) + 30))
+  local limit=$((ex_timeout * (estimate + 1) + 30))
 
   out="$(
     cd "$sandbox" &&
@@ -374,7 +378,7 @@ run_tests() {
   local status=$?
 
   # Translate bats TAP into our report (renumbered), keeping diagnostics.
-  local line name="" ok="" detail="" seen=0
+  local line name="" ok="" detail="" seen=0 count=0
   flush() {
     [[ -n $name ]] && report "$ok" "$name" "$(tidy_detail "$detail")"
     name="" ok="" detail=""
@@ -394,8 +398,8 @@ run_tests() {
       fi
     elif [[ $line =~ ^#\ ?(.*)$ ]]; then
       [[ -n $name ]] && detail+="${detail:+$'\n'}${BASH_REMATCH[1]}"
-    elif [[ $line =~ ^1\.\.[0-9]+$ ]]; then
-      :
+    elif [[ $line =~ ^1\.\.([0-9]+)$ ]]; then
+      count="${BASH_REMATCH[1]}"
     elif [[ -n $line ]]; then
       [[ -n $name ]] && detail+="${detail:+$'\n'}$line"
     fi
@@ -407,22 +411,20 @@ run_tests() {
   elif ((seen == 0)); then
     report false "$(msg tests_error)" "$out${out:+$'\n'}$(cat "$errlog" 2> /dev/null)"
   elif ((seen < count)); then
-    report false "$(msg tests_incomplete "$seen" "$count")" ""
+    report false "$(msg tests_incomplete "$seen" "$count")"
   fi
 }
 
 # --- main -------------------------------------------------------------------
 
-if [[ $tap == false ]]; then
-  if [[ -n $ex_id ]]; then
-    printf '%s%s%s\n' "$c_bold" "$(msg exercise_title "$ex_id")" "$c_off"
-  fi
+if [[ $tap == false && -n $ex_id ]]; then
+  printf '%s%s%s\n' "$c_bold" "$(msg exercise_title "$ex_id")" "$c_off"
 fi
 
 if [[ $mode != tests && $ex_shellcheck != false ]]; then
   run_lint
 fi
-if [[ $mode != lint && $has_tests == true ]]; then
+if [[ $mode != lint && -n $ex_tests ]]; then
   run_tests
 fi
 
@@ -434,15 +436,12 @@ else
   if ((total == 0)); then
     msg nothing_checked
   elif ((passed == total)); then
-    printf '%s' "$c_ok"
-    msg summary_ok "$passed" "$total"
-    printf '%s' "$c_off"
+    printf '%s%s%s' "$c_ok" "$(msg summary_ok "$passed" "$total")" "$c_off"
   else
-    printf '%s' "$c_fail"
-    msg summary_fail "$passed" "$total"
-    printf '%s' "$c_off"
+    printf '%s%s%s' "$c_fail" "$(msg summary_fail "$passed" "$total")" "$c_off"
   fi
   echo
 fi
 
-((passed == total)) && exit 0 || exit 1
+# The exit status: 0 if every check passed, else 1.
+((passed == total))

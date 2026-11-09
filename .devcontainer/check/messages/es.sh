@@ -49,6 +49,14 @@ MSG_nothing_checked='No hay nada que comprobar.'
 MSG_summary_ok='Todo correcto: %s/%s ✔'
 MSG_summary_fail='Superadas %s de %s comprobaciones'
 
+# Failures of the test helpers (lib/check_helpers), shown to students.
+MSG_helper_no_script="CHECK_SCRIPT no está definido: configura 'script' en este ejercicio"
+MSG_helper_not_executable='%s no tiene permiso de ejecución (arréglalo con: chmod +x %s)'
+MSG_helper_no_shebang="la primera línea debe ser un shebang como '#!/usr/bin/env %s' (encontrado: '%s')"
+MSG_helper_should_use='el script debería usar: %s'
+MSG_helper_should_not_use='el script no debería usar: %s'
+MSG_helper_no_message='se esperaba el mensaje «%s», por la salida estándar o la de error; ha salido:\n%s'
+
 # Header of a multi-line value, as in "output (3 lines):".
 MSG_tr_lines='%s (%s líneas):'
 
