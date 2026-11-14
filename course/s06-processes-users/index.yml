@@ -59,7 +59,7 @@ lessons:
           solution: ../../solutions/s06/weekly-script
           script: usuarios.sh
           tests: weekly-script/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: predict-output
@@ -198,7 +198,7 @@ lessons:
           solution: ../../solutions/s06/sessions
           script: sesiones.sh
           tests: exercises/sessions/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: process-states
@@ -215,7 +215,7 @@ lessons:
           solution: ../../solutions/s06/process-states
           script: estados.sh
           tests: exercises/process-states/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: time-limit
@@ -232,7 +232,7 @@ lessons:
           solution: ../../solutions/s06/time-limit
           script: limite.sh
           tests: exercises/time-limit/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 10
 
       - id: to-seconds
@@ -249,5 +249,5 @@ lessons:
           solution: ../../solutions/s06/to-seconds
           script: segundos.sh
           tests: exercises/to-seconds/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

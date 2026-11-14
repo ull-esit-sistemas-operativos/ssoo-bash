@@ -3,11 +3,17 @@ id: ssoo-bash
 title: Programación en Bash
 description: Lecturas semanales de la *shell* y la programación de *scripts* en Bash.
 level: beginner
-minExtensionVersion: 0.1.0
+minExtensionVersion: 0.5.0
 contacts:
   - displayName: Jesús Torres
     affiliation: Universidad de La Laguna
     email: jmtorres@ull.edu.es
+checker:
+  command: ../.course/check/bin/check
+terminals:
+  shell:
+    command: bash
+    args: [--rcfile, '${courseDir}/../.course/bashrc']
 units:
   - s00-intro/index.yml
   - s01-shell/index.yml

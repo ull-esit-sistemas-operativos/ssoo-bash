@@ -1,13 +1,15 @@
-// Bash Learn: entorno del estudiante.
+// Curso de Bash: entorno del estudiante.
 // Ábrelo con "Dev Containers: Reopen in Container" o en GitHub Codespaces.
 {
-  "name": "Bash Learn",
-  "build": { "dockerfile": "Dockerfile" },
+  "name": "Curso de Bash",
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
   "remoteUser": "alu",
+  // El corrector del curso (`check`), también fuera de los terminales de la extensión.
+  "remoteEnv": { "PATH": "${containerWorkspaceFolder}/.course/check/bin:${containerEnv:PATH}" },
   "customizations": {
     "vscode": {
       "extensions": [
-        "ull-ssoo.bash-learn",
+        "ull-ssoo.course-lab",
         "timonwong.shellcheck",
         "mads-hartmann.bash-ide-vscode"
       ],

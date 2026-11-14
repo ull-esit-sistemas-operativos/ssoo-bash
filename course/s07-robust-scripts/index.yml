@@ -108,7 +108,7 @@ lessons:
           solution: ../../solutions/s07/big-requests
           script: grandes.sh
           tests: exercises/big-requests/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: filter-code
@@ -125,7 +125,7 @@ lessons:
           solution: ../../solutions/s07/filter-code
           script: codigo.sh
           tests: exercises/filter-code/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: filter-getopts
@@ -142,7 +142,7 @@ lessons:
           solution: ../../solutions/s07/filter-getopts
           script: filtro.sh
           tests: exercises/filter-getopts/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: dedupe
@@ -159,7 +159,7 @@ lessons:
           solution: ../../solutions/s07/dedupe
           script: sin_repetidas.sh
           tests: exercises/dedupe/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: count-ips
@@ -176,5 +176,5 @@ lessons:
           solution: ../../solutions/s07/count-ips
           script: peticiones.sh
           tests: exercises/count-ips/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

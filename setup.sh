@@ -1,5 +1,5 @@
 #!/bin/sh
-# Outside the devcontainer: installs (or updates) Bash Learn and the course's other
+# Outside the devcontainer: installs (or updates) Course Lab and the course's other
 # extensions from the Marketplace, then opens this repository in VS Code.
 # In WSL, run it from the WSL terminal so the extensions go to the WSL side.
 
@@ -9,7 +9,7 @@ if ! command -v code > /dev/null 2>&1; then
   exit 1
 fi
 
-for ext in ull-ssoo.bash-learn timonwong.shellcheck mads-hartmann.bash-ide-vscode; do
+for ext in ull-ssoo.course-lab timonwong.shellcheck mads-hartmann.bash-ide-vscode; do
   code --install-extension "$ext" --force || exit 1
 done
 code "$(dirname "$0")"

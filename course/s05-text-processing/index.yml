@@ -74,7 +74,7 @@ lessons:
           solution: ../../solutions/s05/weekly-script
           script: notas.sh
           tests: weekly-script/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: predict-output
@@ -184,7 +184,7 @@ lessons:
           solution: ../../solutions/s05/passed
           script: aprobados.sh
           tests: exercises/passed/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: compare-lists
@@ -201,7 +201,7 @@ lessons:
           solution: ../../solutions/s05/compare-lists
           script: comparar.sh
           tests: exercises/compare-lists/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: traffic-table
@@ -218,5 +218,5 @@ lessons:
           solution: ../../solutions/s05/traffic-table
           script: trafico.sh
           tests: exercises/traffic-table/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

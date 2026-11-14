@@ -1,4 +1,4 @@
-# Bash Learn student environment.
+# Student environment of the Bash course.
 FROM mcr.microsoft.com/devcontainers/base:bookworm
 
 # Restore man pages if the base image excludes them, then install the tools used in the course.
@@ -38,12 +38,10 @@ ENV LANG=es_ES.UTF-8 \
     LANGUAGE=es_ES:es \
     CHECK_LANG=es
 
-# The `check` command (shellcheck + bats-core tests).
-COPY check /opt/check
-RUN chmod +x /opt/check/bin/* /opt/check/vendor/bats-core/bin/* /opt/check/vendor/bats-core/libexec/bats-core/* \
-    && ln -s /opt/check/bin/check /usr/local/bin/check
-
-# shellcheck: the version pinned in check/vendor/VERSIONS, the same one `check --install-shellcheck`
-# downloads outside the container.
-RUN ln -s "$(CHECK_TOOLS_DIR=/opt/check/tools check --install-shellcheck)" /usr/local/bin/shellcheck \
+# shellcheck: the version pinned in .course/check/vendor/VERSIONS, the same one `check --setup`
+# downloads outside the container. `check` itself runs from the repository (remoteEnv PATH).
+COPY .course/check /tmp/check
+RUN CHECK_TOOLS_DIR=/opt/shellcheck /tmp/check/bin/check --setup > /dev/null \
+    && ln -s /opt/shellcheck/shellcheck-*/shellcheck /usr/local/bin/shellcheck \
+    && rm -rf /tmp/check \
     && shellcheck --version

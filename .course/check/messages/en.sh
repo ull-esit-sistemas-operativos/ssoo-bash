@@ -17,8 +17,8 @@ Options:
   --notes LEVEL         also show, without failing, findings down to LEVEL
   --exclude CODES       skip these shellcheck checks (SC2012,SC2034)
   --timeout SECS        time limit per test
-  --install-shellcheck  download shellcheck if it is not installed
-  --shellcheck-path     print the path of the shellcheck used
+  --setup               install what check needs (shellcheck) and print the
+                        directories to add to PATH
   -h, --help            show this help
 '
 MSG_bad_option='unknown option: %s (see check --help)'
@@ -31,7 +31,7 @@ MSG_exercise_title='Checking exercise: %s'
 MSG_lint_heading='Style and common errors (shellcheck)'
 MSG_lint_name='shellcheck %s'
 MSG_lint_notes='Notes (they do not fail the exercise):'
-MSG_shellcheck_missing='shellcheck is not installed (install it with: check --install-shellcheck)'
+MSG_shellcheck_missing='shellcheck is not installed (install it with: check --setup)'
 MSG_install_unsupported='there is no shellcheck build for %s: install it with your package manager'
 MSG_install_downloading='Downloading shellcheck %s…'
 MSG_install_no_downloader='curl or wget is needed to download shellcheck'

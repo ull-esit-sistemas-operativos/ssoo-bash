@@ -1,0 +1,35 @@
+# The course terminal (`terminals.shell` in course/index.yml): the user's normal setup with the
+# devcontainer prompt (user, an arrow that turns red when the last command failed and the
+# directory) without the git branch, and with the directory relative to the workspace:
+# alu ➜ .../exercises/s03 $
+# COURSE_LAB_ROOT and COURSE_LAB_SHELL_INTEGRATION come from the extension.
+# shellcheck shell=bash disable=SC1090,SC1091,SC2016
+[ -f /etc/bash.bashrc ] && . /etc/bash.bashrc
+[ -f ~/.bashrc ] && . ~/.bashrc
+if [ -n "${COURSE_LAB_ROOT:-}" ]; then
+  __bl_dir() {
+    case $PWD in
+      "$COURSE_LAB_ROOT") printf '%s' "${COURSE_LAB_ROOT##*/}" ;;
+      "$COURSE_LAB_ROOT"/*) printf '.../%s' "${PWD#"$COURSE_LAB_ROOT"/}" ;;
+      "$HOME" | "$HOME"/*) printf '~%s' "${PWD#"$HOME"}" ;;
+      *) printf '%s' "$PWD" ;;
+    esac
+  }
+  # $1 is the last command's status; \001 and \002 are \[ and \] for text printed by a function.
+  __bl_arrow() {
+    if [ "$1" -ne 0 ]; then printf '\001\e[1;31m\002➜'; else printf '\001\e[0m\002➜'; fi
+  }
+  # \u, not @GITHUB_USER as in the Codespaces prompt: the course examples show alu.
+  # Two spaces after the arrow: the terminal draws ➜ wider than a cell, over the first one.
+  PS1='\[\e[0;32m\]\u $(__bl_arrow $?)  \[\e[1;34m\]$(__bl_dir)\[\e[0m\] \$ '
+fi
+# VS Code does not inject its shell integration when bash gets --rcfile, so load it here.
+# The extension's Run uses it to send a code block's commands one at a time.
+if [ "${TERM_PROGRAM:-}" = vscode ] && [ -z "${VSCODE_SHELL_INTEGRATION:-}" ]; then
+  if [ -r "${COURSE_LAB_SHELL_INTEGRATION:-}" ]; then
+    . "$COURSE_LAB_SHELL_INTEGRATION"
+  elif command -v code >/dev/null 2>&1; then
+    __bl_si=$(code --locate-shell-integration-path bash 2>/dev/null) && [ -r "$__bl_si" ] && . "$__bl_si"
+    unset __bl_si
+  fi
+fi

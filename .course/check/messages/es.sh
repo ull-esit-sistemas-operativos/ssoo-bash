@@ -17,8 +17,8 @@ Opciones:
   --notes NIVEL         muestra también, sin fallar, los avisos hasta NIVEL
   --exclude CÓDIGOS     omite estas comprobaciones de shellcheck (SC2012,SC2034)
   --timeout SEG         tiempo máximo por prueba
-  --install-shellcheck  descarga shellcheck si no está instalado
-  --shellcheck-path     muestra la ruta del shellcheck que se usa
+  --setup               instala lo que necesita check (shellcheck) y muestra
+                        los directorios que hay que añadir al PATH
   -h, --help            muestra esta ayuda
 '
 MSG_bad_option='opción desconocida: %s (consulta check --help)'
@@ -31,7 +31,7 @@ MSG_exercise_title='Comprobando el ejercicio: %s'
 MSG_lint_heading='Estilo y errores comunes (shellcheck)'
 MSG_lint_name='shellcheck %s'
 MSG_lint_notes='Avisos (no impiden superar el ejercicio):'
-MSG_shellcheck_missing='shellcheck no está instalado (instálalo con: check --install-shellcheck)'
+MSG_shellcheck_missing='shellcheck no está instalado (instálalo con: check --setup)'
 MSG_install_unsupported='no hay una versión de shellcheck para %s: instálalo con el gestor de paquetes'
 MSG_install_downloading='Descargando shellcheck %s…'
 MSG_install_no_downloader='hace falta curl o wget para descargar shellcheck'

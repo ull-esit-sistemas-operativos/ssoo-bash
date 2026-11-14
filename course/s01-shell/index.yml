@@ -69,7 +69,7 @@ lessons:
           script: info.sh
           tests: first-script/tests
           # SC2012: the lecture counts with ls | wc -l and picks the newest with ls -t | head.
-          shellcheck: { severity: info, notes: style, exclude: [SC2012] }
+          checker: { severity: info, notes: style, exclude: [SC2012] }
           timeout: 5
 
       - id: exit-status
@@ -125,7 +125,7 @@ lessons:
           solution: ../../solutions/s01/show-file
           script: ver.sh
           tests: exercises/show-file/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: count-entries
@@ -143,7 +143,7 @@ lessons:
           script: entradas.sh
           tests: exercises/count-entries/tests
           # SC2012 (ls | wc -l) is how info.sh counts entries this week.
-          shellcheck: { severity: info, notes: style, exclude: [SC2012] }
+          checker: { severity: info, notes: style, exclude: [SC2012] }
           timeout: 5
 
       - id: first-last
@@ -160,7 +160,7 @@ lessons:
           solution: ../../solutions/s01/first-last
           script: extremos.sh
           tests: exercises/first-last/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: line-counts
@@ -177,5 +177,5 @@ lessons:
           solution: ../../solutions/s01/line-counts
           script: lineas.sh
           tests: exercises/line-counts/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

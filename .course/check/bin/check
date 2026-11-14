@@ -51,10 +51,10 @@ die() {
 
 # --- shellcheck ---------------------------------------------------------------
 # The shellcheck on PATH or, if there is none, the pinned static build that
-# `check --install-shellcheck` downloads into CHECK_TOOLS_DIR.
+# `check --setup` downloads into CHECK_TOOLS_DIR.
 
 SHELLCHECK_VERSION="$(awk '$1 == "shellcheck" { print $2 }' "$CHECK_HOME/vendor/VERSIONS")"
-CHECK_TOOLS_DIR="${CHECK_TOOLS_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/bash-learn}"
+CHECK_TOOLS_DIR="${CHECK_TOOLS_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/course-lab}"
 SHELLCHECK_RELEASES="${CHECK_SHELLCHECK_URL:-https://github.com/koalaman/shellcheck/releases/download}"
 
 # find_shellcheck: print the path of shellcheck, or fail if there is none.
@@ -109,10 +109,23 @@ install_shellcheck() {
   find_shellcheck
 }
 
+# setup: what `check --setup` does. Restore the executable bits (lost in a zip download),
+# download shellcheck if needed, and print the directories for the terminal PATH: check's own
+# bin and, when shellcheck is not on PATH, the directory of the downloaded one. Fails, after
+# printing check's bin, if shellcheck could not be installed.
+setup() {
+  chmod +x "$CHECK_HOME"/bin/* "$CHECK_HOME"/vendor/bats-core/bin/* \
+    "$CHECK_HOME"/vendor/bats-core/libexec/bats-core/* 2> /dev/null
+  printf '%s\n' "$CHECK_HOME/bin"
+  local shellcheck
+  shellcheck="$(install_shellcheck)" || return 1
+  command -v shellcheck > /dev/null || dirname -- "$shellcheck"
+}
+
 # --- options ----------------------------------------------------------------
 
 mode=all          # all | lint | tests
-action=           # install | path (shellcheck)
+setup=false
 tap=false
 verbose=false
 target=
@@ -131,8 +144,7 @@ while (($#)); do
     --tests-only) mode=tests ;;
     -v | --verbose) verbose=true ;;
     -h | --help) msg usage; exit 0 ;;
-    --install-shellcheck) action=install ;;
-    --shellcheck-path) action=path ;;
+    --setup) setup=true ;;
     --tests) opt_tests="${2:?}"; shift ;;
     --fixtures) opt_fixtures="${2:?}"; shift ;;
     --script) opt_script="${2:?}"; shift ;;
@@ -150,10 +162,10 @@ while (($#)); do
   shift
 done
 
-case "$action" in
-  install) install_shellcheck; exit ;;
-  path) find_shellcheck; exit ;;
-esac
+if [[ $setup == true ]]; then
+  setup
+  exit
+fi
 
 target="${target:-.}"
 [[ -e $target ]] || die not_found "$target"
@@ -251,15 +263,16 @@ total=0
 passed=0
 tap_lines=()
 
-# report OK NAME [DETAIL [note]]: DETAIL is shown for a failure, with -v, or when it is a note.
+# report OK NAME [DETAIL [note [skip]]]: DETAIL is shown for a failure, with -v, or when it is a note;
+# skip marks a skipped test with the TAP `# SKIP` directive.
 report() {
-  local ok="$1" name="$2" detail="${3:-}" note="${4:-}"
+  local ok="$1" name="$2" detail="${3:-}" note="${4:-}" skip="${5:-}"
   total=$((total + 1))
   [[ $ok == true ]] && passed=$((passed + 1))
   if [[ $tap == true ]]; then
     local status="ok"
     [[ $ok == true ]] || status="not ok"
-    tap_lines+=("$status $total $name")
+    tap_lines+=("$status $total $name${skip:+ # SKIP}")
     if [[ -n $detail ]] && [[ $ok != true || -n $note ]]; then
       while IFS= read -r l; do tap_lines+=("# $l"); done <<< "$detail"
     fi
@@ -378,10 +391,10 @@ run_tests() {
   local status=$?
 
   # Translate bats TAP into our report (renumbered), keeping diagnostics.
-  local line name="" ok="" detail="" seen=0 count=0
+  local line name="" ok="" detail="" skip="" seen=0 count=0
   flush() {
-    [[ -n $name ]] && report "$ok" "$name" "$(tidy_detail "$detail")"
-    name="" ok="" detail=""
+    [[ -n $name ]] && report "$ok" "$name" "$(tidy_detail "$detail")" "" "$skip"
+    name="" ok="" detail="" skip=""
   }
   while IFS= read -r line; do
     if [[ $line =~ ^(not\ )?ok\ [0-9]+\ (.*)$ ]]; then
@@ -391,7 +404,7 @@ run_tests() {
       name="${BASH_REMATCH[2]}"
       if [[ $name =~ ^(.*)\ \#\ skip ]]; then
         name="${BASH_REMATCH[1]} $(msg skipped)"
-        ok=true
+        ok=true skip=true
       elif [[ $name =~ ^(.*)\ \#\ timeout\ after\ ([0-9]+)s$ ]]; then
         name="${BASH_REMATCH[1]}"
         detail="$(msg test_timeout "${BASH_REMATCH[2]}")"

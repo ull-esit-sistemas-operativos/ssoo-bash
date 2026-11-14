@@ -40,5 +40,5 @@ También puedes pulsar con el botón derecho sobre la sección en el árbol y el
 
 ## Tu progreso
 
-Lo que completas, las respuestas de los cuestionarios y el resultado de la última comprobación de cada ejercicio se guardan en `.bash-learn/progress.json`, dentro de tu repositorio.
+Lo que completas, las respuestas de los cuestionarios y el resultado de la última comprobación de cada ejercicio se guardan en `.course-lab/progress.json`, dentro de tu repositorio.
 Haz *commit* a menudo, junto con tus ejercicios, para no perderlo.

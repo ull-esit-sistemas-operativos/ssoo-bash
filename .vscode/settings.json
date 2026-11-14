@@ -1,10 +1,11 @@
 {
-  "bashLearn.language": "es",
+  "courseLab.language": "es",
   "workbench.startupEditor": "none",
   "terminal.integrated.defaultProfile.linux": "bash",
   "files.exclude": {
     "course": true,
-    ".bash-learn": true,
+    ".course": true,
+    ".course-lab": true,
     "**/.exercise": true
   },
   "files.eol": "\n",

@@ -5,7 +5,7 @@ abstract: >-
   Curso interactivo de Bash en 8 semanas para la asignatura Sistemas Operativos
   de la Universidad de La Laguna. Cada semana tiene lecciones, retos y ejercicios
   de scripts que se comprueban automáticamente en VS Code con la extensión
-  Bash Learn.
+  Course Lab.
 authors:
   - family-names: Torres
     given-names: Jesús

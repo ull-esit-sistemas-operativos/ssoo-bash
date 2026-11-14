@@ -73,7 +73,7 @@ lessons:
           solution: ../../solutions/s02/weekly-script
           script: ordenar.sh
           tests: weekly-script/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: predict-output
@@ -185,7 +185,7 @@ lessons:
           solution: ../../solutions/s02/private-file
           script: privado.sh
           tests: exercises/private-file/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: c-sources
@@ -202,7 +202,7 @@ lessons:
           solution: ../../solutions/s02/c-sources
           script: fuentes.sh
           tests: exercises/c-sources/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: empty-files
@@ -219,7 +219,7 @@ lessons:
           solution: ../../solutions/s02/empty-files
           script: borrar_vacios.sh
           tests: exercises/empty-files/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: install
@@ -236,5 +236,5 @@ lessons:
           solution: ../../solutions/s02/install
           script: instalar.sh
           tests: exercises/install/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

@@ -80,7 +80,7 @@ lessons:
           solution: ../../solutions/s08/log-report
           script: informe.sh
           tests: exercises/log-report/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: log-summary
@@ -97,7 +97,7 @@ lessons:
           solution: ../../solutions/s08/log-summary
           script: resumen.sh
           tests: exercises/log-summary/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: normalize-names
@@ -114,7 +114,7 @@ lessons:
           solution: ../../solutions/s08/normalize-names
           script: normalizar.sh
           tests: exercises/normalize-names/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: backup-sources
@@ -131,7 +131,7 @@ lessons:
           solution: ../../solutions/s08/backup-sources
           script: copiar_fuentes.sh
           tests: exercises/backup-sources/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: who-uses
@@ -148,7 +148,7 @@ lessons:
           solution: ../../solutions/s08/who-uses
           script: quien_usa.sh
           tests: exercises/who-uses/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: report-card
@@ -165,7 +165,7 @@ lessons:
           solution: ../../solutions/s08/report-card
           script: boletin.sh
           tests: exercises/report-card/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: validate-csv
@@ -182,7 +182,7 @@ lessons:
           solution: ../../solutions/s08/validate-csv
           script: validar.sh
           tests: exercises/validate-csv/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: rename-identifier
@@ -199,5 +199,5 @@ lessons:
           solution: ../../solutions/s08/rename-identifier
           script: sustituir.sh
           tests: exercises/rename-identifier/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

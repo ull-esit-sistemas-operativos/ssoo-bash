@@ -1,7 +1,7 @@
 El curso consta de ocho semanas.
 En cada una se presentan varios comandos y diferentes formas de usarlos y combinarlos.
 Al final se utilizan juntos para desarrollar un *script*, como `info.sh` en la primera o `resumen_log.sh` en la tercera semana.
-Todo está bajo el icono *Bash Learn* de la barra de actividades de VS Code, en tres vistas: *Curso*, *Referencia* y *Ficheros*.
+Todo está bajo el icono *Course Lab* de la barra de actividades de VS Code, en tres vistas: *Curso*, *Referencia* y *Ficheros*.
 
 ## Las semanas y sus lecciones
 

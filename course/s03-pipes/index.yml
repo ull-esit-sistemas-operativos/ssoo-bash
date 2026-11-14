@@ -70,7 +70,7 @@ lessons:
           solution: ../../solutions/s03/weekly-script
           script: resumen_log.sh
           tests: weekly-script/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: predict-output
@@ -245,7 +245,7 @@ lessons:
           solution: ../../solutions/s03/count-matches
           script: cuenta.sh
           tests: exercises/count-matches/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: missing-grades
@@ -262,7 +262,7 @@ lessons:
           solution: ../../solutions/s03/missing-grades
           script: sin_nota.sh
           tests: exercises/missing-grades/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: backup
@@ -279,7 +279,7 @@ lessons:
           solution: ../../solutions/s03/backup
           script: copia_seguridad.sh
           tests: exercises/backup/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: distinct-ips
@@ -296,5 +296,5 @@ lessons:
           solution: ../../solutions/s03/distinct-ips
           script: ips.sh
           tests: exercises/distinct-ips/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5

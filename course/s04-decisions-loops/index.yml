@@ -98,7 +98,7 @@ lessons:
           solution: ../../solutions/s04/weekly-script
           script: ordenar.sh
           tests: weekly-script/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: predict-output
@@ -183,7 +183,7 @@ lessons:
           solution: ../../solutions/s04/rename-ext
           script: renombrar.sh
           tests: exercises/rename-ext/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: top-words
@@ -200,7 +200,7 @@ lessons:
           solution: ../../solutions/s04/top-words
           script: top_palabras.sh
           tests: exercises/top-words/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
 
       - id: confirm-delete
@@ -217,5 +217,5 @@ lessons:
           solution: ../../solutions/s04/confirm-delete
           script: borrar.sh
           tests: exercises/confirm-delete/tests
-          shellcheck: { severity: info, notes: style }
+          checker: { severity: info, notes: style }
           timeout: 5
